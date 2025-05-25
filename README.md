@@ -6,7 +6,6 @@ Este es un sistema de gestión académica para el Instituto English Club, desarr
 
  => [Nombre del miembro 1] (Programador FrontEnd y Analista de QA)  
  => [Nombre del miembro 2] (Programador BackEnd)  
- => Denilson Saavedra (Coach) [https://github.com/denilsaa]
 
 ## 🛠️ Tecnologías Utilizadas
 
