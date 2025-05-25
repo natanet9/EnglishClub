@@ -62,67 +62,21 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-
-
-""""
-DATABASES = {
-    'default': {
-        'ENGINE': 'mssql',
-        'NAME': 'englishclub',
-        'HOST': 'DENIL\\SQLEXPRESS',
-        'OPTIONS': {
-            'driver': 'ODBC Driver 17 for SQL Server',
-            'trusted_connection': 'yes',
-        },
-    }
-}
-"""
-
+    
 #BASE DE DATOS DE AILYN
 
 DATABASES = {
     'default': {
-        'ENGINE': 'mssql',
-        'NAME': 'englishclub',
-        'HOST': 'DESKTOP-O7CUG1Q\SQLEXPRESS',
-        'OPTIONS': {
-            'driver': 'ODBC Driver 17 for SQL Server',
-            'trusted_connection': 'yes',
-        },
-    }
-}   
-
-'''
-#BASE DE DATOS MARIOLY
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'mssql',
-        'NAME': 'englishclub',
-        'HOST': 'LAPTOP-M4R1\\SQLEXPRESS',
-        'OPTIONS': {
-            'driver': 'ODBC Driver 17 for SQL Server',
-            'trusted_connection': 'yes',
-        },
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'Englishclub60664544',
+        'HOST': 'db.qnmgqnwrqhlcmehiywec.supabase.co',  
+        'PORT': '5432',       
     }
 }
 
-
-#BASE DE DATOS DE LIMBER
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'mssql',
-        'NAME': 'englishclub',
-        'HOST': 'LINO\\SQLEXPRESS',
-        'OPTIONS': {
-            'driver': 'ODBC Driver 17 for SQL Server',
-            'trusted_connection': 'yes',
-        },
-    }
-}
-'''
-
+    
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
