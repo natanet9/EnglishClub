@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.contrib.auth.hashers import check_password
+from django.contrib.auth.hashers import check_password, make_password
 from apps.usuarios.models import Usuario
 from apps.directivos.models import Directivo  # Asegúrate de importar el modelo correcto
 
@@ -68,3 +68,33 @@ def dashboard_directivo(request):
         nombre = 'Directivo'
 
     return render(request, 'directivos/dashboard_directivo.html', {'nombre': nombre})
+
+def agregar_usuario(request):
+    if request.method == 'POST':
+        nombre_usuario = request.POST.get('nombre_usuario', '').strip()
+        contrasena = request.POST.get('contrasena', '')
+        rol = request.POST.get('rol', '').strip()
+        ref_id = request.POST.get('ref_id')
+        activo = request.POST.get('activo') == 'on'
+
+        if not nombre_usuario or not contrasena or not rol:
+            messages.error(request, 'Por favor, completa todos los campos obligatorios.')
+            return render(request, 'usuarios/agregar_usuario.html')
+
+        if Usuario.objects.filter(nombre_usuario=nombre_usuario).exists():
+            messages.error(request, 'El nombre de usuario ya existe.')
+            return render(request, 'usuarios/agregar_usuario.html')
+
+        hashed_pass = make_password(contrasena)
+        usuario = Usuario(
+            nombre_usuario=nombre_usuario,
+            contrasena=hashed_pass,
+            rol=rol,
+            ref_id=ref_id if ref_id else None,
+            activo=activo
+        )
+        usuario.save()
+        messages.success(request, f'Usuario "{nombre_usuario}" creado con éxito.')
+        return redirect('login')  # Cambia a donde quieras redirigir después
+
+    return render(request, 'usuarios/agregar_usuario.html')

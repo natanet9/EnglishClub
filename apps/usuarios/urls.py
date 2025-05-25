@@ -5,4 +5,7 @@ urlpatterns = [
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
     path('dashboard/directivo/', views.dashboard_directivo, name='dashboard_directivo'),
+    path('agregar/', views.agregar_usuario, name='agregar_usuario'),
 ]
+
+
