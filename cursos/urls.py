@@ -1,6 +1,4 @@
-# config/urls.py
-from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
 
 from cursos.views import inscripcion_list, inscripcion_create, inscripcion_edit, inscripcion_delete, curso_list, \
     curso_create, curso_edit, curso_delete
