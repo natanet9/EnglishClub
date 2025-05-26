@@ -31,18 +31,33 @@
               <i class="bi bi-person me-1 text-primary"></i> Docente
             </label>
             {{ form.docente }}
+            {% if form.docente.errors %}
+              <div class="alert alert-danger mt-1">
+                {{ form.docente.errors }}
+              </div>
+            {% endif %}
           </div>
           <div class="col-md-6">
             <label class="form-label fw-semibold" style="color: #4a7abc;">
               <i class="bi bi-clock me-1 text-primary"></i> Horario
             </label>
             {{ form.horario }}
+            {% if form.horario.errors %}
+              <div class="alert alert-danger mt-1">
+                {{ form.horario.errors }}
+              </div>
+            {% endif %}
           </div>
           <div class="col-md-12">
             <label class="form-label fw-semibold" style="color: #4a7abc;">
               <i class="bi bi-calendar-week me-1 text-primary"></i> Días
             </label>
             {{ form.dias }}
+            {% if form.dias.errors %}
+              <div class="alert alert-danger mt-1">
+                {{ form.dias.errors }}
+              </div>
+            {% endif %}
           </div>
         </div>
 
@@ -55,6 +70,9 @@
           </a>
         </div>
       </form>
+      <div class="text-center mt-4">
+        <p class="text-muted">© English Club Institute. Todos los derechos reservados.</p>
+      </div>
     </div>
   </div>
 </section>

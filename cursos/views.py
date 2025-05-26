@@ -5,12 +5,14 @@ from .models import Inscripcion, Curso
 from .forms import InscripcionForm, CursoForm
 from django.utils import timezone
 
+#validar si tiene accesos (rol secretario o directivo)
 def is_secretaria_or_directivo(user):
     return user.is_authenticated and user.rol in ['secretaria', 'directivo']
 
 def is_directivo(user):
     return user.is_authenticated and user.rol == 'directivo'
 
+#modulo inscripcion
 @login_required
 @user_passes_test(is_secretaria_or_directivo)
 def inscripcion_list(request):
@@ -61,6 +63,7 @@ def inscripcion_delete(request, pk):
         return redirect('inscripcion_list')
     return render(request, 'Inscripcion/inscripcion_confirm_delete.html', {'inscripcion': inscripcion})
 
+#Modulo Curso
 @login_required
 @user_passes_test(is_secretaria_or_directivo)
 def curso_list(request):
