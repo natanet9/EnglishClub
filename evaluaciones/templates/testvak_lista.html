@@ -1,10 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-5xl mx-auto py-10 px-6">
+    <div class="flex items-center justify-between mb-6">
+        <h2 class="text-2xl font-semibold text-gray-800">Resultados Test VAK</h2>
+        <a href="{% url 'evaluaciones:crear_testvak' %}" class="px-4 py-2 bg-blue-600 text-white text-sm rounded hover:bg-blue-700">
+            + Nuevo Test VAK
+        </a>
+    </div>
+
+    <div class="overflow-x-auto bg-white shadow rounded-lg">
+        <table class="min-w-full text-sm text-left border border-gray-200">
+            <thead class="bg-gray-100 text-gray-700">
+                <tr>
+                    <th class="px-6 py-3 border-b">Estudiante</th>
+                    <th class="px-6 py-3 border-b">Visual</th>
+                    <th class="px-6 py-3 border-b">Auditivo</th>
+                    <th class="px-6 py-3 border-b">Lectura</th>
+                    <th class="px-6 py-3 border-b">Kinestésico</th>
+                    <th class="px-6 py-3 border-b">Estilo</th>
+                    <th class="px-6 py-3 border-b text-center">Acciones</th>
+                </tr>
+            </thead>
+            <tbody class="text-gray-700 divide-y divide-gray-200">
+                {% for test in testvak_list %}
+                <tr class="hover:bg-gray-50">
+                    <td class="px-6 py-4">{{ test.estudiante }}</td>
+                    <td class="px-6 py-4">{{ test.visual }}</td>
+                    <td class="px-6 py-4">{{ test.auditorio }}</td>
+                    <td class="px-6 py-4">{{ test.lectutura }}</td>
+                    <td class="px-6 py-4">{{ test.kinestesico }}</td>
+                    <td class="px-6 py-4">{{ test.estilo_predominante }}</td>
+                    <td class="px-6 py-4 text-center">
+                        <a href="{% url 'evaluaciones:editar_testvak' test.pk %}" class="px-3 py-1 text-xs text-white bg-green-500 rounded hover:bg-green-600">
+                            Editar
+                        </a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="7" class="px-6 py-4 text-center text-gray-500">Sin resultados disponibles.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

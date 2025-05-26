@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-5xl mx-auto py-10 px-6">
+    <div class="flex items-center justify-between mb-6">
+        <h2 class="text-2xl font-semibold text-gray-800">Notas Académicas</h2>
+        <a href="{% url 'evaluaciones:crear_nota' %}" class="px-4 py-2 bg-blue-600 text-white text-sm rounded hover:bg-blue-700">
+            + Nueva Nota
+        </a>
+    </div>
+
+    <div class="overflow-x-auto bg-white shadow rounded-lg">
+        <table class="min-w-full text-sm text-left border border-gray-200">
+            <thead class="bg-gray-100 text-gray-700">
+                <tr>
+                    <th class="px-6 py-3 border-b">Estudiante</th>
+                    <th class="px-6 py-3 border-b">Asignatura</th>
+                    <th class="px-6 py-3 border-b">Acumulado</th>
+                    <th class="px-6 py-3 border-b">1er Examen</th>
+                    <th class="px-6 py-3 border-b">2do Examen</th>
+                    <th class="px-6 py-3 border-b">Final</th>
+                    <th class="px-6 py-3 border-b text-center">Acciones</th>
+                </tr>
+            </thead>
+            <tbody class="text-gray-700 divide-y divide-gray-200">
+                {% for nota in nota_list %}
+                <tr class="hover:bg-gray-50">
+                    <td class="px-6 py-4">{{ nota.estudiante }}</td>
+                    <td class="px-6 py-4">{{ nota.asignatura }}</td>
+                    <td class="px-6 py-4">{{ nota.nota_acumulada }}</td>
+                    <td class="px-6 py-4">{{ nota.primer_examen }}</td>
+                    <td class="px-6 py-4">{{ nota.segundo_examen }}</td>
+                    <td class="px-6 py-4">{{ nota.examen_final }}</td>
+                    <td class="px-6 py-4 text-center">
+                        <a href="{% url 'evaluaciones:editar_nota' nota.pk %}" class="px-3 py-1 text-xs text-white bg-green-500 rounded hover:bg-green-600">
+                            Editar
+                        </a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="7" class="px-6 py-4 text-center text-gray-500">No hay notas registradas.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

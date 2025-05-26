@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto py-10 px-6">
+    <div class="flex items-center justify-between mb-6">
+        <h2 class="text-2xl font-semibold text-gray-800">Evaluaciones Diarias</h2>
+        <a href="{% url 'evaluaciones:crear_evaluaciondiaria' %}" class="px-4 py-2 bg-blue-600 text-white text-sm rounded hover:bg-blue-700">
+            + Nueva Evaluación
+        </a>
+    </div>
+
+    <div class="overflow-x-auto bg-white shadow rounded-lg">
+        <table class="min-w-full text-sm text-left border border-gray-200">
+            <thead class="bg-gray-100 text-gray-700">
+                <tr>
+                    <th class="px-6 py-3 border-b">Estudiante</th>
+                    <th class="px-6 py-3 border-b">Curso</th>
+                    <th class="px-6 py-3 border-b">Asignatura</th>
+                    <th class="px-6 py-3 border-b">Participación</th>
+                    <th class="px-6 py-3 border-b">Tarea</th>
+                    <th class="px-6 py-3 border-b">Presente</th>
+                    <th class="px-6 py-3 border-b text-center">Acciones</th>
+                </tr>
+            </thead>
+            <tbody class="text-gray-700 divide-y divide-gray-200">
+                {% for evaluacion in evaluaciondiaria_list %}
+                <tr class="hover:bg-gray-50">
+                    <td class="px-6 py-4">{{ evaluacion.estudiante }}</td>
+                    <td class="px-6 py-4">{{ evaluacion.curso }}</td>
+                    <td class="px-6 py-4">{{ evaluacion.asignatura }}</td>
+                    <td class="px-6 py-4">{{ evaluacion.is_participate }}</td>
+                    <td class="px-6 py-4">{{ evaluacion.is_tarea }}</td>
+                    <td class="px-6 py-4">{{ evaluacion.is_present|yesno:"Sí,No" }}</td>
+                    <td class="px-6 py-4 text-center">
+                        <a href="{% url 'evaluaciones:editar_evaluaciondiaria' evaluacion.pk %}" class="px-3 py-1 text-xs text-white bg-green-500 rounded hover:bg-green-600">
+                            Editar
+                        </a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="7" class="px-6 py-4 text-center text-gray-500">Sin evaluaciones registradas.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
