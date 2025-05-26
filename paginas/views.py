@@ -15,3 +15,7 @@ def servicios(request):
 # Vista para la página de Contacto
 def contacto(request):
     return render(request, 'contacto.html')
+
+def dash_directivo(request):
+    # Aquí podrías agregar lógica para manejar la vista del dashboard del docente/directivo
+    return render(request, 'dash_docente.html')

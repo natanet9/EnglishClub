@@ -1,22 +1,28 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .models import Usuario
+from django.utils.translation import gettext_lazy as _
 
-@admin.register(Usuario)
 class UsuarioAdmin(UserAdmin):
     model = Usuario
-    list_display = ('carnet', 'nombre', 'apellidos', 'is_active', 'is_staff')
-    list_filter = ('is_active', 'is_staff', 'rol')
+    list_display = ('username', 'carnet', 'nombre', 'apellidos', 'rol', 'is_staff', 'is_active')
+    list_filter = ('rol', 'is_staff', 'is_active')
+    search_fields = ('username', 'nombre', 'apellidos', 'carnet')
+    ordering = ('username',)
+
     fieldsets = (
-        (None, {'fields': ('carnet', 'password')}),
-        ('Información personal', {'fields': ('nombre', 'apellidos', 'direccion', 'telefono', 'fecha_nacimiento', 'hijo', 'domicilio', 'rol', 'ocupacion', 'parentesco')}),
-        ('Permisos', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
+        (None, {'fields': ('username', 'password')}),
+        (_('Información personal'), {'fields': ('carnet', 'nombre', 'apellidos', 'telefono', 'direccion', 'domicilio', 'fecha_nacimiento', 'hijo', 'ocupacion', 'parentesco')}),
+        (_('Permisos'), {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
+        (_('Fechas importantes'), {'fields': ('fecha_registro', 'last_login')}),
+        (_('Rol'), {'fields': ('rol',)}),
     )
+
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('carnet', 'nombre', 'apellidos', 'password1', 'password2', 'is_active', 'is_staff', 'is_superuser')}
-        ),
+            'fields': ('username', 'carnet', 'nombre', 'apellidos', 'password1', 'password2', 'rol', 'is_staff', 'is_active')}
+         ),
     )
-    search_fields = ('carnet', 'nombre', 'apellidos')
-    ordering = ('carnet',)
+
+admin.site.register(Usuario, UsuarioAdmin)
