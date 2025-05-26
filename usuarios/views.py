@@ -18,6 +18,10 @@ def login_view(request):
                 return redirect('docente_dashboard')
             elif user_type == 'estudiante':
                 return redirect('estudiante_dashboard')
+            elif user_type == 'padre':
+                return redirect('padre_dashboard')
+            elif user_type == 'directivo':
+                return redirect('directivo_dashboard')
         else:
             messages.error(request, 'Usuario o contraseña incorrectos.')
 
