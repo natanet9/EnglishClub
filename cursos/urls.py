@@ -2,13 +2,12 @@
 from django.contrib import admin
 from django.urls import path, include
 
+from cursos.views import inscripcion_list, inscripcion_create, inscripcion_edit, inscripcion_delete, curso_list, \
+    curso_create, curso_edit, curso_delete
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('usuarios/', include('usuarios.urls')),
-    path('cursos/', include('cursos.urls')),
-    path('evaluaciones/', include('evaluaciones.urls')),
     #modulo de incripciones
- path('inscripciones/', inscripcion_list, name='inscripcion_list'),
+    path('inscripciones/', inscripcion_list, name='inscripcion_list'),
     path('inscripciones/crear/', inscripcion_create, name='inscripcion_create'),
     path('inscripciones/editar/<int:pk>/', inscripcion_edit, name='inscripcion_edit'),
     path('inscripciones/eliminar/<int:pk>/', inscripcion_delete, name='inscripcion_delete'),
