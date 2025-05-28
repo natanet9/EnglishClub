@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard Directivo{% endblock %}
+
+{% block content %}
+
+      <!-- Contenido principal -->
+  <main class="flex-1 p-8 bg-gray-50">
+    <h2 class="text-2xl font-bold text-blue-800 mb-2">👋 Bienvenido/a, {{ user.nombre }}</h2>
+    <p class="mb-6 text-gray-600">
+      Este es tu panel de control como {{ user.rol }} del <span class="font-semibold">Instituto English Club</span>.
+    </p>
+
+    <!-- Métricas principales -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+      <div class="bg-white p-4 rounded-2xl shadow text-center">
+        <h3 class="text-sm font-semibold text-gray-500">Estudiantes activos</h3>
+        <p class="text-2xl font-bold text-blue-600">384</p>
+      </div>
+      <div class="bg-white p-4 rounded-2xl shadow text-center">
+        <h3 class="text-sm font-semibold text-gray-500">Asistencia promedio</h3>
+        <p class="text-2xl font-bold text-green-600">89%</p>
+      </div>
+      <div class="bg-white p-4 rounded-2xl shadow text-center">
+        <h3 class="text-sm font-semibold text-gray-500">Tasa de aprobación</h3>
+        <p class="text-2xl font-bold text-purple-600">76%</p>
+      </div>
+      <div class="bg-white p-4 rounded-2xl shadow text-center">
+        <h3 class="text-sm font-semibold text-gray-500">Índice de deserción</h3>
+        <p class="text-2xl font-bold text-red-600">5.2%</p>
+      </div>
+    </div>
+
+    <!-- Filtros -->
+    <div class="flex flex-wrap gap-4 mb-10">
+      <select class="p-2 rounded-xl border shadow bg-white" name="periodo">
+        <option>Periodo actual</option>
+        <option>2024-I</option>
+        <option>2023-II</option>
+      </select>
+      <select class="p-2 rounded-xl border shadow bg-white" name="nivel">
+        <option>Todos los niveles</option>
+        <option>Básico</option>
+        <option>Intermedio</option>
+        <option>Avanzado</option>
+      </select>
+      <select class="p-2 rounded-xl border shadow bg-white" name="curso">
+        <option>Todos los cursos</option>
+        <option>English 1</option>
+        <option>English 2</option>
+      </select>
+      <select class="p-2 rounded-xl border shadow bg-white" name="docente">
+        <option>Todos los docentes</option>
+        <option>Ms. Johnson</option>
+        <option>Mr. Smith</option>
+      </select>
+    </div>
+
+    <!-- Aquí puedes incluir vistas dinámicas como tablas o reportes -->
+    <div class="bg-white p-6 rounded-xl shadow text-gray-600">
+      <p>Selecciona una opción del panel lateral para ver más detalles o gestionar el sistema.</p>
+    </div>
+  </main>
+{% endblock %}

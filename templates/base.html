@@ -6,47 +6,53 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 </head>
-<body class="bg-gray-100 font-sans">
-
+<body class="bg-gray-100 font-sans grid grid-rows-[auto,1fr,auto] min-h-screen">
   {% if not request.session.rol == 'directivo' or request.path|slice:":10" != "/directivo" %}
   <nav class="bg-blue-900 text-white px-6 py-4 flex justify-between items-center shadow">
     <div class="text-xl font-bold">
       English Club Institute
     </div>
-   <ul class="flex gap-6 items-center">
-  {% if not request.user.is_authenticated %}
-    <li><a href="{% url 'inicio' %}" class="hover:text-yellow-400">Inicio</a></li>
-    <li><a href="{% url 'quienes_somos' %}" class="hover:text-yellow-400">Quiénes Somos</a></li>
-    <li><a href="{% url 'servicios' %}" class="hover:text-yellow-400">Servicios</a></li>
-    <li><a href="{% url 'contacto' %}" class="hover:text-yellow-400">Contacto</a></li>
-    <li>
-      <a href="{% url 'login' %}" class="bg-yellow-400 text-blue-900 font-semibold px-4 py-2 rounded hover:bg-yellow-300">
-        Iniciar Sesión
-      </a>
-    </li>
-  {% else %}
-    <li class="flex items-center gap-2">
-      <span class="font-semibold">
-  {{ request.user.first_name|default:request.user.username }}
-</span>
-
-      <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="w-6 h-6 text-yellow-300">
-        <path fill-rule="evenodd" d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" clip-rule="evenodd" />
-      </svg>
-    </li>
-    <li>
-      <a href="{% url 'logout' %}" class="hover:text-yellow-400">Cerrar sesión</a>
-    </li>
-  {% endif %}
+    <ul class="flex gap-6 items-center">
+      {% if not request.user.is_authenticated %}
+      <li><a href="{% url 'inicio' %}" class="hover:text-yellow-400">Inicio</a></li>
+      <li><a href="{% url 'quienes_somos' %}" class="hover:text-yellow-400">Quiénes Somos</a></li>
+      <li><a href="{% url 'servicios' %}" class="hover:text-yellow-400">Servicios</a></li>
+      <li><a href="{% url 'contacto' %}" class="hover:text-yellow-400">Contacto</a></li>
+      <li>
+        <a href="{% url 'login' %}" class="bg-yellow-400 text-blue-900 font-semibold px-4 py-2 rounded hover:bg-yellow-300">
+          Iniciar Sesión
+        </a>
+      </li>
+      {% else %}
+      <li class="flex items-center gap-2">
+        <span class="font-semibold">
+          {{ request.user.first_name|default:request.user.username }}
+        </span>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="w-6 h-6 text-yellow-300">
+          <path fill-rule="evenodd" d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" clip-rule="evenodd" />
+        </svg>
+      </li>
+      <li>
+        <a href="{% url 'logout' %}" class="hover:text-yellow-400">Cerrar sesión</a>
+      </li>
+      {% endif %}
+    </ul>
   </nav>
   {% endif %}
-  
+
+  {% if request.user.is_authenticated %}
+  <div class="flex min-h-screen">
+    {% include "sidebar.html" %}
+  {% endif %}
 
   {% block content %}{% endblock %}
+
+  {% if request.user.is_authenticated %}
+  </div>
+  {% endif %}
 
   <footer class="text-center bg-blue-900 text-white py-4">
     © {{ now|date:"Y" }} English Club Institute. Todos los derechos reservados.
   </footer>
-
 </body>
 </html>
