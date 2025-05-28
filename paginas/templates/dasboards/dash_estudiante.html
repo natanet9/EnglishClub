@@ -3,69 +3,177 @@
 {% block title %}Dashboard Directivo{% endblock %}
 
 {% block content %}
-<section class="px-6 md:px-12 py-12 bg-gray-50 min-h-screen">
-  <div class="mb-10">
-    <h2 class="text-4xl font-extrabold text-blue-900 mb-2">👋 Bienvenido/a, {{ nombre }}</h2>
-    <p class="text-gray-700 text-lg">
-      Este es tu panel de control como directivo del
-      <span class="font-semibold text-blue-800">Instituto English Club</span>.
-    </p>
+<div class="flex min-h-screen">
+  <!-- Sidebar -->
+ 
+<aside class="w-64 bg-blue-800 text-white p-6 space-y-4">
+  <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
+    <!-- Icono académico -->
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z" />
+    </svg>
+    Panel Estudiante Tecnico
+  </h2>
+
+  <nav class="space-y-2">
+  <!-- Calificaciones con submenú animado -->
+<div x-data="{ open: false }" class="space-y-1">
+  <button @click="open = !open" class="flex items-center justify-between w-full hover:bg-blue-700 px-3 py-2 rounded focus:outline-none">
+    <span class="flex items-center gap-2">
+      <!-- Icono -->
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+        <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
+        <path d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
+      </svg>
+      Mis Calificaciones
+    </span>
+
+    <!-- Chevron rotatorio -->
+    <svg :class="{ 'rotate-90': open }" class="w-4 h-4 transform transition-transform duration-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+    </svg>
+  </button>
+
+  <!-- Submenú -->
+  <div x-show="open" x-transition class="ml-6 mt-2 space-y-1 overflow-hidden">
+    <a href="#" class="block hover:bg-blue-700 px-3 py-2 rounded text-sm">Diarias</a>
+    <a href="#" class="block hover:bg-blue-700 px-3 py-2 rounded text-sm">Mensuales</a>
+    <a href="#" class="block hover:bg-blue-700 px-3 py-2 rounded text-sm">Finales</a>
   </div>
+</div>
+  <!-- Asistencias con submenú animado -->
+<div x-data="{ open: false }" class="space-y-1">
+  <button @click="open = !open" class="flex items-center justify-between w-full hover:bg-blue-700 px-3 py-2 rounded focus:outline-none">
+    <span class="flex items-center gap-2">
+      <!-- Icono -->
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+        <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
+        <path d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
+      </svg>
+      Asistencia
+    </span>
 
-  <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+    <!-- Chevron rotatorio -->
+    <svg :class="{ 'rotate-90': open }" class="w-4 h-4 transform transition-transform duration-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+    </svg>
+  </button>
 
-    <!-- Tarjeta 1 -->
-    <div class="bg-white border border-blue-100 rounded-2xl shadow-md hover:shadow-lg transition p-6 flex flex-col justify-between">
-      <div>
-        <h3 class="text-xl font-bold text-blue-800 mb-2">📚 Gestión Académica</h3>
-        <p class="text-gray-600 text-sm">Control de inscripciones, asistencia y notas.</p>
-      </div>
-      <a href="#" class="mt-6 text-sm font-semibold text-blue-600 hover:underline transition">Ir a gestión académica →</a>
-    </div>
-
-    <!-- Tarjeta 2 -->
-    <div class="bg-white border border-blue-100 rounded-2xl shadow-md hover:shadow-lg transition p-6 flex flex-col justify-between">
-      <div>
-        <h3 class="text-xl font-bold text-blue-800 mb-2">📊 Reportes</h3>
-        <p class="text-gray-600 text-sm">Consultas de rendimiento y estilos VARK.</p>
-      </div>
-      <a href="#" class="mt-6 text-sm font-semibold text-blue-600 hover:underline transition">Ver reportes →</a>
-    </div>
-
-    <!-- Tarjeta 3 -->
-    <div class="bg-white border border-blue-100 rounded-2xl shadow-md hover:shadow-lg transition p-6 flex flex-col justify-between">
-      <div>
-        <h3 class="text-xl font-bold text-blue-800 mb-2">⚙️ Configuraciones</h3>
-        <p class="text-gray-600 text-sm">Administración general.</p>
-      </div>
-      <a href="#" class="mt-6 text-sm font-semibold text-blue-600 hover:underline transition">Configurar sistema →</a>
-    </div>
-
-    <!-- Tarjeta 4 -->
-    <div class="bg-white border border-blue-100 rounded-2xl shadow-md hover:shadow-lg transition p-6 flex flex-col justify-between">
-      <div>
-        <h3 class="text-xl font-bold text-blue-800 mb-2">🎓 Registrar Estudiante Técnico</h3>
-        <p class="text-gray-600 text-sm">Formulario para mayores de edad.</p>
-      </div>
-      <a href="#" class="mt-6 text-sm font-semibold text-blue-600 hover:underline transition">Registrar →</a>
-    </div>
-
-    <!-- Tarjeta 5 -->
-    <div class="bg-white border border-blue-100 rounded-2xl shadow-md hover:shadow-lg transition p-6 flex flex-col justify-between">
-      <div>
-        <h3 class="text-xl font-bold text-blue-800 mb-2">👦 Registrar Estudiante Regular</h3>
-        <p class="text-gray-600 text-sm">Formulario para menores y tutor.</p>
-      </div>
-      <a href="#" class="mt-6 text-sm font-semibold text-blue-600 hover:underline transition">Registrar →</a>
-    </div>
-
+  <!-- Submenú -->
+  <div x-show="open" x-transition class="ml-6 mt-2 space-y-1 overflow-hidden">
+    <a href="#" class="block hover:bg-blue-700 px-3 py-2 rounded text-sm">Tomar Asistencia Diaria</a>
+    <a href="#" class="block hover:bg-blue-700 px-3 py-2 rounded text-sm">Ver Historial de Asistencia</a>
   </div>
-
-  <!-- Botón cerrar sesión -->
-  <div class="mt-12 text-center">
-    <a href="{% url 'logout' %}" class="text-red-600 font-medium text-sm hover:underline">
-      🔓 Cerrar sesión
+</div>
+  <!-- Registro del Test Vark-->
+    <a href="#" class="flex items-center gap-2 hover:bg-blue-700 px-3 py-2 rounded">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-6m4 6v-4m4 4V7M5 20h14" />
+      </svg>
+      Resultados Test Vark
     </a>
+    
+   
+    <!-- Otra sección -->
+    <a href="#" class="flex items-center gap-2 hover:bg-blue-700 px-3 py-2 rounded">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-6m4 6v-4m4 4V7M5 20h14" />
+      </svg>
+      Alertas Rendimiento
+    </a>
+    
+  </nav>
+</aside>
+  <!-- Contenido principal -->
+  <main class="flex-1 p-8 bg-gray-50">
+    <h2 class="text-2xl font-bold text-blue-800 mb-2">👋 Bienvenido/a, {{ nombre }}</h2>
+    <p class="mb-6 text-gray-600">
+      Estudiante del <span class="font-semibold">Instituto English Club</span>.
+    </p>
+
+    <!-- Métricas principales -->
+   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+  <!-- Estudiantes -->
+  <div class="bg-white p-4 rounded-2xl shadow text-center">
+    <canvas id="chartEstudiantes" width="100" height="100"></canvas>
+    <h3 class="mt-2 text-sm font-semibold text-gray-500">Calificaciones Diarias </h3>
+    <p class="text-lg font-bold text-blue-600">25</p>
   </div>
-</section>
+
+  <!-- Asistencia promedio -->
+  <div class="bg-white p-4 rounded-2xl shadow text-center">
+    <canvas id="chartAsistencia" width="100" height="100"></canvas>
+    <h3 class="mt-2 text-sm font-semibold text-gray-500">Asistencia promedio</h3>
+    <p class="text-lg font-bold text-green-600">89%</p>
+  </div>
+
+  <!-- Tasa de aprobación -->
+  <div class="bg-white p-4 rounded-2xl shadow text-center">
+    <canvas id="chartAprobacion" width="100" height="100"></canvas>
+    <h3 class="mt-2 text-sm font-semibold text-gray-500">Tasa de aprobación</h3>
+    <p class="text-lg font-bold text-purple-600">76%</p>
+  </div>
+
+
+
+
+    <!-- Filtros -->
+    <div class="flex flex-wrap gap-4 mb-10">
+      <select class="p-2 rounded-xl border shadow bg-white" name="periodo">
+        <option>Periodo actual</option>
+        <option>2024-I</option>
+        <option>2023-II</option>
+      </select>
+      <select class="p-2 rounded-xl border shadow bg-white" name="nivel">
+        <option>Todos los niveles</option>
+        <option>Básico</option>
+        <option>Intermedio</option>
+        <option>Avanzado</option>
+      </select>
+      <select class="p-2 rounded-xl border shadow bg-white" name="curso">
+        <option>Todos los cursos</option>
+        <option>English 1</option>
+        <option>English 2</option>
+      </select>
+      <select class="p-2 rounded-xl border shadow bg-white" name="docente">
+        <option>Todos los docentes</option>
+        <option>Ms. Johnson</option>
+        <option>Mr. Smith</option>
+      </select>
+    </div>
+
+    <!-- Aquí puedes incluir vistas dinámicas como tablas o reportes -->
+    <div class="bg-white p-6 rounded-xl shadow text-gray-600">
+      <p>Selecciona una opción del panel lateral para ver más detalles o gestionar el sistema.</p>
+    </div>
+  </main>
+</div>
+<script>
+  const crearGraficaCircular = (idCanvas, porcentaje, color) => {
+    new Chart(document.getElementById(idCanvas), {
+      type: 'doughnut',
+      data: {
+        datasets: [{
+          data: [porcentaje, 100 - porcentaje],
+          backgroundColor: [color, '#e5e7eb'],
+          borderWidth: 0
+        }]
+      },
+      options: {
+        cutout: '70%',
+        plugins: {
+          legend: { display: false },
+          tooltip: { enabled: false }
+        }
+      }
+    });
+  };
+
+  // Datos simulados
+  crearGraficaCircular("chartEstudiantes", 100, "#3b82f6"); // 100% porque es cantidad
+  crearGraficaCircular("chartAsistencia", 89, "#22c55e");
+  crearGraficaCircular("chartAprobacion", 76, "#a855f7");
+  crearGraficaCircular("chartDesercion", 5.2, "#ef4444");
+</script>
+
 {% endblock %}
