@@ -3,6 +3,7 @@
 {% block title %}Dashboard Directivo{% endblock %}
 
 {% block content %}
+<<<<<<< HEAD:paginas/templates/dasboards/dash_directivo.html
 <div class="flex min-h-screen">
   <!-- Sidebar -->
   <aside class="w-64 bg-blue-800 text-white p-6 space-y-4">
@@ -26,10 +27,14 @@
   </aside>
 
   <!-- Contenido principal -->
+=======
+
+      <!-- Contenido principal -->
+>>>>>>> fbd1392e744dd8e0aac5c0d055bb3da8d1a02658:paginas/templates/dasboards/dashboard.html
   <main class="flex-1 p-8 bg-gray-50">
-    <h2 class="text-2xl font-bold text-blue-800 mb-2">👋 Bienvenido/a, {{ nombre }}</h2>
+    <h2 class="text-2xl font-bold text-blue-800 mb-2">👋 Bienvenido/a, {{ user.nombre }}</h2>
     <p class="mb-6 text-gray-600">
-      Este es tu panel de control como directivo del <span class="font-semibold">Instituto English Club</span>.
+      Este es tu panel de control como {{ user.rol }} del <span class="font-semibold">Instituto English Club</span>.
     </p>
 
     <!-- Métricas principales -->
@@ -82,5 +87,4 @@
       <p>Selecciona una opción del panel lateral para ver más detalles o gestionar el sistema.</p>
     </div>
   </main>
-</div>
 {% endblock %}

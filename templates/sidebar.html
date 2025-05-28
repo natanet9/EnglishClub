@@ -1,0 +1,78 @@
+<aside class="w-64 bg-blue-800 text-white p-6 space-y-4">
+  <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
+    <!-- Icono académico -->
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z" />
+    </svg>
+    Panel {{ user.rol|capfirst }}
+  </h2>
+
+  <nav class="space-y-2">
+    <!-- Gestión Académica -->
+    <a href="{% url 'asignaturas:lista_asignatura' %}" class="flex items-center gap-2 hover:bg-blue-700 px-3 py-2 rounded">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M12 4.75a6.75 6.75 0 1 0 0 13.5v-13.5zM13.5 4.75v13.5a6.75 6.75 0 1 0 0-13.5z" />
+      </svg>
+      Gestión Académica
+    </a>
+
+    <!-- Gestión de Usuarios -->
+    <a href="{% url 'crear_estudiante_tecnico' %}" class="flex items-center gap-2 hover:bg-blue-700 px-3 py-2 rounded">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+        <path fill-rule="evenodd" d="M8.25 6.75a3.75 3.75 0 1 1 7.5 0 3.75 3.75 0 0 1-7.5 0ZM15.75 9.75a3 3 0 1 1 6 0 3 3 0 0 1-6 0ZM2.25 9.75a3 3 0 1 1 6 0 3 3 0 0 1-6 0ZM6.31 15.117A6.745 6.745 0 0 1 12 12a6.745 6.745 0 0 1 6.709 7.498.75.75 0 0 1-.372.568A12.696 12.696 0 0 1 12 21.75a9.716 9.716 0 0 1-6.685-2.653Z" clip-rule="evenodd" />
+      </svg>
+      Gestión de Usuarios
+    </a>
+
+    <!-- Inscripciones -->
+    <a href="{% url 'inscripcion_list' %}" class="flex items-center gap-2 hover:bg-blue-700 px-3 py-2 rounded">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A8.958 8.958 0 0112 15c2.486 0 4.735 1.007 6.363 2.637M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+      </svg>
+      Inscripciones
+    </a>
+
+      <!-- Gestión de Permisos -->
+    <a href="{% url 'permisos:lista_permisos' %}" class="flex items-center gap-2 hover:bg-blue-700 px-3 py-2 rounded">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-3-3v6m-7 4h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+      </svg>
+      Lista de Permisos
+    </a>
+    <a href="{% url 'permisos:crear_permiso' %}" class="flex items-center gap-2 hover:bg-blue-700 px-3 py-2 rounded">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+      </svg>
+      Crear Permiso
+    </a>
+
+    <!-- Calificaciones -->
+    <div x-data="{ open: false }" class="space-y-1">
+      <button @click="open = !open" class="flex items-center justify-between w-full hover:bg-blue-700 px-3 py-2 rounded focus:outline-none">
+        <span class="flex items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+            <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
+            <path d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
+          </svg>
+          Calificaciones
+        </span>
+        <svg :class="{ 'rotate-90': open }" class="w-4 h-4 transform transition-transform duration-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+      <div x-show="open" x-transition class="ml-6 mt-2 space-y-1 overflow-hidden">
+        <a href="{% url 'evaluaciones:lista_evaluaciondiaria' %}" class="block hover:bg-blue-700 px-3 py-2 rounded text-sm">Evaluacion Diaria</a>
+        <a href="{% url 'evaluaciones:lista_nota' %}" class="block hover:bg-blue-700 px-3 py-2 rounded text-sm">Notas</a>
+        <a href="{% url 'evaluaciones:lista_testvak' %}" class="block hover:bg-blue-700 px-3 py-2 rounded text-sm">Test Vak</a>
+      </div>
+    </div>
+
+    <!-- Reportes -->
+    <a href="#" class="flex items-center gap-2 hover:bg-blue-700 px-3 py-2 rounded">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-6m4 6v-4m4 4V7M5 20h14" />
+      </svg>
+      Reportes
+    </a>
+  </nav>
+</aside>

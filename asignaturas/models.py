@@ -8,5 +8,5 @@ class Asignatura(models.Model):
         db_table = "asignatura"
 
     def __str__(self):
-        return self.nombre
+        return f"{self.nombre} ({self.nivel})"
 

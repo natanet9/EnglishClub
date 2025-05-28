@@ -14,6 +14,7 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)  
         if user is not None:
             login(request, user)
+<<<<<<< HEAD
             next_url = request.GET.get('next', '')
             if next_url:
                 return redirect(next_url)
@@ -25,6 +26,9 @@ def login_view(request):
                 return redirect('padre_dashboard')
             elif user_type == 'directivo':
                 return redirect('directivo_dashboard')
+=======
+            return redirect('dashboard')
+>>>>>>> fbd1392e744dd8e0aac5c0d055bb3da8d1a02658
         else:
             messages.error(request, 'Usuario o contraseña incorrectos.')
     return render(request, 'usuarios/login.html')   
