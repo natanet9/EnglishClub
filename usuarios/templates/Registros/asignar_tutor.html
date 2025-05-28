@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% block title %}Asignar o Registrar Tutor{% endblock %}
+
+{% block content %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+<section class="container my-4">
+  <div class="card shadow-lg border-0 animate__animated animate__fadeIn">
+    <div class="card-header p-4 bg-gradient" style="background: #1a3b68; border: 3px solid #4a7abc;">
+      <h2 class="card-title text-white mb-0 d-flex align-items-center fw-bold">
+        <i class="bi bi-person-badge fs-3 me-2" style="color: #ffcc33;"></i>
+        <span class="animate__animated animate__pulse animate__infinite animate__slower">REGISTRAR TUTOR</span>
+      </h2>
+    </div>
+    <div class="card-body bg-light">
+      <form method="post" enctype="multipart/form-data" id="tutorForm" class="needs-validation" novalidate>
+        {% csrf_token %}
+        <input type="hidden" name="action" value="create_tutor">
+        {% if tutor_form.errors %}
+          <div class="alert alert-danger">
+            <ul>
+              {% for field in tutor_form %}
+                {% for error in field.errors %}
+                  <li><strong>{{ field.label }}:</strong> {{ error }}</li>
+                {% endfor %}
+              {% endfor %}
+              {% for error in tutor_form.non_field_errors %}
+                <li>{{ error }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+        {% endif %}
+
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label"><i class="bi bi-person me-1" style="color: #4a7abc;"></i> Apellidos</label>
+            <div class="input-group">
+              <span class="input-group-text" style="background-color: #f18f01; color: white;"><i class="bi bi-pencil"></i></span>
+              {{ tutor_form.apellidos }}
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label"><i class="bi bi-person me-1" style="color: #4a7abc;"></i> Nombres</label>
+            <div class="input-group">
+              <span class="input-group-text" style="background-color: #f18f01; color: white;"><i class="bi bi-pencil"></i></span>
+              {{ tutor_form.nombre }}
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label"><i class="bi bi-credit-card me-1" style="color: #4a7abc;"></i> C.I.</label>
+            <div class="input-group">
+              <span class="input-group-text" style="background-color: #f18f01; color: white;"><i class="bi bi-credit-card"></i></span>
+              {{ tutor_form.carnet }}
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label"><i class="bi bi-calendar me-1" style="color: #4a7abc;"></i> Fecha de nacimiento</label>
+            <div class="input-group">
+              <span class="input-group-text" style="background-color: #f18f01; color: white;"><i class="bi bi-calendar"></i></span>
+              {{ tutor_form.fecha_nacimiento }}
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label"><i class="bi bi-house me-1" style="color: #4a7abc;"></i> Domicilio</label>
+            <div class="input-group">
+              <span class="input-group-text" style="background-color: #f18f01; color: white;"><i class="bi bi-house"></i></span>
+              {{ tutor_form.domicilio }}
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label"><i class="bi bi-envelope me-1" style="color: #4a7abc;"></i> Correo electrónico</label>
+            <div class="input-group">
+              <span class="input-group-text" style="background-color: #f18f01; color: white;"><i class="bi bi-envelope"></i></span>
+              {{ tutor_form.direccion }}
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label"><i class="bi bi-telephone me-1" style="color: #4a7abc;"></i> Teléfono</label>
+            <div class="input-group">
+              <span class="input-group-text" style="background-color: #f18f01; color: white;"><i class="bi bi-telephone"></i></span>
+              {{ tutor_form.telefono }}
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label"><i class="bi bi-person me-1" style="color: #4a7abc;"></i> Usuario</label>
+            <div class="input-group">
+              <span class="input-group-text" style="background-color: #f18f01; color: white;"><i class="bi bi-person"></i></span>
+              {{ tutor_form.username }}
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label"><i class="bi bi-lock me-1" style="color: #4a7abc;"></i> Contraseña</label>
+            <div class="input-group">
+              <span class="input-group-text" style="background-color: #f18f01; color: white;"><i class="bi bi-lock"></i></span>
+              {{ tutor_form.password }}
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center mt-4">
+          <div class="d-inline-block position-relative">
+            <button type="submit" class="btn btn-lg px-5 py-3 shadow-lg animate__animated animate__pulse animate__infinite animate__slow" style="background-color: #4a7abc; color: white; border: 2px solid #1a3b68;" id="submitBtn">
+              <i class="bi bi-check-circle-fill me-2" style="color: #ffcc33;"></i> REGISTRAR TUTOR
+            </button>
+            <div class="position-absolute top-0 start-0 w-100 h-100" style="z-index: -1; transform: scale(1.1);">
+              <div class="position-absolute top-0 start-0 w-100 h-100 rounded-pill" style="background-color: #1a3b68; opacity: 0.25; filter: blur(10px);"></div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock %}
