@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'cursos',
     'asignaturas',
     'evaluaciones',
+    'permisos',
     #s'core',
 
     # Aplicaciones de Django

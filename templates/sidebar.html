@@ -32,6 +32,20 @@
       Inscripciones
     </a>
 
+      <!-- Gestión de Permisos -->
+    <a href="{% url 'permisos:lista_permisos' %}" class="flex items-center gap-2 hover:bg-blue-700 px-3 py-2 rounded">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-3-3v6m-7 4h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+      </svg>
+      Lista de Permisos
+    </a>
+    <a href="{% url 'permisos:crear_permiso' %}" class="flex items-center gap-2 hover:bg-blue-700 px-3 py-2 rounded">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+      </svg>
+      Crear Permiso
+    </a>
+
     <!-- Calificaciones -->
     <div x-data="{ open: false }" class="space-y-1">
       <button @click="open = !open" class="flex items-center justify-between w-full hover:bg-blue-700 px-3 py-2 rounded focus:outline-none">
