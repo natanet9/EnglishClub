@@ -3,8 +3,34 @@
 {% block title %}Dashboard Directivo{% endblock %}
 
 {% block content %}
+<<<<<<< HEAD:paginas/templates/dasboards/dash_directivo.html
+<div class="flex min-h-screen">
+  <!-- Sidebar -->
+  <aside class="w-64 bg-blue-800 text-white p-6 space-y-4">
+    <h2 class="text-xl font-bold mb-6">🎓 Panel Directivo</h2>
+    
+    <nav class="space-y-2">
+      <a href="# class="block hover:bg-blue-700 px-3 py-2 rounded">📚 Gestión Académica</a>
+      <a href="#" class="block hover:bg-blue-700 px-3 py-2 rounded">📊 Reportes</a>
+      <a href="#" class="block hover:bg-blue-700 px-3 py-2 rounded">⚙️ Configuraciones</a>
+       <a href="{% url 'usuarios:crear_estudiante_tecnico' %}" class="block hover:bg-blue-700 px-3 py-2 rounded">🎓 Registrar Estudiante Técnico</a>
+      <a href="{% url 'usuarios:crear_estudiante_regular' %}" class="block hover:bg-blue-700 px-3 py-2 rounded">👦 Registrar Estudiante Regular</a>
+      <a href="#" class="block hover:bg-blue-700 px-3 py-2 rounded">👥 Gestión de Usuarios</a>
+      <a href="#" class="block hover:bg-blue-700 px-3 py-2 rounded">👩‍🏫 Registrar Docente</a>
+      <a href="#" class="block hover:bg-blue-700 px-3 py-2 rounded">🗂 Registrar Secretaria</a>
+      <a href="#" class="block hover:bg-blue-700 px-3 py-2 rounded">👔 Registrar Directivo</a>
+    </nav>
+
+    <div class="mt-10">
+      <a href="{% url 'usuarios:logout' %}" class="text-red-300 hover:text-white block">🔓 Cerrar sesión</a>
+    </div>
+  </aside>
+
+  <!-- Contenido principal -->
+=======
 
       <!-- Contenido principal -->
+>>>>>>> fbd1392e744dd8e0aac5c0d055bb3da8d1a02658:paginas/templates/dasboards/dashboard.html
   <main class="flex-1 p-8 bg-gray-50">
     <h2 class="text-2xl font-bold text-blue-800 mb-2">👋 Bienvenido/a, {{ user.nombre }}</h2>
     <p class="mb-6 text-gray-600">
@@ -56,7 +82,7 @@
       </select>
     </div>
 
-    <!-- Aquí puedes incluir vistas dinámicas como tablas o reportes -->
+    <!-- Placeholder para contenido dinámico -->
     <div class="bg-white p-6 rounded-xl shadow text-gray-600">
       <p>Selecciona una opción del panel lateral para ver más detalles o gestionar el sistema.</p>
     </div>
