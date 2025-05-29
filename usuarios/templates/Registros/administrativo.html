@@ -1,0 +1,280 @@
+{% extends 'base.html' %}
+{% block title %}Registrar Usuario Administrativo{% endblock %}
+
+{% block content %}
+<!-- Bootstrap CSS, Icons, and Animate.css -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+<section class="container my-4">
+  <div class="card shadow-lg border-0 animate__animated animate__fadeIn">
+    <div class="card-header p-4 bg-gradient" style="background: #1a3b68; border: 3px solid #4a7abc;">
+      <h2 class="card-title text-white mb-0 d-flex align-items-center fw-bold">
+        <i class="bi bi-person-badge fs-3 me-2" style="color: #ffcc33;"></i>
+        <span class="animate__animated animate__pulse animate__infinite animate__slower">REGISTRAR ADMINISTRATIVO</span>
+      </h2>
+    </div>
+    <div class="card-body bg-light">
+      {% if form.errors %}
+        <div class="alert alert-danger">
+          <ul>
+            {% for field in form %}
+              {% for error in field.errors %}
+                <li><strong>{{ field.label }}:</strong> {{ error }}</li>
+              {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+              <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+      <form method="post" enctype="multipart/form-data" id="adminForm" class="needs-validation" novalidate>
+        {% csrf_token %}
+        <!-- Credenciales -->
+        <div class="card mb-4 border" style="border-color: #4a7abc !important; border-width: 2px;">
+          <div class="card-header" style="background-color: #1a3b68; color: white;">
+            <h3 class="h5 mb-0">
+              <i class="bi bi-person-circle me-2" style="color: #ffcc33;"></i> Credenciales de Usuario
+            </h3>
+          </div>
+          <div class="card-body">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label"><i class="bi bi-person me-1" style="color: #4a7abc;"></i> Usuario</label>
+                <div class="input-group">
+                  <span class="input-group-text" style="background-color: #1a3b68; color: white;"><i class="bi bi-person"></i></span>
+                  {{ form.username }}
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label"><i class="bi bi-lock me-1" style="color: #4a7abc;"></i> Contraseña</label>
+                <div class="input-group">
+                  <span class="input-group-text" style="background-color: #1a3b68; color: white;"><i class="bi bi-lock"></i></span>
+                  {{ form.password }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Datos Personales -->
+        <div class="card mb-4 border" style="border-color: #4a7abc !important; border-width: 2px;">
+          <div class="card-header" style="background-color: #f18f01; color: white; border-bottom: 2px solid #ffcc33;">
+            <h3 class="h5 mb-0">
+              <i class="bi bi-person-vcard me-2" style="color: #ffcc33;"></i> Datos Personales
+            </h3>
+          </div>
+          <div class="card-body">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label"><i class="bi bi-person me-1" style="color: #4a7abc;"></i> Apellidos</label>
+                <div class="input-group">
+                  <span class="input-group-text" style="background-color: #f18f01; color: white;"><i class="bi bi-pencil"></i></span>
+                  {{ form.apellidos }}
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label"><i class="bi bi-person me-1" style="color: #4a7abc;"></i> Nombres</label>
+                <div class="input-group">
+                  <span class="input-group-text" style="background-color: #f18f01; color: white;"><i class="bi bi-pencil"></i></span>
+                  {{ form.nombre }}
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label"><i class="bi bi-card-text me-1" style="color: #4a7abc;"></i> C.I.</label>
+                <div class="input-group">
+                  <span class="input-group-text" style="background-color: #f18f01; color: white;"><i class="bi bi-hash"></i></span>
+                  {{ form.carnet }}
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label"><i class="bi bi-calendar-heart me-1" style="color: #4a7abc;"></i> Fecha de nacimiento</label>
+                <div class="input-group">
+                  <span class="input-group-text" style="background-color: #f18f01; color: white;"><i class="bi bi-calendar"></i></span>
+                  {{ form.fecha_nacimiento }}
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label"><i class="bi bi-house-door me-1" style="color: #4a7abc;"></i> Domicilio</label>
+                <div class="input-group">
+                  <span class="input-group-text" style="background-color: #f18f01; color: white;"><i class="bi bi-house-door"></i></span>
+                  {{ form.domicilio }}
+                </div>
+              </div>
+              <div class="col-md-12">
+                <label class="form-label"><i class="bi bi-briefcase me-1" style="color: #4a7abc;"></i> Ocupación</label>
+                <div class="input-group">
+                  <span class="input-group-text" style="background-color: #f18f01; color: white;"><i class="bi bi-briefcase"></i></span>
+                  {{ form.ocupacion }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Información de Contacto -->
+        <div class="card mb-4 border" style="border-color: #4a7abc !important; border-width: 2px;">
+          <div class="card-header" style="background-color: #4a7abc; color: white; border-bottom: 2px solid #4a7abc;">
+            <h3 class="h5 mb-0">
+              <i class="bi bi-telephone me-2" style="color: #ffcc33;"></i> Información de Contacto
+            </h3>
+          </div>
+          <div class="card-body">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label"><i class="bi bi-envelope me-1" style="color: #4a7abc;"></i> Correo electrónico</label>
+                <div class="input-group">
+                  <span class="input-group-text" style="background-color: #4a7abc; color: white;"><i class="bi bi-at"></i></span>
+                  {{ form.direccion }}
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label"><i class="bi bi-phone me-1" style="color: #4a7abc;"></i> Teléfono</label>
+                <div class="input-group">
+                  <span class="input-group-text" style="background-color: #4a7abc; color: white;"><i class="bi bi-telephone"></i></span>
+                  {{ form.telefono }}
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label"><i class="bi bi-award me-1" style="color: #4a7abc;"></i> Rol</label>
+                <div class="input-group">
+                  <span class="input-group-text" style="background-color: #4a7abc; color: white;"><i class="bi bi-award"></i></span>
+                  {{ form.rol }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Botón de envío -->
+        <div class="text-center mt-4">
+          <div class="d-inline-block position-relative">
+            <button type="submit" class="btn btn-lg px-5 py-3 shadow-lg animate__animated animate__pulse animate__infinite animate__slow" style="background-color: #4a7abc; color: white; border: 2px solid #1a3b68;" id="submitBtn">
+              <i class="bi bi-check-circle-fill me-2" style="color: #ffcc33;"></i> REGISTRAR ADMINISTRATIVO
+            </button>
+            <div class="position-absolute top-0 start-0 w-100 h-100" style="z-index: -1; transform: scale(1.1);">
+              <div class="position-absolute top-0 start-0 w-100 h-100 rounded-pill" style="background-color: #1a3b68; opacity: 0.25; filter: blur(10px);"></div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Tooltips
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    tooltipTriggerList.forEach(el => new bootstrap.Tooltip(el));
+
+    // Form validation
+    const form = document.getElementById('adminForm');
+    if (form) { 
+      form.addEventListener('submit', function(event) {
+        if (!form.checkValidity()) {
+          event.preventDefault();
+          event.stopPropagation();  
+          const firstInvalid = form.querySelector(':invalid');
+          if (firstInvalid) { 
+            firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' }); 
+            firstInvalid.classList.add('animate__animated', 'animate__headShake');
+            setTimeout(() => firstInvalid.classList.remove('animate__animated', 'animate__headShake'), 1000);
+          }
+        } else {  
+          const submitBtn = document.getElementById('submitBtn');
+          submitBtn.innerHTML = '<i class="spinner-border spinner-border-sm me-2"></i> Procesando...';
+          submitBtn.disabled = true;
+        } 
+        form.classList.add('was-validated');
+      });
+
+      const emailFields = form.querySelectorAll('input[type="email"]');
+      emailFields.forEach(field => {
+        field.addEventListener('input', function() {
+          if (this.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.value)) {
+            this.setCustomValidity('Ingrese un correo válido');
+          } else {
+            this.setCustomValidity('');
+          }
+        });
+      }); 
+    }
+
+    // Input focus effects
+    document.querySelectorAll('.form-control, .form-select').forEach(input => {
+      input.addEventListener('focus', function() {
+        this.closest('.input-group')?.classList.add('shadow');
+        this.closest('.card')?.classList.add('border');
+        if (this.closest('.card')) this.closest('.card').style.borderColor = '#1a3b68';
+      }); 
+      input.addEventListener('blur', function() {
+        this.closest('.input-group')?.classList.remove('shadow');
+        this.closest('.card')?.classList.remove('border');
+      });
+    });
+  });
+</script>
+
+<style> 
+  body {
+    background: linear-gradient(135deg, #f3f4f6 0%, #e8f0fe 100%);
+    min-height: 100vh;
+  } 
+  .card {
+    border-radius: 1rem;
+    overflow: hidden; 
+    transition: transform 0.3s, box-shadow 0.3s;
+  } 
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 1rem 3rem rgba(26, 59, 104, 0.2) !important;
+  }
+  .form-control, .form-select {
+    border-width: 2px !important;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  .form-control:focus, .form-select:focus {
+    border-color: #1a3b68 !important;
+    box-shadow: 0 0 0 0.25rem rgba(26, 59, 104, 0.25) !important;
+  }
+  .input-group-text {
+    border-width: 2px !important;
+  }
+  #submitBtn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(74, 122, 188, 0.4) !important;
+  }
+  #submitBtn:active {
+    transform: translateY(0);
+  } 
+   .form-control,
+  .form-select,
+  .input-group-text,
+  input[type="date"],
+  input[type="text"],
+  input[type="email"],
+  input[type="number"],
+  input[type="password"],
+  textarea,
+  select {
+    border: 2px solid #4a7abc !important;
+    box-shadow: none !important;
+    background-clip: padding-box;
+  }
+  .form-control:focus,
+  .form-select:focus,
+  input[type="date"]:focus,
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  input[type="number"]:focus,
+  input[type="password"]:focus,
+  textarea:focus,
+  select:focus {
+    border-color: #1a3b68 !important;
+    box-shadow: 0 0 0 0.25rem rgba(26, 59, 104, 0.25) !important;
+  }
+</style>
+{% endblock %}

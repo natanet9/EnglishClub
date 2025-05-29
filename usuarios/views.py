@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .models import Usuario
-from .forms import EstudianteRegularForm, EstudianteTecnicoForm, TutorForm
+from .forms import EstudianteRegularForm, EstudianteTecnicoForm, TutorForm, AdministrativoForm
 from django.contrib.auth import logout
 
 def logout_view(request):
@@ -156,3 +156,37 @@ def asignar_tutor(request, estudiante_id):
     
 def estudiante_registrado(request):
     return render(request, 'Registros/estudiante_registrado.html')
+
+
+@login_required
+@user_passes_test(is_secretaria_or_directivo)
+def crear_administrativo(request):
+    form = AdministrativoForm(request.POST or None, request.FILES or None)
+    if request.method == 'POST':
+        if form.is_valid():
+            data = form.cleaned_data
+            try:
+                usuario = Usuario.objects.create_user(
+                    username=data['username'],
+                    carnet=data['carnet'],
+                    nombre=data['nombre'],
+                    apellidos=data['apellidos'],
+                    contraseña=data['password'],
+                    direccion=data['direccion'],
+                    telefono=data['telefono'],
+                    fecha_nacimiento=data['fecha_nacimiento'],
+                    domicilio=data['domicilio'],
+                    ocupacion=data.get('ocupacion', ''),
+                    rol=data['rol'],
+                )
+                messages.success(request, "✅ Usuario administrativo creado exitosamente.")
+                return redirect('usuarios:estudiante_registrado')
+            except Exception as e:
+                messages.error(request, f"❌ Error al guardar usuario: {str(e)}")
+        else:
+            messages.error(request, "❌ Formulario inválido. Revisa los campos.")
+    return render(request, 'Registros/administrativo.html', {
+        'form': form,
+        'today': now().date(),
+        'dias_semana': ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
+    })

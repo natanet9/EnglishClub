@@ -36,3 +36,23 @@ class TutorForm(forms.ModelForm):
         widgets = {
             'fecha_nacimiento': forms.DateInput(attrs={'type': 'date'}),
         }
+
+class AdministrativoForm(forms.ModelForm):
+    username = forms.CharField(label="Usuario")
+    password = forms.CharField(label="Contraseña", widget=forms.PasswordInput)
+    direccion = forms.EmailField(label="Correo electrónico")
+    rol = forms.ChoiceField(
+        label="Rol",
+        choices=[
+            ('docente', 'Docente'),
+            ('directivo', 'Directivo'),
+            ('secretaria', 'Secretaria'),
+        ]
+    )
+
+    class Meta:
+        model = Usuario
+        exclude = ['hijo', 'parentesco', 'is_staff', 'is_active', 'fecha_registro']
+        widgets = {
+            'fecha_nacimiento': forms.DateInput(attrs={'type': 'date'}),
+        }
