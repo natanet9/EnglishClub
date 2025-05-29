@@ -3,97 +3,351 @@
 {% block title %}Iniciar Sesión{% endblock %}
 
 {% block content %}
-<section class="min-h-screen flex items-center justify-center bg-blue-50">
-  <div class="bg-white rounded-xl shadow-lg grid grid-cols-1 md:grid-cols-2 w-full max-w-4xl overflow-hidden">
+<section class="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-blue-900 via-blue-800 to-blue-600">
+  
+  <!-- Elementos de fondo animados -->
+  <div class="absolute inset-0 overflow-hidden">
+    <div class="floating-shape absolute top-20 left-20 w-32 h-32 bg-blue-400 opacity-20 rounded-full blur-xl animate-float"></div>
+    <div class="floating-shape absolute top-40 right-32 w-24 h-24 bg-blue-300 opacity-30 rounded-full blur-lg animate-float-delayed"></div>
+    <div class="floating-shape absolute bottom-32 left-1/4 w-40 h-40 bg-blue-500 opacity-15 rounded-full blur-2xl animate-float-slow"></div>
+    <div class="floating-shape absolute top-1/3 right-20 w-28 h-28 bg-blue-200 opacity-25 rounded-full blur-xl animate-float"></div>
+    <div class="floating-shape absolute bottom-20 right-1/4 w-36 h-36 bg-blue-400 opacity-20 rounded-full blur-xl animate-float-delayed"></div>
+    <div class="floating-shape absolute top-1/2 left-1/3 w-20 h-20 bg-white opacity-10 rounded-full blur-lg animate-float-slow"></div>
+  </div>
 
-    <!-- Lado izquierdo -->
-    <div class="bg-blue-900 text-white p-10 flex flex-col justify-center">
-      <h2 class="text-3xl font-bold mb-4">Bienvenido de nuevo</h2>
-      <p class="mb-6">Accede a tu cuenta para continuar tu aprendizaje con nosotros.</p>
-      <ul class="list-disc pl-5 space-y-2">
-        <li>✓ Contenido exclusivo para todos los niveles</li>
-        <li>✓ Sistema de seguimiento de progreso</li>
-        <li>✓ Comunicación directa con docentes</li>
-      </ul>
-      <p class="mt-10 text-sm text-gray-200">© 2025 English Club - Todos los derechos reservados</p>
+  <!-- Contenedor principal -->
+  <div class="relative z-10 w-full max-w-md mx-4">
+    
+    <!-- Logo placeholder -->
+    <div class="text-center mb-8">
+      <div class="inline-flex items-center justify-center w-16 h-16 bg-white bg-opacity-20 backdrop-blur-sm rounded-2xl mb-4 shadow-lg">
+        <div class="w-8 h-8 bg-white rounded-lg transform rotate-45"></div>
+      </div>
+      <h1 class="text-white text-2xl font-bold">English Club</h1>
     </div>
 
-    <!-- Lado derecho -->
-    <div class="p-10">
-      <h2 class="text-2xl font-bold text-blue-900 mb-6 text-center">Iniciar Sesión</h2>
+    <!-- Tarjeta de login -->
+    <div class="glass-card bg-white bg-opacity-10 backdrop-blur-md rounded-3xl p-8 shadow-2xl border border-white border-opacity-20">
+      <div class="text-center mb-8">
+        <h2 class="text-white text-2xl font-semibold mb-2">Iniciar Sesión</h2>
+        <p class="text-blue-100 text-sm">Bienvenido de nuevo</p>
+      </div>
 
-      <form method="post" class="space-y-4" aria-label="Formulario de inicio de sesión">
+      <form method="post" class="space-y-6" aria-label="Formulario de inicio de sesión">
         {% csrf_token %}
 
-        <fieldset>
-          <legend class="text-sm font-semibold text-gray-700 mb-2">Seleccione su perfil:</legend>
-            <div class="grid grid-cols-2 gap-3 mb-4" id="role-selector">
-              <label class="role-option flex items-center justify-center border border-blue-200 rounded-lg py-2 px-3 bg-blue-50 hover:bg-blue-100 cursor-pointer transition">
-                <input type="radio" name="user-type" value="docente" class="hidden" required>
-                <span class="text-blue-800 font-medium">👩‍🏫 Docente</span>
-              </label>
-              <label class="role-option flex items-center justify-center border border-blue-200 rounded-lg py-2 px-3 bg-blue-50 hover:bg-blue-100 cursor-pointer transition">
-                <input type="radio" name="user-type" value="secretaria" class="hidden">
-                <span class="text-blue-800 font-medium">👩‍💼 Secretaria</span>
-              </label>
-              <label class="role-option flex items-center justify-center border border-blue-200 rounded-lg py-2 px-3 bg-blue-50 hover:bg-blue-100 cursor-pointer transition">
-                <input type="radio" name="user-type" value="tutor" class="hidden">
-                <span class="text-blue-800 font-medium">👨‍👩‍👧 Padre/Tutor</span>
-              </label>
-              <label class="role-option flex items-center justify-center border border-blue-200 rounded-lg py-2 px-3 bg-blue-50 hover:bg-blue-100 cursor-pointer transition">
-                <input type="radio" name="user-type" value="estudiante" class="hidden">
-                <span class="text-blue-800 font-medium">🎓 Estudiante</span>
-              </label>
-              <label class="role-option flex items-center justify-center border border-blue-200 rounded-lg py-2 px-3 bg-blue-50 hover:bg-blue-100 cursor-pointer transition">
-                <input type="radio" name="user-type" value="directivo" class="hidden">
-                <span class="text-blue-800 font-medium">👑 Directivo</span>
-              </label>
-            </div>
-
-        </fieldset>
-
-        <div>
-          <label for="username" class="block text-sm font-medium text-gray-700">Usuario:</label>
-          <input type="text" id="username" name="username" class="w-full border border-gray-300 rounded px-3 py-2" required>
+        <!-- Campo Usuario -->
+        <div class="form-group">
+          <label for="username" class="block text-white text-sm font-medium mb-2">Usuario</label>
+          <div class="relative">
+            <input 
+              type="text" 
+              id="username" 
+              name="username" 
+              class="glass-input w-full bg-white bg-opacity-10 backdrop-blur-sm border border-white border-opacity-30 rounded-xl px-4 py-3 text-white placeholder-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all duration-300" 
+              placeholder="Ingrese su usuario"
+              required
+            >
+          </div>
         </div>
 
-        <div>
-          <label for="password" class="block text-sm font-medium text-gray-700">Contraseña:</label>
-          <input type="password" id="password" name="password" class="w-full border border-gray-300 rounded px-3 py-2" required>
+        <!-- Campo Contraseña -->
+        <div class="form-group">
+          <label for="password" class="block text-white text-sm font-medium mb-2">Contraseña</label>
+          <div class="relative">
+            <input 
+              type="password" 
+              id="password" 
+              name="password" 
+              class="glass-input w-full bg-white bg-opacity-10 backdrop-blur-sm border border-white border-opacity-30 rounded-xl px-4 py-3 text-white placeholder-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all duration-300" 
+              placeholder="Ingrese su contraseña"
+              required
+            >
+          </div>
         </div>
 
+        <!-- Recordarme y olvidé contraseña -->
         <div class="flex justify-between items-center">
-          <label class="text-sm text-gray-500">
-            <input type="checkbox" name="remember" class="mr-1"> Recordarme
+          <label class="flex items-center text-blue-100 text-sm cursor-pointer">
+            <input type="checkbox" name="remember" class="sr-only">
+            <div class="checkbox-custom w-4 h-4 bg-white bg-opacity-20 rounded border border-white border-opacity-30 flex items-center justify-center mr-2">
+              <svg class="checkmark w-3 h-3 text-white opacity-0 transition-opacity duration-200" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+              </svg>
+            </div>
+            Recordarme
           </label>
-          <a href="#" class="text-blue-600 text-sm hover:underline">¿Olvidó su contraseña?</a>
+          <a href="#" class="text-blue-200 text-sm hover:text-white transition-colors duration-200">¿Olvidaste tu contraseña?</a>
         </div>
 
-        <button type="submit" class="w-full bg-blue-800 text-white py-2 rounded hover:bg-blue-900 font-semibold">
+        <!-- Botón de login -->
+        <button 
+          type="submit" 
+          class="login-btn w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 px-6 rounded-xl font-semibold hover:from-blue-700 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-transparent transition-all duration-300 transform hover:scale-105 shadow-lg"
+        >
           Iniciar Sesión
         </button>
 
+        <!-- Divisor -->
+        <div class="flex items-center my-6">
+          <div class="flex-1 border-t border-white border-opacity-30"></div>
+          <span class="px-4 text-blue-200 text-sm">o continúa con</span>
+          <div class="flex-1 border-t border-white border-opacity-30"></div>
+        </div>
+
+        <!-- Botones de redes sociales -->
+        <div class="flex justify-center space-x-4">
+          <a href="#" class="social-btn w-12 h-12 bg-white bg-opacity-10 backdrop-blur-sm rounded-xl flex items-center justify-center border border-white border-opacity-20 hover:bg-opacity-20 transition-all duration-300 transform hover:scale-110">
+            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            </svg>
+          </a>
+          <a href="#" class="social-btn w-12 h-12 bg-white bg-opacity-10 backdrop-blur-sm rounded-xl flex items-center justify-center border border-white border-opacity-20 hover:bg-opacity-20 transition-all duration-300 transform hover:scale-110">
+            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.859-5.008-4.859-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.758-1.378l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.309.535 3.554.535 6.624 0 11.99-5.367 11.99-11.987C24.007 5.367 18.641.001 12.017.001z"/>
+            </svg>
+          </a>
+          <a href="#" class="social-btn w-12 h-12 bg-white bg-opacity-10 backdrop-blur-sm rounded-xl flex items-center justify-center border border-white border-opacity-20 hover:bg-opacity-20 transition-all duration-300 transform hover:scale-110">
+            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.465 3.085"/>
+            </svg>
+          </a>
+        </div>
+
+        <!-- Mensajes de error -->
         {% if messages %}
-          <div class="mt-4 space-y-2">
+          <div class="mt-6 space-y-2">
             {% for message in messages %}
-              <p class="text-red-600 text-sm">{{ message }}</p>
+              <div class="error-message bg-red-500 bg-opacity-20 backdrop-blur-sm border border-red-400 border-opacity-30 rounded-xl px-4 py-3 text-red-200 text-sm animate-fade-in">
+                {{ message }}
+              </div>
             {% endfor %}
           </div>
         {% endif %}
       </form>
+
+      <!-- Footer -->
+      <div class="text-center mt-8">
+        <p class="text-blue-200 text-xs">
+          © 2025 English Club - Todos los derechos reservados
+        </p>
+      </div>
     </div>
   </div>
 </section>
 
+<style>
+  /* Animaciones personalizadas */
+  @keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(180deg); }
+  }
+  
+  @keyframes float-delayed {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-30px) rotate(-180deg); }
+  }
+  
+  @keyframes float-slow {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-15px) rotate(90deg); }
+  }
+  
+  @keyframes fade-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.3); }
+    50% { box-shadow: 0 0 40px rgba(59, 130, 246, 0.6); }
+  }
+  
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  .animate-float-delayed {
+    animation: float-delayed 8s ease-in-out infinite;
+  }
+  
+  .animate-float-slow {
+    animation: float-slow 10s ease-in-out infinite;
+  }
+  
+  .animate-fade-in {
+    animation: fade-in 0.5s ease-out;
+  }
+  
+  /* Efectos de cristal */
+  .glass-card {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  }
+  
+  .glass-input {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+  }
+  
+  .glass-input:focus {
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+  }
+  
+  /* Checkbox personalizado */
+  .checkbox-custom input:checked + .checkbox-custom .checkmark {
+    opacity: 1;
+  }
+  
+  input[type="checkbox"]:checked + .checkbox-custom {
+    background: rgba(59, 130, 246, 0.5);
+    border-color: rgba(59, 130, 246, 0.8);
+  }
+  
+  /* Botón de login */
+  .login-btn {
+    background: linear-gradient(135deg, #3b82f6, #1e40af);
+    box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+  }
+  
+  .login-btn:hover {
+    box-shadow: 0 15px 30px rgba(59, 130, 246, 0.4);
+  }
+  
+  /* Botones sociales */
+  .social-btn {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+  }
+  
+  .social-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Formas flotantes */
+  .floating-shape {
+    animation-duration: 6s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+  }
+  
+  /* Responsive */
+  @media (max-width: 640px) {
+    .glass-card {
+      margin: 1rem;
+      padding: 1.5rem;
+    }
+  }
+</style>
+
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const roleOptions = document.querySelectorAll(".role-option");
-    roleOptions.forEach(option => {
-      option.addEventListener("click", () => {
-        roleOptions.forEach(o => o.classList.remove("ring-2", "ring-blue-500", "bg-blue-200"));
-        option.classList.add("ring-2", "ring-blue-500", "bg-blue-200");
-      });
+document.addEventListener("DOMContentLoaded", () => {
+  // Efecto de checkbox personalizado
+  const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+  checkboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', function() {
+      const customCheckbox = this.nextElementSibling;
+      const checkmark = customCheckbox.querySelector('.checkmark');
+      if (this.checked) {
+        checkmark.style.opacity = '1';
+        customCheckbox.style.background = 'rgba(59, 130, 246, 0.5)';
+        customCheckbox.style.borderColor = 'rgba(59, 130, 246, 0.8)';
+      } else {
+        checkmark.style.opacity = '0';
+        customCheckbox.style.background = 'rgba(255, 255, 255, 0.2)';
+        customCheckbox.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+      }
     });
   });
+  
+  // Efecto de enfoque en inputs
+  const inputs = document.querySelectorAll('.glass-input');
+  inputs.forEach(input => {
+    input.addEventListener('focus', function() {
+      this.parentElement.classList.add('focused');
+    });
+    
+    input.addEventListener('blur', function() {
+      this.parentElement.classList.remove('focused');
+    });
+  });
+  
+  // Animación de carga para el formulario
+  const form = document.querySelector('form');
+  form.style.opacity = '0';
+  form.style.transform = 'translateY(20px)';
+  
+  setTimeout(() => {
+    form.style.transition = 'all 0.6s ease-out';
+    form.style.opacity = '1';
+    form.style.transform = 'translateY(0)';
+  }, 200);
+  
+  // Efecto de hover en botones sociales
+  const socialBtns = document.querySelectorAll('.social-btn');
+  socialBtns.forEach(btn => {
+    btn.addEventListener('mouseenter', function() {
+      this.style.transform = 'scale(1.1) rotate(5deg)';
+    });
+    
+    btn.addEventListener('mouseleave', function() {
+      this.style.transform = 'scale(1) rotate(0deg)';
+    });
+  });
+  
+  // Animación del botón de login
+  const loginBtn = document.querySelector('.login-btn');
+  loginBtn.addEventListener('mousedown', function() {
+    this.style.transform = 'scale(0.98)';
+  });
+  
+  loginBtn.addEventListener('mouseup', function() {
+    this.style.transform = 'scale(1.05)';
+  });
+  
+  // Efecto de ondas en el fondo
+  function createRipple() {
+    const ripple = document.createElement('div');
+    ripple.style.position = 'absolute';
+    ripple.style.borderRadius = '50%';
+    ripple.style.background = 'rgba(255, 255, 255, 0.1)';
+    ripple.style.transform = 'scale(0)';
+    ripple.style.animation = 'ripple 2s linear infinite';
+    ripple.style.pointerEvents = 'none';
+    
+    const size = Math.random() * 100 + 50;
+    ripple.style.width = size + 'px';
+    ripple.style.height = size + 'px';
+    ripple.style.left = Math.random() * window.innerWidth + 'px';
+    ripple.style.top = Math.random() * window.innerHeight + 'px';
+    
+    document.body.appendChild(ripple);
+    
+    setTimeout(() => {
+      ripple.remove();
+    }, 2000);
+  }
+  
+  // Crear ondas ocasionales
+  setInterval(createRipple, 3000);
+});
+
+// Añadir animación de ondas
+const style = document.createElement('style');
+style.textContent = `
+  @keyframes ripple {
+    to {
+      transform: scale(4);
+      opacity: 0;
+    }
+  }
+`;
+document.head.appendChild(style);
 </script>
 {% endblock %}

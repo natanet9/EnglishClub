@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Estudiante Registrado{% endblock %}
+{% block content %}
+<div class="container my-4">
+    <div class="card shadow-sm border-success">
+        <div class="card-header bg-success text-white">
+            <h4>¡Estudiante registrado exitosamente!</h4>
+        </div>
+        <div class="card-body">
+            <p>El estudiante ha sido procesado correctamente.</p>
+            <a href="{% url 'usuarios:crear_estudiante_regular' %}" class="btn btn-primary">Registrar otro estudiante</a>
+            <a href="{% url 'usuarios:login' %}" class="btn btn-secondary">Volver al inicio</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
