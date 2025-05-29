@@ -15,14 +15,7 @@ def logout_view(request):
 def login_view(request):
     if request.user.is_authenticated:
         user_type = getattr(request.user, 'rol', None)
-        if user_type == 'docente':
-            return redirect('docente_dashboard')
-        elif user_type == 'estudiante':
-            return redirect('estudiante_dashboard')
-        elif user_type == 'padre':
-            return redirect('padre_dashboard')
-        elif user_type == 'directivo':
-            return redirect('directivo_dashboard')
+        return redirect('dashboard')
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -30,17 +23,7 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)  
         if user is not None:
             login(request, user)
-            next_url = request.GET.get('next', '')
-            if next_url:
-                return redirect(next_url)
-            if user_type == 'docente':
-                return redirect('docente_dashboard')
-            elif user_type == 'estudiante':
-                return redirect('estudiante_dashboard')
-            elif user_type == 'padre':
-                return redirect('padre_dashboard')
-            elif user_type == 'directivo':
-                return redirect('dashboard')
+            return redirect('dashboard')
         else:
             messages.error(request, 'Usuario o contraseña incorrectos.')
     return render(request, 'usuarios/login.html')   

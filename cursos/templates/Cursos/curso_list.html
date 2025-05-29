@@ -24,7 +24,7 @@
       {% endif %}
 
       <div class="mb-3 text-end">
-        <a href="{% url 'curso_create' %}" class="btn btn-lg px-4 py-2 shadow-sm animate__animated animate__pulse animate__infinite animate__slower" style="background-color: #4a7abc; color: white;">
+        <a href="{% url 'cursos:curso_create' %}" class="btn btn-lg px-4 py-2 shadow-sm animate__animated animate__pulse animate__infinite animate__slower" style="background-color: #4a7abc; color: white;">
           <i class="bi bi-plus-circle-fill me-2" style="color: #ffcc33;"></i> Nuevo Curso
         </a>
       </div>
@@ -48,10 +48,10 @@
               <td>{{ curso.dias|join:", " }}</td>
               <td>
                 {% if user.rol == 'directivo' %}
-                  <a href="{% url 'curso_edit' curso.pk %}" class="btn btn-primary btn-sm me-2">
+                  <a href="{% url 'cursos:curso_edit' curso.pk %}" class="btn btn-primary btn-sm me-2">
                     <i class="bi bi-pencil me-1" style="color: #ffcc33;"></i> Editar
                   </a>
-                  <a href="{% url 'curso_delete' curso.pk %}" class="btn btn-danger btn-sm">
+                  <a href="{% url 'cursos:curso_delete' curso.pk %}" class="btn btn-danger btn-sm">
                     <i class="bi bi-trash me-1" style="color: #ffcc33;"></i> Eliminar
                   </a>
                 {% endif %}

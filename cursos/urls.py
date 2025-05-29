@@ -3,6 +3,8 @@ from django.urls import path
 from cursos.views import inscripcion_list, inscripcion_create, inscripcion_edit, inscripcion_delete, curso_list, \
     curso_create, curso_edit, curso_delete
 
+app_name = 'cursos'
+
 urlpatterns = [
     #modulo de incripciones
     path('inscripciones/', inscripcion_list, name='inscripcion_list'),
