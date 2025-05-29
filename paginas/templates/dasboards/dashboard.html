@@ -4,32 +4,44 @@
 
 {% block content %}
 
-  <!-- Contenido principal -->  
+  <!-- Contenido principal -->
   <main class="flex-1 p-8 bg-gray-50">
-    <h2 class="text-2xl font-bold text-blue-800 mb-2">👋 Bienvenido/a, {{ user.nombre }}</h2>
+    <h2 class="text-2xl font-bold text-blue-800 mb-2">👋 Bienvenido/a, {{ user.nombre }} {{ user.apellidos}}</h2>
     <p class="mb-6 text-gray-600">
-      Este es tu panel de control como {{ user.rol }} del <span class="font-semibold">Instituto English Club</span>.
+      Este es tu panel de control como docente del <span class="font-semibold">Instituto English Club</span>.
     </p>
 
     <!-- Métricas principales -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-      <div class="bg-white p-4 rounded-2xl shadow text-center">
-        <h3 class="text-sm font-semibold text-gray-500">Estudiantes activos</h3>
-        <p class="text-2xl font-bold text-blue-600">384</p>
-      </div>
-      <div class="bg-white p-4 rounded-2xl shadow text-center">
-        <h3 class="text-sm font-semibold text-gray-500">Asistencia promedio</h3>
-        <p class="text-2xl font-bold text-green-600">89%</p>
-      </div>
-      <div class="bg-white p-4 rounded-2xl shadow text-center">
-        <h3 class="text-sm font-semibold text-gray-500">Tasa de aprobación</h3>
-        <p class="text-2xl font-bold text-purple-600">76%</p>
-      </div>
-      <div class="bg-white p-4 rounded-2xl shadow text-center">
-        <h3 class="text-sm font-semibold text-gray-500">Índice de deserción</h3>
-        <p class="text-2xl font-bold text-red-600">5.2%</p>
-      </div>
-    </div>
+   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+  <!-- Estudiantes -->
+  <div class="bg-white p-4 rounded-2xl shadow text-center">
+    <canvas id="chartEstudiantes" width="100" height="100"></canvas>
+    <h3 class="mt-2 text-sm font-semibold text-gray-500">Calificaciones Diarias </h3>
+    <p class="text-lg font-bold text-blue-600">25</p>
+  </div>
+
+  <!-- Asistencia promedio -->
+  <div class="bg-white p-4 rounded-2xl shadow text-center">
+    <canvas id="chartAsistencia" width="100" height="100"></canvas>
+    <h3 class="mt-2 text-sm font-semibold text-gray-500">Asistencia promedio</h3>
+    <p class="text-lg font-bold text-green-600">89%</p>
+  </div>
+
+  <!-- Tasa de aprobación -->
+  <div class="bg-white p-4 rounded-2xl shadow text-center">
+    <canvas id="chartAprobacion" width="100" height="100"></canvas>
+    <h3 class="mt-2 text-sm font-semibold text-gray-500">Tasa de aprobación</h3>
+    <p class="text-lg font-bold text-purple-600">76%</p>
+  </div>
+   <!-- Índice de deserción -->
+  <div class="bg-white p-4 rounded-2xl shadow text-center">
+    <canvas id="chartDesercion" width="100" height="100"></canvas>
+    <h3 class="mt-2 text-sm font-semibold text-gray-500">Índice de deserción</h3>
+    <p class="text-lg font-bold text-red-600">5.2%</p>
+  </div>
+
+
+
 
     <!-- Filtros -->
     <div class="flex flex-wrap gap-4 mb-10">
@@ -56,9 +68,40 @@
       </select>
     </div>
 
-    <!-- Placeholder para contenido dinámico -->
+    <!-- Aquí puedes incluir vistas dinámicas como tablas o reportes -->
     <div class="bg-white p-6 rounded-xl shadow text-gray-600">
       <p>Selecciona una opción del panel lateral para ver más detalles o gestionar el sistema.</p>
     </div>
   </main>
+</div>
+<script>
+  const crearGraficaCircular = (idCanvas, porcentaje, color) => {
+    new Chart(document.getElementById(idCanvas), {
+      type: 'doughnut',
+      data: {
+        datasets: [{
+          data: [porcentaje, 100 - porcentaje],
+          backgroundColor: [color, '#e5e7eb'],
+          borderWidth: 0
+        }]
+      },
+      options: {
+        cutout: '70%',
+        plugins: {
+          legend: { display: false },
+          tooltip: { enabled: false }
+        }
+      }
+    });
+  };
+
+  // Datos simulados
+  crearGraficaCircular("chartEstudiantes", 100, "#3b82f6"); // 100% porque es cantidad
+  crearGraficaCircular("chartAsistencia", 89, "#22c55e");
+  crearGraficaCircular("chartAprobacion", 76, "#a855f7");
+  crearGraficaCircular("chartDesercion", 5.2, "#ef4444");
+</script>
+
 {% endblock %}
+
+
