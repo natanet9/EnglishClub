@@ -1,126 +1,179 @@
 {% extends 'base.html' %}
-{% load static %}
-
 {% block title %}Iniciar Sesión{% endblock %}
+{% load static %}
+{% load i18n %}
 
 {% block content %}
-<section class="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-blue-900 via-blue-800 to-blue-600">
-  
-  <!-- Elementos de fondo animados -->
-  <div class="absolute inset-0 overflow-hidden">
-    <div class="floating-shape absolute top-20 left-20 w-32 h-32 bg-blue-400 opacity-20 rounded-full blur-xl animate-float"></div>
-    <div class="floating-shape absolute top-40 right-32 w-24 h-24 bg-blue-300 opacity-30 rounded-full blur-lg animate-float-delayed"></div>
-    <div class="floating-shape absolute bottom-32 left-1/4 w-40 h-40 bg-blue-500 opacity-15 rounded-full blur-2xl animate-float-slow"></div>
-    <div class="floating-shape absolute top-1/3 right-20 w-28 h-28 bg-blue-200 opacity-25 rounded-full blur-xl animate-float"></div>
-    <div class="floating-shape absolute bottom-20 right-1/4 w-36 h-36 bg-blue-400 opacity-20 rounded-full blur-xl animate-float-delayed"></div>
-    <div class="floating-shape absolute top-1/2 left-1/3 w-20 h-20 bg-white opacity-10 rounded-full blur-lg animate-float-slow"></div>
+<section class="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-blue-900 via-blue-800 to-blue-600" role="main">
+  <!-- Elementos de fondo animados optimizados -->
+  <div class="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+    <div class="floating-shape absolute top-20 left-20 w-32 h-32 bg-blue-400 opacity-20 rounded-full blur-xl animate-float will-change-transform"></div>
+    <div class="floating-shape absolute top-40 right-32 w-24 h-24 bg-blue-300 opacity-30 rounded-full blur-lg animate-float-delayed will-change-transform"></div>
+    <div class="floating-shape absolute bottom-32 left-1/4 w-40 h-40 bg-blue-500 opacity-15 rounded-full blur-2xl animate-float-slow will-change-transform"></div>
+    <div class="floating-shape absolute top-1/3 right-20 w-28 h-28 bg-blue-200 opacity-25 rounded-full blur-xl animate-float will-change-transform"></div>
+    <div class="floating-shape absolute bottom-20 right-1/4 w-36 h-36 bg-blue-400 opacity-20 rounded-full blur-xl animate-float-delayed will-change-transform"></div>
+    <div class="floating-shape absolute top-1/2 left-1/3 w-20 h-20 bg-white opacity-10 rounded-full blur-lg animate-float-slow will-change-transform"></div>
   </div>
 
   <!-- Contenedor principal -->
   <div class="relative z-10 w-full max-w-md mx-4">
-    
-    <!-- Logo placeholder -->
-   <div class="text-center mb-8">
+    <!-- Logo y título -->
+    <header class="text-center mb-8">
+         <div class="text-center mb-8">
   <div class="inline-flex items-center justify-center w-24 h-24 bg-white bg-opacity-20 backdrop-blur-sm rounded-2xl mb-4 shadow-lg">
     <img src="{% static 'img/icono.png' %}" alt="Logo" class="w-20 h-20 object-contain">
   </div>
-  <h1 class="text-white text-3xl font-bold">English Club</h1>
-</div>
+      
+    </header>
 
-    <!-- Tarjeta de login -->
-    <div class="glass-card bg-white bg-opacity-10 backdrop-blur-md rounded-3xl p-8 shadow-2xl border border-white border-opacity-20">
+    <!-- Tarjeta de login mejorada -->
+    <div class="glass-card bg-white bg-opacity-10 backdrop-blur-md rounded-3xl p-8 shadow-2xl border border-white border-opacity-20 hover:bg-opacity-15 transition-all duration-300">
       <div class="text-center mb-8">
         <h2 class="text-white text-2xl font-semibold mb-2">Iniciar Sesión</h2>
-        <p class="text-blue-100 text-sm">Bienvenido de nuevo</p>
+        <p class="text-blue-100 text-sm opacity-90">Bienvenido de nuevo</p>
       </div>
 
-      <form method="post" class="space-y-6" aria-label="Formulario de inicio de sesión">
+      <form method="post" class="space-y-6" aria-label="Formulario de inicio de sesión" novalidate>
         {% csrf_token %}
 
-        <!-- Campo Usuario -->
+        <!-- Campo Usuario mejorado -->
         <div class="form-group">
-          <label for="username" class="block text-white text-sm font-medium mb-2">Usuario</label>
-          <div class="relative">
-            <input 
-              type="text" 
-              id="username" 
-              name="username" 
-              class="glass-input w-full bg-white bg-opacity-10 backdrop-blur-sm border border-white border-opacity-30 rounded-xl px-4 py-3 text-white placeholder-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all duration-300" 
+          <label for="username" class="block text-white text-sm font-medium mb-2 select-none">
+            Usuario <span class="text-red-300" aria-label="requerido">*</span>
+          </label>
+          <div class="relative group">
+            <input
+              type="text"
+              id="username"
+              name="username"
+              class="glass-input w-full bg-white bg-opacity-10 backdrop-blur-sm border border-white border-opacity-30 rounded-xl px-4 py-3 text-white placeholder-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all duration-300 peer"
               placeholder="Ingrese su usuario"
               required
+              autocomplete="username"
+              aria-describedby="username-error"
             >
+            <div class="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-500 to-blue-600 opacity-0 group-hover:opacity-10 transition-opacity duration-300 pointer-events-none"></div>
           </div>
+          <div id="username-error" class="text-red-300 text-xs mt-1 hidden" role="alert"></div>
         </div>
 
-        <!-- Campo Contraseña -->
+        <!-- Campo Contraseña mejorado -->
         <div class="form-group">
-          <label for="password" class="block text-white text-sm font-medium mb-2">Contraseña</label>
-          <div class="relative">
-            <input 
-              type="password" 
-              id="password" 
-              name="password" 
-              class="glass-input w-full bg-white bg-opacity-10 backdrop-blur-sm border border-white border-opacity-30 rounded-xl px-4 py-3 text-white placeholder-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all duration-300" 
+          <label for="password" class="block text-white text-sm font-medium mb-2 select-none">
+            Contraseña <span class="text-red-300" aria-label="requerido">*</span>
+          </label>
+          <div class="relative group">
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="glass-input w-full bg-white bg-opacity-10 backdrop-blur-sm border border-white border-opacity-30 rounded-xl px-4 py-3 pr-12 text-white placeholder-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all duration-300"
               placeholder="Ingrese su contraseña"
               required
+              autocomplete="current-password"
+              aria-describedby="password-error"
             >
+            <button
+              type="button"
+              class="absolute right-3 top-1/2 transform -translate-y-1/2 text-blue-200 hover:text-white transition-colors duration-200 focus:outline-none focus:text-white"
+              aria-label="Mostrar contraseña"
+              onclick="togglePassword()"
+            >
+              <svg id="eye-icon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+              </svg>
+            </button>
+            <div class="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-500 to-blue-600 opacity-0 group-hover:opacity-10 transition-opacity duration-300 pointer-events-none"></div>
           </div>
+          <div id="password-error" class="text-red-300 text-xs mt-1 hidden" role="alert"></div>
         </div>
 
         <!-- Recordarme y olvidé contraseña -->
-        <div class="flex justify-between items-center">
-          <label class="flex items-center text-blue-100 text-sm cursor-pointer">
-            <input type="checkbox" name="remember" class="sr-only">
-            <div class="checkbox-custom w-4 h-4 bg-white bg-opacity-20 rounded border border-white border-opacity-30 flex items-center justify-center mr-2">
+        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
+          <label class="flex items-center text-blue-100 text-sm cursor-pointer hover:text-white transition-colors duration-200 select-none">
+            <input type="checkbox" name="remember" class="sr-only" id="remember-checkbox">
+            <div class="checkbox-custom w-4 h-4 bg-white bg-opacity-20 rounded border border-white border-opacity-30 flex items-center justify-center mr-2 flex-shrink-0">
               <svg class="checkmark w-3 h-3 text-white opacity-0 transition-opacity duration-200" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
               </svg>
             </div>
             Recordarme
           </label>
-          <a href="#" class="text-blue-200 text-sm hover:text-white transition-colors duration-200">¿Olvidaste tu contraseña?</a>
+          <a 
+            href="#" 
+            class="text-blue-200 text-sm hover:text-white transition-colors duration-200 hover:underline focus:outline-none focus:underline"
+            tabindex="0"
+          >
+            ¿Olvidaste tu contraseña?
+          </a>
         </div>
 
-        <!-- Botón de login -->
-        <button 
-          type="submit" 
-          class="login-btn w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 px-6 rounded-xl font-semibold hover:from-blue-700 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-transparent transition-all duration-300 transform hover:scale-105 shadow-lg"
+        <!-- Botón de login mejorado -->
+        <button
+          type="submit"
+          class="login-btn w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 px-6 rounded-xl font-semibold hover:from-blue-700 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-transparent transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+          id="login-button"
         >
-          Iniciar Sesión
+          <span class="flex items-center justify-center">
+            <span id="button-text">Iniciar Sesión</span>
+            <svg id="loading-spinner" class="animate-spin -mr-1 ml-3 h-5 w-5 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+          </span>
         </button>
 
-        <!-- Divisor -->
-        <div class="flex items-center my-6">
+        <!-- Divisor mejorado -->
+        <div class="flex items-center my-6" role="separator" aria-label="o continúa con">
           <div class="flex-1 border-t border-white border-opacity-30"></div>
-          <span class="px-4 text-blue-200 text-sm">o continúa con</span>
+          <span class="px-4 text-blue-200 text-sm font-medium">o continúa con</span>
           <div class="flex-1 border-t border-white border-opacity-30"></div>
         </div>
 
-        <!-- Botones de redes sociales -->
+        <!-- Botones de redes sociales mejorados -->
         <div class="flex justify-center space-x-4">
-          <a href="#" class="social-btn w-12 h-12 bg-white bg-opacity-10 backdrop-blur-sm rounded-xl flex items-center justify-center border border-white border-opacity-20 hover:bg-opacity-20 transition-all duration-300 transform hover:scale-110">
-            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+          <a 
+            href="#" 
+            class="social-btn w-12 h-12 bg-white bg-opacity-10 backdrop-blur-sm rounded-xl flex items-center justify-center border border-white border-opacity-20 hover:bg-opacity-20 transition-all duration-300 transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-transparent"
+            aria-label="Iniciar sesión con Facebook"
+            tabindex="0"
+          >
+            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
             </svg>
           </a>
-          <a href="#" class="social-btn w-12 h-12 bg-white bg-opacity-10 backdrop-blur-sm rounded-xl flex items-center justify-center border border-white border-opacity-20 hover:bg-opacity-20 transition-all duration-300 transform hover:scale-110">
-            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+          <a 
+            href="#" 
+            class="social-btn w-12 h-12 bg-white bg-opacity-10 backdrop-blur-sm rounded-xl flex items-center justify-center border border-white border-opacity-20 hover:bg-opacity-20 transition-all duration-300 transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-transparent"
+            aria-label="Iniciar sesión con Pinterest"
+            tabindex="0"
+          >
+            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.859-5.008-4.859-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.758-1.378l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.309.535 3.554.535 6.624 0 11.99-5.367 11.99-11.987C24.007 5.367 18.641.001 12.017.001z"/>
             </svg>
           </a>
-          <a href="#" class="social-btn w-12 h-12 bg-white bg-opacity-10 backdrop-blur-sm rounded-xl flex items-center justify-center border border-white border-opacity-20 hover:bg-opacity-20 transition-all duration-300 transform hover:scale-110">
-            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+          <a 
+            href="#" 
+            class="social-btn w-12 h-12 bg-white bg-opacity-10 backdrop-blur-sm rounded-xl flex items-center justify-center border border-white border-opacity-20 hover:bg-opacity-20 transition-all duration-300 transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-transparent"
+            aria-label="Iniciar sesión con WhatsApp"
+            tabindex="0"
+          >
+            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.465 3.085"/>
             </svg>
           </a>
         </div>
 
-        <!-- Mensajes de error -->
+        <!-- Mensajes de error mejorados -->
         {% if messages %}
-          <div class="mt-6 space-y-2">
+          <div class="mt-6 space-y-2" role="alert" aria-live="polite">
             {% for message in messages %}
-              <div class="error-message bg-red-500 bg-opacity-20 backdrop-blur-sm border border-red-400 border-opacity-30 rounded-xl px-4 py-3 text-red-200 text-sm animate-fade-in">
-                {{ message }}
+              <div class="error-message bg-red-500 bg-opacity-20 backdrop-blur-sm border border-red-400 border-opacity-30 rounded-xl px-4 py-3 text-red-200 text-sm animate-fade-in flex items-start">
+                <svg class="w-4 h-4 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                </svg>
+                <span>{{ message }}</span>
               </div>
             {% endfor %}
           </div>
@@ -128,17 +181,17 @@
       </form>
 
       <!-- Footer -->
-      <div class="text-center mt-8">
-        <p class="text-blue-200 text-xs">
+      <footer class="text-center mt-8">
+        <p class="text-blue-200 text-xs opacity-75">
           © 2025 English Club - Todos los derechos reservados
         </p>
-      </div>
+      </footer>
     </div>
   </div>
 </section>
 
 <style>
-  /* Animaciones personalizadas */
+  /* Animaciones personalizadas optimizadas */
   @keyframes float {
     0%, 100% { transform: translateY(0px) rotate(0deg); }
     50% { transform: translateY(-20px) rotate(180deg); }
@@ -159,6 +212,13 @@
     to { opacity: 1; transform: translateY(0); }
   }
   
+  @keyframes ripple {
+    to {
+      transform: scale(4);
+      opacity: 0;
+    }
+  }
+  
   @keyframes pulse-glow {
     0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.3); }
     50% { box-shadow: 0 0 40px rgba(59, 130, 246, 0.6); }
@@ -166,26 +226,31 @@
   
   .animate-float {
     animation: float 6s ease-in-out infinite;
+    will-change: transform;
   }
   
   .animate-float-delayed {
     animation: float-delayed 8s ease-in-out infinite;
+    will-change: transform;
   }
   
   .animate-float-slow {
     animation: float-slow 10s ease-in-out infinite;
+    will-change: transform;
   }
   
   .animate-fade-in {
     animation: fade-in 0.5s ease-out;
   }
   
-  /* Efectos de cristal */
+  /* Efectos de cristal mejorados */
   .glass-card {
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    box-shadow: 
+      0 8px 32px rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
   }
   
   .glass-input {
@@ -196,101 +261,321 @@
   
   .glass-input:focus {
     background: rgba(255, 255, 255, 0.15);
-    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+    box-shadow: 
+      0 0 20px rgba(59, 130, 246, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transform: translateY(-1px);
   }
   
-  /* Checkbox personalizado */
-  .checkbox-custom input:checked + .checkbox-custom .checkmark {
-    opacity: 1;
-  }
-  
+  /* Checkbox personalizado mejorado */
   input[type="checkbox"]:checked + .checkbox-custom {
     background: rgba(59, 130, 246, 0.5);
     border-color: rgba(59, 130, 246, 0.8);
+    transform: scale(1.1);
   }
   
-  /* Botón de login */
+  input[type="checkbox"]:checked + .checkbox-custom .checkmark {
+    opacity: 1;
+    transform: scale(1);
+  }
+  
+  .checkbox-custom {
+    transition: all 0.2s ease;
+  }
+  
+  /* Botón de login mejorado */
   .login-btn {
     background: linear-gradient(135deg, #3b82f6, #1e40af);
-    box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+    box-shadow: 
+      0 10px 20px rgba(59, 130, 246, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .login-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+  }
+  
+  .login-btn:hover::before {
+    left: 100%;
   }
   
   .login-btn:hover {
-    box-shadow: 0 15px 30px rgba(59, 130, 246, 0.4);
+    box-shadow: 
+      0 15px 30px rgba(59, 130, 246, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
   }
   
-  /* Botones sociales */
+  /* Botones sociales mejorados */
   .social-btn {
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .social-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
     transition: all 0.3s ease;
+    transform: translate(-50%, -50%);
+  }
+  
+  .social-btn:hover::before {
+    width: 100%;
+    height: 100%;
   }
   
   .social-btn:hover {
     background: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 
+      0 5px 15px rgba(0, 0, 0, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
   }
   
-  /* Formas flotantes */
+  /* Optimizaciones de rendimiento */
   .floating-shape {
-    animation-duration: 6s;
-    animation-timing-function: ease-in-out;
-    animation-iteration-count: infinite;
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
   }
   
-  /* Responsive */
+  /* Mejoras responsive */
   @media (max-width: 640px) {
     .glass-card {
       margin: 1rem;
       padding: 1.5rem;
     }
+    
+    .floating-shape {
+      display: none; /* Ocultar animaciones en móviles para mejor rendimiento */
+    }
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .floating-shape,
+    .animate-float,
+    .animate-float-delayed,
+    .animate-float-slow {
+      animation: none;
+    }
+  }
+  
+  /* Estados de enfoque mejorados */
+  .form-group:focus-within label {
+    color: rgba(96, 165, 250, 1);
+    transform: translateY(-2px);
+    transition: all 0.2s ease;
+  }
+  
+  /* Efectos de carga */
+  .form-loading {
+    pointer-events: none;
+    opacity: 0.7;
+  }
+  
+  .form-loading .glass-input {
+    background: rgba(255, 255, 255, 0.05);
   }
 </style>
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-  // Efecto de checkbox personalizado
-  const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-  checkboxes.forEach(checkbox => {
-    checkbox.addEventListener('change', function() {
-      const customCheckbox = this.nextElementSibling;
-      const checkmark = customCheckbox.querySelector('.checkmark');
-      if (this.checked) {
-        checkmark.style.opacity = '1';
-        customCheckbox.style.background = 'rgba(59, 130, 246, 0.5)';
-        customCheckbox.style.borderColor = 'rgba(59, 130, 246, 0.8)';
-      } else {
-        checkmark.style.opacity = '0';
-        customCheckbox.style.background = 'rgba(255, 255, 255, 0.2)';
-        customCheckbox.style.borderColor = 'rgba(255, 255, 255, 0.3)';
-      }
-    });
-  });
-  
-  // Efecto de enfoque en inputs
+  // Variables globales
+  const form = document.querySelector('form');
   const inputs = document.querySelectorAll('.glass-input');
+  const loginBtn = document.getElementById('login-button');
+  const buttonText = document.getElementById('button-text');
+  const loadingSpinner = document.getElementById('loading-spinner');
+  
+  // Configuración de validación
+  const validation = {
+    username: {
+      required: true,
+      minLength: 3,
+      pattern: /^[a-zA-Z0-9_]+$/,
+      message: 'El usuario debe tener al menos 3 caracteres y solo contener letras, números y guiones bajos'
+    },
+    password: {
+      required: true,
+      minLength: 6,
+      message: 'La contraseña debe tener al menos 6 caracteres'
+    }
+  };
+  
+  // Función de validación mejorada
+  function validateField(field) {
+    const fieldName = field.name;
+    const value = field.value.trim();
+    const rules = validation[fieldName];
+    const errorElement = document.getElementById(`${fieldName}-error`);
+    
+    if (!rules) return true;
+    
+    let isValid = true;
+    let errorMessage = '';
+    
+    if (rules.required && !value) {
+      isValid = false;
+      errorMessage = 'Este campo es requerido';
+    } else if (value && rules.minLength && value.length < rules.minLength) {
+      isValid = false;
+      errorMessage = `Debe tener al menos ${rules.minLength} caracteres`;
+    } else if (value && rules.pattern && !rules.pattern.test(value)) {
+      isValid = false;
+      errorMessage = rules.message;
+    }
+    
+    // Mostrar/ocultar error
+    if (errorElement) {
+      if (!isValid) {
+        errorElement.textContent = errorMessage;
+        errorElement.classList.remove('hidden');
+        field.classList.add('border-red-400');
+        field.classList.remove('border-white');
+      } else {
+        errorElement.classList.add('hidden');
+        field.classList.remove('border-red-400');
+        field.classList.add('border-white');
+      }
+    }
+    
+    return isValid;
+  }
+  
+  // Validación en tiempo real
   inputs.forEach(input => {
+    input.addEventListener('blur', () => validateField(input));
+    input.addEventListener('input', debounce(() => validateField(input), 500));
+    
+    // Efectos visuales
     input.addEventListener('focus', function() {
       this.parentElement.classList.add('focused');
+      this.parentElement.style.transform = 'translateY(-2px)';
     });
     
     input.addEventListener('blur', function() {
       this.parentElement.classList.remove('focused');
+      this.parentElement.style.transform = 'translateY(0)';
     });
   });
   
-  // Animación de carga para el formulario
-  const form = document.querySelector('form');
-  form.style.opacity = '0';
-  form.style.transform = 'translateY(20px)';
+  // Checkbox personalizado mejorado
+  const checkbox = document.getElementById('remember-checkbox');
+  const checkboxCustom = document.querySelector('.checkbox-custom');
+  const checkmark = checkboxCustom.querySelector('.checkmark');
   
-  setTimeout(() => {
-    form.style.transition = 'all 0.6s ease-out';
-    form.style.opacity = '1';
-    form.style.transform = 'translateY(0)';
-  }, 200);
+  checkbox.addEventListener('change', function() {
+    if (this.checked) {
+      checkmark.style.opacity = '1';
+      checkmark.style.transform = 'scale(1)';
+      checkboxCustom.style.background = 'rgba(59, 130, 246, 0.5)';
+      checkboxCustom.style.borderColor = 'rgba(59, 130, 246, 0.8)';
+      checkboxCustom.style.transform = 'scale(1.1)';
+    } else {
+      checkmark.style.opacity = '0';
+      checkmark.style.transform = 'scale(0.8)';
+      checkboxCustom.style.background = 'rgba(255, 255, 255, 0.2)';
+      checkboxCustom.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+      checkboxCustom.style.transform = 'scale(1)';
+    }
+  });
   
-  // Efecto de hover en botones sociales
+  // Función para mostrar/ocultar contraseña
+  window.togglePassword = function() {
+    const passwordField = document.getElementById('password');
+    const eyeIcon = document.getElementById('eye-icon');
+    
+    if (passwordField.type === 'password') {
+      passwordField.type = 'text';
+      eyeIcon.innerHTML = `
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21"></path>
+      `;
+    } else {
+      passwordField.type = 'password';
+      eyeIcon.innerHTML = `
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+      `;
+    }
+  };
+  
+  // Manejo del formulario con validación
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Validar todos los campos
+    let isFormValid = true;
+    inputs.forEach(input => {
+      if (!validateField(input)) {
+        isFormValid = false;
+      }
+    });
+    
+    if (!isFormValid) {
+      // Enfocar el primer campo con error
+      const firstError = form.querySelector('.border-red-400');
+      if (firstError) {
+        firstError.focus();
+        firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      return;
+    }
+    
+    // Mostrar estado de carga
+    showLoadingState();
+    
+    // Simular procesamiento (en producción, esto sería la llamada real al servidor)
+    setTimeout(() => {
+      // Aquí iría el código real de envío del formulario
+      this.submit();
+    }, 1000);
+  });
+  
+  // Estado de carga del formulario
+  function showLoadingState() {
+    loginBtn.disabled = true;
+    buttonText.textContent = 'Iniciando sesión...';
+    loadingSpinner.classList.remove('hidden');
+    form.classList.add('form-loading');
+  }
+  
+  function hideLoadingState() {
+    loginBtn.disabled = false;
+    buttonText.textContent = 'Iniciar Sesión';
+    loadingSpinner.classList.add('hidden');
+    form.classList.remove('form-loading');
+  }
+  
+  // Función debounce para optimizar validación
+  function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+      const later = () => {
+        clearTimeout(timeout);
+        func(...args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
+  }
+  
+  // Efectos en botones sociales mejorados
   const socialBtns = document.querySelectorAll('.social-btn');
   socialBtns.forEach(btn => {
     btn.addEventListener('mouseenter', function() {
@@ -300,20 +585,50 @@ document.addEventListener("DOMContentLoaded", () => {
     btn.addEventListener('mouseleave', function() {
       this.style.transform = 'scale(1) rotate(0deg)';
     });
+    
+    btn.addEventListener('mousedown', function() {
+      this.style.transform = 'scale(0.95) rotate(0deg)';
+    });
+    
+    btn.addEventListener('mouseup', function() {
+      this.style.transform = 'scale(1.1) rotate(5deg)';
+    });
   });
   
-  // Animación del botón de login
-  const loginBtn = document.querySelector('.login-btn');
+  // Efectos del botón de login
   loginBtn.addEventListener('mousedown', function() {
-    this.style.transform = 'scale(0.98)';
+    if (!this.disabled) {
+      this.style.transform = 'scale(0.98)';
+    }
   });
   
   loginBtn.addEventListener('mouseup', function() {
-    this.style.transform = 'scale(1.05)';
+    if (!this.disabled) {
+      this.style.transform = 'scale(1.05)';
+    }
   });
   
-  // Efecto de ondas en el fondo
+  loginBtn.addEventListener('mouseleave', function() {
+    if (!this.disabled) {
+      this.style.transform = 'scale(1)';
+    }
+  });
+  
+  // Animación de entrada del formulario
+  form.style.opacity = '0';
+  form.style.transform = 'translateY(20px)';
+  
+  setTimeout(() => {
+    form.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+    form.style.opacity = '1';
+    form.style.transform = 'translateY(0)';
+  }, 200);
+  
+  // Efecto de ondas en el fondo optimizado
   function createRipple() {
+    // Solo crear ondas en pantallas grandes para mejor rendimiento
+    if (window.innerWidth < 768) return;
+    
     const ripple = document.createElement('div');
     ripple.style.position = 'absolute';
     ripple.style.borderRadius = '50%';
@@ -321,6 +636,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ripple.style.transform = 'scale(0)';
     ripple.style.animation = 'ripple 2s linear infinite';
     ripple.style.pointerEvents = 'none';
+    ripple.style.zIndex = '1';
     
     const size = Math.random() * 100 + 50;
     ripple.style.width = size + 'px';
@@ -328,27 +644,116 @@ document.addEventListener("DOMContentLoaded", () => {
     ripple.style.left = Math.random() * window.innerWidth + 'px';
     ripple.style.top = Math.random() * window.innerHeight + 'px';
     
-    document.body.appendChild(ripple);
+    document.querySelector('section').appendChild(ripple);
     
     setTimeout(() => {
       ripple.remove();
     }, 2000);
   }
   
-  // Crear ondas ocasionales
-  setInterval(createRipple, 3000);
-});
-
-// Añadir animación de ondas
-const style = document.createElement('style');
-style.textContent = `
-  @keyframes ripple {
-    to {
-      transform: scale(4);
-      opacity: 0;
-    }
+  // Crear ondas ocasionales (solo en desktop)
+  if (window.innerWidth >= 768) {
+    setInterval(createRipple, 4000);
   }
-`;
-document.head.appendChild(style);
+  
+  // Detección de teclas para mejor UX
+  document.addEventListener('keydown', function(e) {
+    // Enter en cualquier input del formulario envía el formulario
+    if (e.key === 'Enter' && e.target.tagName === 'INPUT') {
+      e.preventDefault();
+      form.dispatchEvent(new Event('submit'));
+    }
+    
+    // Escape para cancelar la carga
+    if (e.key === 'Escape' && loginBtn.disabled) {
+      hideLoadingState();
+    }
+  });
+  
+  // Gestión de errores de conexión
+  window.addEventListener('offline', function() {
+    showNotification('Sin conexión a internet', 'error');
+  });
+  
+  window.addEventListener('online', function() {
+    showNotification('Conexión restablecida', 'success');
+  });
+  
+  // Función para mostrar notificaciones
+  function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = `fixed top-4 right-4 z-50 px-4 py-3 rounded-xl shadow-lg text-white transition-all duration-300 transform translate-x-full ${
+      type === 'error' ? 'bg-red-500' : type === 'success' ? 'bg-green-500' : 'bg-blue-500'
+    }`;
+    notification.textContent = message;
+    
+    document.body.appendChild(notification);
+    
+    // Animar entrada
+    setTimeout(() => {
+      notification.style.transform = 'translateX(0)';
+    }, 100);
+    
+    // Animar salida y remover
+    setTimeout(() => {
+      notification.style.transform = 'translateX(full)';
+      setTimeout(() => notification.remove(), 300);
+    }, 3000);
+  }
+  
+  // Prevenir envío doble del formulario
+  let isSubmitting = false;
+  form.addEventListener('submit', function(e) {
+    if (isSubmitting) {
+      e.preventDefault();
+      return;
+    }
+    isSubmitting = true;
+    
+    // Resetear después de un tiempo
+    setTimeout(() => {
+      isSubmitting = false;
+    }, 5000);
+  });
+  
+  // Autocompletar inteligente
+  inputs.forEach(input => {
+    input.addEventListener('input', function() {
+      // Remover espacios en usuario
+      if (this.name === 'username') {
+        this.value = this.value.replace(/\s/g, '');
+      }
+    });
+  });
+  
+  // Indicador de fuerza de contraseña
+  const passwordInput = document.getElementById('password');
+  passwordInput.addEventListener('input', function() {
+    const strength = calculatePasswordStrength(this.value);
+    updatePasswordStrengthIndicator(strength);
+  });
+  
+  function calculatePasswordStrength(password) {
+    let score = 0;
+    if (password.length >= 8) score++;
+    if (/[a-z]/.test(password)) score++;
+    if (/[A-Z]/.test(password)) score++;
+    if (/[0-9]/.test(password)) score++;
+    if (/[^a-zA-Z0-9]/.test(password)) score++;
+    return score;
+  }
+  
+  function updatePasswordStrengthIndicator(strength) {
+    const indicator = document.getElementById('password-strength');
+    if (!indicator) return;
+    
+    const colors = ['#ef4444', '#f97316', '#eab308', '#22c55e', '#059669'];
+    const labels = ['Muy débil', 'Débil', 'Regular', 'Fuerte', 'Muy fuerte'];
+    
+    indicator.style.background = colors[strength] || colors[0];
+    indicator.textContent = labels[strength] || labels[0];
+  }
+});
 </script>
+
 {% endblock %}
