@@ -1,13 +1,13 @@
 # usuarios/urls.py
 from django.urls import path
 from django.contrib.auth.views import LogoutView
-from .views import login_view, crear_estudiante_regular, crear_estudiante_tecnico, asignar_tutor, estudiante_registrado
+from .views import login_view,logout_view, crear_estudiante_regular, crear_estudiante_tecnico, asignar_tutor, estudiante_registrado
 
 app_name = 'usuarios'
 
 urlpatterns = [
     path('login/', login_view, name='login'),
-    path('logout/', LogoutView.as_view(next_page='login'), name='logout'),
+    path('logout/', logout_view, name='logout'),
     
     path('crear/regular/', crear_estudiante_regular, name='crear_estudiante_regular'),
     path('crear/tecnico/', crear_estudiante_tecnico, name='crear_estudiante_tecnico'),

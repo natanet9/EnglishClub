@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Iniciar Sesión{% endblock %}
 
@@ -19,12 +20,12 @@
   <div class="relative z-10 w-full max-w-md mx-4">
     
     <!-- Logo placeholder -->
-    <div class="text-center mb-8">
-      <div class="inline-flex items-center justify-center w-16 h-16 bg-white bg-opacity-20 backdrop-blur-sm rounded-2xl mb-4 shadow-lg">
-        <div class="w-8 h-8 bg-white rounded-lg transform rotate-45"></div>
-      </div>
-      <h1 class="text-white text-2xl font-bold">English Club</h1>
-    </div>
+   <div class="text-center mb-8">
+  <div class="inline-flex items-center justify-center w-24 h-24 bg-white bg-opacity-20 backdrop-blur-sm rounded-2xl mb-4 shadow-lg">
+    <img src="{% static 'img/icono.png' %}" alt="Logo" class="w-20 h-20 object-contain">
+  </div>
+  <h1 class="text-white text-3xl font-bold">English Club</h1>
+</div>
 
     <!-- Tarjeta de login -->
     <div class="glass-card bg-white bg-opacity-10 backdrop-blur-md rounded-3xl p-8 shadow-2xl border border-white border-opacity-20">
