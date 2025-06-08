@@ -1,44 +1,107 @@
 {% extends 'base.html' %}
 {% block title %}Inicio{% endblock %}
-
+{% load static %}
 {% block content %}
-<section class="min-h-screen bg-gradient-to-b from-blue-900 to-blue-700 flex flex-col items-center justify-center text-center px-6 relative overflow-hidden">
-  <div class="z-10">
-    <h1 class="text-yellow-400 text-6xl md:text-7xl font-extrabold drop-shadow-lg mb-4">ENGLISH CLUB</h1>
-    <p class="text-white text-2xl italic mb-2">"Disfruta el inglés, vive el inglés"</p>
-    <p class="text-white text-lg max-w-xl mx-auto">Formamos profesionales bilingües con titulación en provisión nacional.</p>
+<section class="hero-section min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 flex flex-col items-center justify-center text-center px-6 relative overflow-hidden">
+  <!-- Animated background elements -->
+  <div class="floating-elements absolute inset-0 z-0">
+    <div class="floating-circle"></div>
+    <div class="floating-circle"></div>
+    <div class="floating-circle"></div>
+    <div class="floating-circle"></div>
+    <div class="floating-particle"></div>
+    <div class="floating-particle"></div>
+    <div class="floating-particle"></div>
+    <div class="floating-particle"></div>
+    <div class="floating-particle"></div>
+    <div class="floating-particle"></div>
   </div>
-  <img src="/media/fondos/patron-instituto.svg" alt="Decoración" class="absolute bottom-0 left-0 w-full opacity-10 z-0">
+  
+  <!-- Gradient overlay with animated mesh -->
+  <div class="absolute inset-0 bg-gradient-to-t from-blue-900/30 via-transparent to-blue-800/20 z-1"></div>
+  <div class="mesh-gradient absolute inset-0 opacity-20"></div>
+  
+  <div class="hero-content z-10 transform transition-all duration-1000">
+    <div class="title-container relative">
+      <h1 class="hero-title text-yellow-400 text-6xl md:text-8xl font-extrabold drop-shadow-2xl mb-6 tracking-tight opacity-0 translate-y-10">
+        ENGLISH CLUB
+      </h1>
+      <div class="title-particles absolute inset-0"></div>
+    </div>
+    
+    <p class="hero-subtitle text-white text-2xl md:text-3xl italic mb-4 font-light tracking-wide opacity-0 translate-y-5">
+      "Disfruta el inglés, vive el inglés"
+    </p>
+    
+    <p class="hero-description text-white text-lg md:text-xl max-w-2xl mx-auto leading-relaxed mb-8 opacity-0 translate-y-5">
+      Formamos profesionales bilingües con titulación en provisión nacional.
+    </p>
+    
+    <div class="cta-container opacity-0 translate-y-5">
+      <button class="cta-button bg-yellow-400 hover:bg-yellow-300 text-blue-900 px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+        <span class="button-text">Conoce Más</span>
+        <div class="button-ripple"></div>
+      </button>
+    </div>
+  </div>
+  
+  <img src="/media/fondos/patron-instituto.svg" alt="Decoración" class="absolute bottom-0 left-0 w-full opacity-5 z-0">
+  
+  <!-- Enhanced scroll indicator -->
+  <div class="scroll-indicator absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10 opacity-0">
+    <div class="scroll-arrow"></div>
+    <div class="scroll-text text-yellow-400 text-sm mt-2 font-medium">Scroll</div>
+  </div>
 </section>
 
 <!-- ¿Quiénes Somos? -->
-<section class="bg-blue-800 text-white py-16 px-6" data-aos="fade-up">
-  <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-10 items-center">
-    <div>
-      <h2 class="text-4xl font-bold text-yellow-300 mb-4">¿Quiénes Somos?</h2>
-      <p class="text-lg text-justify mb-4 leading-relaxed">
+<section class="content-section bg-gradient-to-r from-blue-800 to-blue-700 text-white py-20 px-6 section-fade-in" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
+  <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+    <div class="content-text">
+      <h2 class="section-title text-5xl font-bold text-yellow-300 mb-6 relative opacity-0 translate-x-10">
+        ¿Quiénes Somos?
+        <span class="title-underline"></span>
+        <div class="title-glow"></div>
+      </h2>
+      <p class="text-lg text-justify mb-6 leading-relaxed opacity-0 translate-y-5">
         El Instituto Técnico Superior English Club ofrece la titulación en provisión nacional para la carrera Técnico Superior en Idioma Inglés.
         Nuestros programas forman profesionales bilingües con dominio avanzado del idioma, enfocados en el éxito académico y laboral tanto a nivel nacional como internacional.
       </p>
-      <p class="text-sm text-yellow-200 italic">
-        Resolución Ministerial 0062/2020 · Centro Preparador Cambridge Bo-009 11-91-76
-      </p>
+      <div class="credential-badge bg-yellow-400/10 border border-yellow-400/30 rounded-lg p-4 backdrop-blur-sm transform scale-95 opacity-0">
+        <p class="text-sm text-yellow-200 italic font-medium">
+          Resolución Ministerial 0062/2020 · Centro Preparador Cambridge Bo-009 11-91-76
+        </p>
+      </div>
     </div>
-    <div class="flex justify-center">
-      <img src="/media/inicio/titulo.jpg" alt="Título" class="rounded-3xl border-4 border-yellow-300 shadow-lg w-96">
+    <div class="image-container flex justify-center">
+      <div class="image-wrapper relative group opacity-0 translate-x-10">
+        <div class="image-frame absolute inset-0 rounded-3xl border-4 border-yellow-300 animate-pulse-glow"></div>
+        <img src="{% static 'img/ec3.jpg' %}" alt="Título" class="rounded-3xl border-4 border-yellow-300 shadow-2xl w-96 transition-all duration-500 group-hover:scale-105 group-hover:rotate-1">
+        <div class="image-overlay absolute inset-0 bg-gradient-to-br from-yellow-400/20 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+        <div class="shine-effect absolute inset-0 rounded-3xl"></div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- Misión -->
-<section class="bg-blue-700 text-white py-16 px-6" data-aos="fade-up">
-  <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-10 items-center">
-    <div class="flex justify-center">
-      <img src="/media/inicio/mision.jpg" alt="Misión" class="rounded-3xl border-2 border-yellow-200 shadow-xl w-96">
+<section class="content-section bg-gradient-to-l from-blue-700 to-blue-600 text-white py-20 px-6 section-fade-in" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+  <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+    <div class="image-container flex justify-center order-2 md:order-1">
+      <div class="image-wrapper relative group opacity-0 translate-x-10">
+        <div class="image-frame absolute inset-0 rounded-3xl border-2 border-yellow-200 animate-pulse-glow"></div>
+        <img src="{% static 'img/ec2.jpg' %}" alt="Misión" class="rounded-3xl border-2 border-yellow-200 shadow-2xl w-96 transition-all duration-500 group-hover:scale-105 group-hover:-rotate-1">
+        <div class="image-overlay absolute inset-0 bg-gradient-to-tl from-yellow-400/20 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+        <div class="shine-effect absolute inset-0 rounded-3xl"></div>
+      </div>
     </div>
-    <div>
-      <h2 class="text-4xl font-bold text-yellow-300 mb-4">Misión</h2>
-      <p class="text-lg text-justify leading-relaxed">
+    <div class="content-text order-1 md:order-2">
+      <h2 class="section-title text-5xl font-bold text-yellow-300 mb-6 relative opacity-0 translate-x-10">
+        Misión
+        <span class="title-underline"></span>
+        <div class="title-glow"></div>
+      </h2>
+      <p class="text-lg text-justify leading-relaxed opacity-0 translate-y-5">
         Formar profesionales bilingües con excelencia académica, responsabilidad ética y compromiso social.
         Promovemos ciudadanos capaces de desenvolverse en contextos multiculturales, educativos y laborales,
         aportando activamente al desarrollo del país.
@@ -48,42 +111,1303 @@
 </section>
 
 <!-- Visión -->
-<section class="bg-blue-800 text-white py-16 px-6" data-aos="fade-up">
-  <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-10 items-center">
-    <div>
-      <h2 class="text-4xl font-bold text-yellow-300 mb-4">Visión</h2>
-      <p class="text-lg text-justify leading-relaxed">
+<section class="content-section bg-gradient-to-r from-blue-800 to-blue-700 text-white py-20 px-6 section-fade-in" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
+  <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+    <div class="content-text">
+      <h2 class="section-title text-5xl font-bold text-yellow-300 mb-6 relative opacity-0 translate-x-10">
+        Visión
+        <span class="title-underline"></span>
+        <div class="title-glow"></div>
+      </h2>
+      <p class="text-lg text-justify leading-relaxed opacity-0 translate-y-5">
         Ser el referente nacional e internacional en enseñanza del idioma inglés, destacando por nuestra excelencia académica,
         innovación pedagógica y calidad institucional. Aspiramos a transformar vidas mediante una educación de clase mundial.
       </p>
     </div>
-    <div class="flex justify-center">
-      <img src="/media/inicio/vision.jpg" alt="Visión" class="rounded-3xl border-2 border-yellow-200 shadow-xl w-96">
-    </div>
+   <div class="image-container flex justify-center">
+   <div class="image-wrapper relative group opacity-0 translate-x-10">
+     <div class="image-frame absolute inset-0 rounded-3xl border-2 border-yellow-200 animate-pulse-glow"></div>
+     <img src="{% static 'img/ec1.jpg' %}" alt="Visión" class="rounded-3xl border-2 border-yellow-200 shadow-2xl w-96 transition-all duration-500 group-hover:scale-105 group-hover:rotate-1">
+     <div class="image-overlay absolute inset-0 bg-gradient-to-br from-yellow-400/20 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+     <div class="shine-effect absolute inset-0 rounded-3xl"></div>
+   </div>
+ </div>
   </div>
 </section>
 
 <!-- Valores -->
-<section class="bg-blue-700 text-white py-16 px-6" data-aos="fade-up">
+<section class="values-section bg-gradient-to-br from-blue-700 via-blue-600 to-blue-800 text-white py-20 px-6 section-fade-in" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">
   <div class="max-w-6xl mx-auto">
-    <h2 class="text-3xl font-bold text-center text-yellow-400 mb-10">Nuestros Valores</h2>
-    <div class="grid md:grid-cols-2 gap-8 text-lg">
-      <ul class="list-disc pl-6 space-y-2 text-justify">
-        <li><strong>Excelencia Académica:</strong> Educación de calidad centrada en el estudiante.</li>
-        <li><strong>Integridad y Ética:</strong> Formamos ciudadanos honestos y transparentes.</li>
-        <li><strong>Responsabilidad:</strong> Impulsamos el compromiso personal y social.</li>
-        <li><strong>Respeto a la Diversidad:</strong> Fomentamos la inclusión y la equidad.</li>
-      </ul>
-      <ul class="list-disc pl-6 space-y-2 text-justify">
-        <li><strong>Bienestar Social:</strong> Trabajamos por comunidades solidarias.</li>
-        <li><strong>Innovación:</strong> Buscamos siempre nuevas formas de enseñar.</li>
-        <li><strong>Crecimiento Espiritual:</strong> Formamos personas con sentido trascendente.</li>
-        <li><strong>Fortaleza Familiar:</strong> Apoyamos el desarrollo del entorno familiar.</li>
-      </ul>
+    <h2 class="section-title text-5xl font-bold text-center text-yellow-400 mb-16 relative opacity-0 translate-y-10">
+      Nuestros Valores
+      <span class="title-underline mx-auto"></span>
+      <div class="title-glow mx-auto"></div>
+    </h2>
+    <div class="values-grid grid md:grid-cols-2 gap-8 text-lg">
+      <div class="values-column space-y-6">
+        <div class="value-item group cursor-pointer opacity-0 translate-y-10" style="animation-delay: 0.1s;">
+          <div class="value-content bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 hover:bg-white/10 transition-all duration-300 hover:transform hover:scale-105 relative overflow-hidden">
+            <div class="value-icon absolute top-4 right-4 w-8 h-8 bg-yellow-400/20 rounded-full flex items-center justify-center">
+              <div class="w-4 h-4 bg-yellow-400 rounded-full animate-ping"></div>
+            </div>
+            <strong class="text-yellow-300 text-xl">Excelencia Académica:</strong>
+            <p class="mt-2 text-gray-200">Educación de calidad centrada en el estudiante.</p>
+            <div class="hover-effect absolute inset-0 bg-gradient-to-r from-transparent via-yellow-400/5 to-transparent transform -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+          </div>
+        </div>
+        <div class="value-item group cursor-pointer opacity-0 translate-y-10" style="animation-delay: 0.2s;">
+          <div class="value-content bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 hover:bg-white/10 transition-all duration-300 hover:transform hover:scale-105 relative overflow-hidden">
+            <div class="value-icon absolute top-4 right-4 w-8 h-8 bg-yellow-400/20 rounded-full flex items-center justify-center">
+              <div class="w-4 h-4 bg-yellow-400 rounded-full animate-ping"></div>
+            </div>
+            <strong class="text-yellow-300 text-xl">Integridad y Ética:</strong>
+            <p class="mt-2 text-gray-200">Formamos ciudadanos honestos y transparentes.</p>
+            <div class="hover-effect absolute inset-0 bg-gradient-to-r from-transparent via-yellow-400/5 to-transparent transform -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+          </div>
+        </div>
+        <div class="value-item group cursor-pointer opacity-0 translate-y-10" style="animation-delay: 0.3s;">
+          <div class="value-content bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 hover:bg-white/10 transition-all duration-300 hover:transform hover:scale-105 relative overflow-hidden">
+            <div class="value-icon absolute top-4 right-4 w-8 h-8 bg-yellow-400/20 rounded-full flex items-center justify-center">
+              <div class="w-4 h-4 bg-yellow-400 rounded-full animate-ping"></div>
+            </div>
+            <strong class="text-yellow-300 text-xl">Responsabilidad:</strong>
+            <p class="mt-2 text-gray-200">Impulsamos el compromiso personal y social.</p>
+            <div class="hover-effect absolute inset-0 bg-gradient-to-r from-transparent via-yellow-400/5 to-transparent transform -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+          </div>
+        </div>
+        <div class="value-item group cursor-pointer opacity-0 translate-y-10" style="animation-delay: 0.4s;">
+          <div class="value-content bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 hover:bg-white/10 transition-all duration-300 hover:transform hover:scale-105 relative overflow-hidden">
+            <div class="value-icon absolute top-4 right-4 w-8 h-8 bg-yellow-400/20 rounded-full flex items-center justify-center">
+              <div class="w-4 h-4 bg-yellow-400 rounded-full animate-ping"></div>
+            </div>
+            <strong class="text-yellow-300 text-xl">Respeto a la Diversidad:</strong>
+            <p class="mt-2 text-gray-200">Fomentamos la inclusión y la equidad.</p>
+            <div class="hover-effect absolute inset-0 bg-gradient-to-r from-transparent via-yellow-400/5 to-transparent transform -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+          </div>
+        </div>
+      </div>
+      <div class="values-column space-y-6">
+        <div class="value-item group cursor-pointer opacity-0 translate-y-10" style="animation-delay: 0.5s;">
+          <div class="value-content bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 hover:bg-white/10 transition-all duration-300 hover:transform hover:scale-105 relative overflow-hidden">
+            <div class="value-icon absolute top-4 right-4 w-8 h-8 bg-yellow-400/20 rounded-full flex items-center justify-center">
+              <div class="w-4 h-4 bg-yellow-400 rounded-full animate-ping"></div>
+            </div>
+            <strong class="text-yellow-300 text-xl">Bienestar Social:</strong>
+            <p class="mt-2 text-gray-200">Trabajamos por comunidades solidarias.</p>
+            <div class="hover-effect absolute inset-0 bg-gradient-to-r from-transparent via-yellow-400/5 to-transparent transform -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+          </div>
+        </div>
+        <div class="value-item group cursor-pointer opacity-0 translate-y-10" style="animation-delay: 0.6s;">
+          <div class="value-content bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 hover:bg-white/10 transition-all duration-300 hover:transform hover:scale-105 relative overflow-hidden">
+            <div class="value-icon absolute top-4 right-4 w-8 h-8 bg-yellow-400/20 rounded-full flex items-center justify-center">
+              <div class="w-4 h-4 bg-yellow-400 rounded-full animate-ping"></div>
+            </div>
+            <strong class="text-yellow-300 text-xl">Innovación:</strong>
+            <p class="mt-2 text-gray-200">Buscamos siempre nuevas formas de enseñar.</p>
+            <div class="hover-effect absolute inset-0 bg-gradient-to-r from-transparent via-yellow-400/5 to-transparent transform -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+          </div>
+        </div>
+        <div class="value-item group cursor-pointer opacity-0 translate-y-10" style="animation-delay: 0.7s;">
+          <div class="value-content bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 hover:bg-white/10 transition-all duration-300 hover:transform hover:scale-105 relative overflow-hidden">
+            <div class="value-icon absolute top-4 right-4 w-8 h-8 bg-yellow-400/20 rounded-full flex items-center justify-center">
+              <div class="w-4 h-4 bg-yellow-400 rounded-full animate-ping"></div>
+            </div>
+            <strong class="text-yellow-300 text-xl">Crecimiento Espiritual:</strong>
+            <p class="mt-2 text-gray-200">Formamos personas con sentido trascendente.</p>
+            <div class="hover-effect absolute inset-0 bg-gradient-to-r from-transparent via-yellow-400/5 to-transparent transform -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
+<style>
+/* Estilos CSS personalizados mejorados */
+:root {
+  --primary-blue: #1e3a8a;
+  --secondary-blue: #1d4ed8;
+  --accent-yellow: #fbbf24;
+  --text-light: #f8fafc;
+}
+
+* {
+  scroll-behavior: smooth;
+}
+
+/* Enhanced Hero Section */
+.hero-section {
+  position: relative;
+  background: linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 50%, #2563eb 100%);
+  overflow: hidden;
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 30% 20%, rgba(251, 191, 36, 0.15) 0%, transparent 50%),
+              radial-gradient(circle at 70% 80%, rgba(59, 130, 246, 0.15) 0%, transparent 50%);
+  z-index: 1;
+  animation: gradientShift 8s ease-in-out infinite alternate;
+}
+
+@keyframes gradientShift {
+  0% { transform: scale(1) rotate(0deg); }
+  100% { transform: scale(1.1) rotate(5deg); }
+}
+
+/* Mesh Gradient Background */
+.mesh-gradient {
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(120, 219, 226, 0.3) 0%, transparent 50%);
+  animation: meshMove 10s ease-in-out infinite alternate;
+}
+
+@keyframes meshMove {
+  0% { transform: translateX(-10px) translateY(-10px); }
+  100% { transform: translateX(10px) translateY(10px); }
+}
+
+/* Enhanced Title Animations */
+.hero-title {
+  text-shadow: 
+    0 0 30px rgba(251, 191, 36, 0.5),
+    0 0 60px rgba(251, 191, 36, 0.3),
+    0 0 90px rgba(251, 191, 36, 0.1);
+  animation: titleEntrance 2s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards,
+             titleGlow 3s ease-in-out infinite alternate 2s;
+}
+
+@keyframes titleEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(100px) scale(0.8) rotateX(90deg);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translateY(20px) scale(1.1) rotateX(45deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotateX(0deg);
+  }
+}
+
+@keyframes titleGlow {
+  from {
+    text-shadow: 
+      0 0 30px rgba(251, 191, 36, 0.5),
+      0 0 60px rgba(251, 191, 36, 0.3);
+  }
+  to {
+    text-shadow: 
+      0 0 40px rgba(251, 191, 36, 0.8),
+      0 0 80px rgba(251, 191, 36, 0.4),
+      0 0 120px rgba(251, 191, 36, 0.2);
+  }
+}
+
+/* Title Particles Effect */
+.title-particles::before,
+.title-particles::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  background: #fbbf24;
+  border-radius: 50%;
+  animation: particleFloat 3s ease-in-out infinite;
+}
+
+.title-particles::before {
+  transform: translate(-200px, -50px);
+  animation-delay: 0s;
+}
+
+.title-particles::after {
+  transform: translate(200px, -30px);
+  animation-delay: 1.5s;
+}
+
+@keyframes particleFloat {
+  0%, 100% { opacity: 0; transform: translate(var(--x, 0), var(--y, 0)) scale(0); }
+  50% { opacity: 1; transform: translate(var(--x, 0), var(--y, 0)) scale(1); }
+}
+
+/* Enhanced Subtitle and Description Animations */
+.hero-subtitle {
+  animation: slideInFromLeft 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s forwards;
+}
+
+.hero-description {
+  animation: slideInFromRight 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.8s forwards;
+}
+
+.cta-container {
+  animation: bounceInUp 1.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) 1.2s forwards;
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-100px) translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) translateY(0);
+  }
+}
+
+@keyframes slideInFromRight {
+  0% {
+    opacity: 0;
+    transform: translateX(100px) translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) translateY(0);
+  }
+}
+
+@keyframes bounceInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(100px) scale(0.8);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-10px) scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Enhanced Floating Elements */
+.floating-elements {
+  pointer-events: none;
+}
+
+.floating-circle {
+  position: absolute;
+  border-radius: 50%;
+  background: linear-gradient(45deg, rgba(251, 191, 36, 0.1), rgba(251, 191, 36, 0.05));
+  animation: floatComplex 8s ease-in-out infinite;
+  box-shadow: 0 0 20px rgba(251, 191, 36, 0.2);
+}
+
+.floating-particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: linear-gradient(45deg, #fbbf24, #f59e0b);
+  border-radius: 50%;
+  animation: particleSwirl 6s linear infinite;
+}
+
+.floating-circle:nth-child(1) {
+  width: 120px;
+  height: 120px;
+  top: 15%;
+  left: 8%;
+  animation-delay: 0s;
+}
+
+.floating-circle:nth-child(2) {
+  width: 180px;
+  height: 180px;
+  top: 55%;
+  right: 8%;
+  animation-delay: 2s;
+}
+
+.floating-circle:nth-child(3) {
+  width: 100px;
+  height: 100px;
+  bottom: 25%;
+  left: 15%;
+  animation-delay: 4s;
+}
+
+.floating-circle:nth-child(4) {
+  width: 140px;
+  height: 140px;
+  top: 35%;
+  right: 25%;
+  animation-delay: 1s;
+}
+
+.floating-particle:nth-child(5) { top: 20%; left: 30%; animation-delay: 0s; }
+.floating-particle:nth-child(6) { top: 70%; left: 60%; animation-delay: 1s; }
+.floating-particle:nth-child(7) { top: 40%; left: 80%; animation-delay: 2s; }
+.floating-particle:nth-child(8) { top: 80%; left: 20%; animation-delay: 3s; }
+.floating-particle:nth-child(9) { top: 60%; left: 40%; animation-delay: 4s; }
+.floating-particle:nth-child(10) { top: 30%; left: 70%; animation-delay: 5s; }
+
+@keyframes floatComplex {
+  0%, 100% {
+    transform: translateY(0) translateX(0) rotate(0deg) scale(1);
+  }
+  25% {
+    transform: translateY(-30px) translateX(15px) rotate(90deg) scale(1.1);
+  }
+  50% {
+    transform: translateY(-20px) translateX(-10px) rotate(180deg) scale(0.9);
+  }
+  75% {
+    transform: translateY(-40px) translateX(20px) rotate(270deg) scale(1.05);
+  }
+}
+
+@keyframes particleSwirl {
+  0% {
+    transform: rotate(0deg) translateX(30px) rotate(0deg);
+    opacity: 1;
+  }
+  50% {
+    transform: rotate(180deg) translateX(30px) rotate(-180deg);
+    opacity: 0.3;
+  }
+  100% {
+    transform: rotate(360deg) translateX(30px) rotate(-360deg);
+    opacity: 1;
+  }
+}
+
+/* Enhanced CTA Button */
+.cta-button {
+  position: relative;
+  overflow: hidden;
+  box-shadow: 
+    0 10px 25px rgba(251, 191, 36, 0.3),
+    0 0 0 1px rgba(251, 191, 36, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cta-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transition: left 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cta-button:hover::before {
+  left: 100%;
+}
+
+.cta-button:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 
+    0 15px 35px rgba(251, 191, 36, 0.4),
+    0 0 0 1px rgba(251, 191, 36, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.button-ripple {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.cta-button:active .button-ripple {
+  width: 300px;
+  height: 300px;
+}
+
+/* Enhanced Scroll Indicator */
+.scroll-indicator {
+  animation: scrollFadeIn 2s ease-out 2s forwards,
+             scrollBounce 2s ease-in-out 4s infinite;
+}
+
+.scroll-arrow {
+  width: 28px;
+  height: 28px;
+  border-right: 3px solid rgba(251, 191, 36, 0.8);
+  border-bottom: 3px solid rgba(251, 191, 36, 0.8);
+  transform: rotate(45deg);
+  position: relative;
+}
+
+.scroll-arrow::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  right: -8px;
+  bottom: -8px;
+  border: 2px solid rgba(251, 191, 36, 0.3);
+  border-radius: 50%;
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+
+@keyframes scrollFadeIn {
+  0% { opacity: 0; transform: translateY(20px) translateX(-50%); }
+  100% { opacity: 1; transform: translateY(0) translateX(-50%); }
+}
+
+@keyframes scrollBounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0) translateX(-50%);
+  }
+  40% {
+    transform: translateY(-15px) translateX(-50%);
+  }
+  60% {
+    transform: translateY(-8px) translateX(-50%);
+  }
+}
+
+@keyframes scrollPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.7;
+  }
+}
+
+/* Enhanced Section Animations */
+.section-fade-in {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.section-fade-in.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Enhanced Section Titles */
+.section-title {
+  position: relative;
+  display: inline-block;
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.section-title.animate-in {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.title-underline {
+  position: absolute;
+  bottom: -12px;
+  left: 0;
+  width: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #fbbf24, #f59e0b, #fbbf24);
+  border-radius: 2px;
+  transition: width 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s;
+}
+
+.title-underline.mx-auto {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.section-title.animate-in .title-underline {
+  width: 80px;
+}
+
+.title-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(251, 191, 36, 0.3), transparent);
+  border-radius: 8px;
+  opacity: 0;
+  animation: titleGlowSweep 3s ease-in-out infinite 1s;
+}
+
+@keyframes titleGlowSweep {
+  0%, 100% { opacity: 0; transform: translateX(-100%); }
+  50% { opacity: 1; transform: translateX(100%); }
+}
+
+/* Enhanced Content Text Animations */
+.content-text p {
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s;
+}
+
+.content-text p.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.credential-badge {
+  transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.4s;
+}
+
+.credential-badge.animate-in {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Enhanced Image Animations */
+.image-wrapper {
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.image-wrapper.animate-in {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.image-frame {
+  animation: none;
+}
+
+.image-wrapper.animate-in .image-frame {
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(251, 191, 36, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(251, 191, 36, 0.5);
+  }
+}
+
+.shine-effect {
+  background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.3) 50%, transparent 70%);
+  transform: translateX(-100%) translateY(-100%) rotate(45deg);
+  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.image-wrapper:hover .shine-effect {
+  transform: translateX(100%) translateY(100%) rotate(45deg);
+}
+
+/* Enhanced Values Section */
+.values-section {
+  background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 50%, #1e40af 100%);
+  position: relative;
+}
+
+.values-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 25% 25%, rgba(251, 191, 36, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(59, 130, 246, 0.05) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.values-section::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Cpolygon points='50,0 60,40 100,50 60,60 50,100 40,60 0,50 40,40'/%3E%3C/g%3E%3C/svg%3E") repeat;
+  pointer-events: none;
+}
+
+/* Enhanced Value Items */
+.value-item {
+  transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.value-item.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.value-content {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(251, 191, 36, 0.2);
+  backdrop-filter: blur(15px);
+  position: relative;
+}
+
+.value-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.05) 0%, transparent 100%);
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.value-content:hover::before {
+  opacity: 1;
+}
+
+.value-content:hover {
+  border-color: rgba(251, 191, 36, 0.4);
+  box-shadow: 
+    0 15px 35px rgba(0, 0, 0, 0.2),
+    0 0 0 1px rgba(251, 191, 36, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transform: translateY(-5px) scale(1.02);
+}
+
+.value-icon {
+  transition: all 0.3s ease;
+}
+
+.value-content:hover .value-icon {
+  transform: scale(1.2) rotate(180deg);
+}
+
+.value-icon .animate-ping {
+  animation-duration: 2s;
+}
+
+.hover-effect {
+  transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Content Sections Enhancement */
+.content-section {
+  position: relative;
+  background-attachment: fixed;
+  transition: transform 0.3s ease;
+}
+
+.content-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, rgba(0, 0, 0, 0.05) 0%, transparent 100%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.content-section:hover::before {
+  opacity: 1;
+}
+
+/* Parallax Effect Enhancement */
+.parallax {
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* Loading States */
+@keyframes shimmer {
+  0% { background-position: -200px 0; }
+  100% { background-position: calc(200px + 100%) 0; }
+}
+
+.loading-shimmer {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200px 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Responsive Enhancements */
+@media (max-width: 1024px) {
+  .hero-title {
+    font-size: 4rem;
+  }
+  
+  .section-title {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 3rem;
+    animation-duration: 1.5s;
+  }
+  
+  .section-title {
+    font-size: 2.5rem;
+  }
+  
+  .floating-circle,
+  .floating-particle {
+    display: none;
+  }
+  
+  .values-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.5rem;
+  }
+  
+  .hero-description {
+    font-size: 1rem;
+  }
+  
+  .mesh-gradient {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+  }
+  
+  .content-section {
+    padding: 3rem 1rem;
+  }
+  
+  .cta-button {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+  }
+}
+
+/* Performance Optimizations */
+.gpu-accelerated {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Accessibility Improvements */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .floating-circle,
+  .floating-particle {
+    animation: none;
+  }
+}
+
+/* Focus States */
+.cta-button:focus {
+  outline: 3px solid rgba(251, 191, 36, 0.5);
+  outline-offset: 2px;
+}
+
+.value-content:focus {
+  outline: 2px solid rgba(251, 191, 36, 0.5);
+  outline-offset: 2px;
+}
+
+/* Print Styles */
+@media print {
+  .floating-elements,
+  .scroll-indicator,
+  .title-glow,
+  .shine-effect {
+    display: none;
+  }
+  
+  .hero-section {
+    background: #1e3a8a !important;
+    color: white !important;
+  }
+}
+</style>
+
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>AOS.init();</script>
+<script>
+// Enhanced JavaScript with advanced animations
+document.addEventListener('DOMContentLoaded', function() {
+  // Initialize AOS with enhanced settings
+  AOS.init({
+    duration: 1000,
+    easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+    once: true,
+    offset: 120,
+    delay: 100
+  });
+
+  // Advanced Animation Controller
+  class AnimationController {
+    constructor() {
+      this.animatedElements = new Set();
+      this.init();
+    }
+
+    init() {
+      this.setupIntersectionObserver();
+      this.setupScrollEffects();
+      this.setupHeroAnimations();
+      this.setupInteractiveEffects();
+      this.setupPerformanceOptimizations();
+    }
+
+    setupIntersectionObserver() {
+      const observerOptions = {
+        threshold: [0.1, 0.3, 0.5, 0.7],
+        rootMargin: '0px 0px -10% 0px'
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && entry.intersectionRatio > 0.1) {
+            this.animateElement(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      // Observe sections
+      document.querySelectorAll('.section-fade-in').forEach(section => {
+        observer.observe(section);
+      });
+
+      // Observe individual elements
+      document.querySelectorAll('.section-title, .content-text p, .credential-badge, .image-wrapper, .value-item').forEach(el => {
+        observer.observe(el);
+      });
+    }
+
+    animateElement(element) {
+      if (this.animatedElements.has(element)) return;
+      
+      element.classList.add('animate-in');
+      this.animatedElements.add(element);
+
+      // Staggered animations for value items
+      if (element.classList.contains('value-item')) {
+        const delay = parseInt(element.style.animationDelay || '0') * 1000;
+        setTimeout(() => {
+          element.style.transform = 'translateY(0)';
+          element.style.opacity = '1';
+        }, delay);
+      }
+    }
+
+    setupScrollEffects() {
+      let ticking = false;
+      
+      const updateScrollEffects = () => {
+        const scrolled = window.pageYOffset;
+        const windowHeight = window.innerHeight;
+        
+        // Enhanced parallax for hero
+        const hero = document.querySelector('.hero-section');
+        const heroContent = document.querySelector('.hero-content');
+        
+        if (hero && scrolled < windowHeight) {
+          const rate = scrolled * -0.3;
+          hero.style.transform = `translateY(${rate}px) scale(${1 + scrolled * 0.0001})`;
+          
+          if (heroContent) {
+            heroContent.style.transform = `translateY(${scrolled * 0.2}px)`;
+            heroContent.style.opacity = Math.max(0, 1 - scrolled / windowHeight);
+          }
+        }
+
+        // Floating elements advanced movement
+        document.querySelectorAll('.floating-circle').forEach((circle, index) => {
+          const speed = 0.3 + (index * 0.1);
+          const rotation = scrolled * (0.05 + index * 0.02);
+          const translateX = Math.sin(scrolled * 0.001 + index) * 20;
+          const translateY = scrolled * speed;
+          
+          circle.style.transform = `
+            translateY(${translateY}px) 
+            translateX(${translateX}px) 
+            rotate(${rotation}deg) 
+            scale(${1 + Math.sin(scrolled * 0.002 + index) * 0.1})
+          `;
+        });
+
+        // Particle swirl effects
+        document.querySelectorAll('.floating-particle').forEach((particle, index) => {
+          const angle = (scrolled * 0.001 + index * 0.5) * Math.PI * 2;
+          const radius = 50 + index * 10;
+          const centerX = window.innerWidth * (0.2 + index * 0.1);
+          const centerY = window.innerHeight * (0.3 + index * 0.1);
+          
+          const x = centerX + Math.cos(angle) * radius;
+          const y = centerY + Math.sin(angle) * radius + scrolled * 0.1;
+          
+          particle.style.transform = `translate(${x}px, ${y}px) scale(${1 + Math.sin(angle) * 0.3})`;
+          particle.style.opacity = 0.3 + Math.sin(angle + Math.PI) * 0.3;
+        });
+
+        // Update scroll progress
+        this.updateScrollProgress(scrolled);
+        
+        ticking = false;
+      };
+
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          requestAnimationFrame(updateScrollEffects);
+          ticking = true;
+        }
+      }, { passive: true });
+    }
+
+    setupHeroAnimations() {
+      // Sequential hero content animation
+      setTimeout(() => {
+        const title = document.querySelector('.hero-title');
+        if (title) title.style.opacity = '1';
+      }, 200);
+
+      setTimeout(() => {
+        const subtitle = document.querySelector('.hero-subtitle');
+        if (subtitle) subtitle.style.opacity = '1';
+      }, 800);
+
+      setTimeout(() => {
+        const description = document.querySelector('.hero-description');
+        if (description) description.style.opacity = '1';
+      }, 1200);
+
+      setTimeout(() => {
+        const cta = document.querySelector('.cta-container');
+        if (cta) cta.style.opacity = '1';
+      }, 1600);
+
+      setTimeout(() => {
+        const scroll = document.querySelector('.scroll-indicator');
+        if (scroll) scroll.style.opacity = '1';
+      }, 2000);
+    }
+
+    setupInteractiveEffects() {
+      // Enhanced CTA button interactions
+      const ctaButton = document.querySelector('.cta-button');
+      if (ctaButton) {
+        ctaButton.addEventListener('click', (e) => {
+          e.preventDefault();
+          this.smoothScrollToSection('.content-section');
+        });
+
+        // Magnetic effect
+        ctaButton.addEventListener('mousemove', (e) => {
+          const rect = ctaButton.getBoundingClientRect();
+          const x = e.clientX - rect.left - rect.width / 2;
+          const y = e.clientY - rect.top - rect.height / 2;
+          
+          ctaButton.style.transform = `translate(${x * 0.1}px, ${y * 0.1}px) scale(1.05)`;
+        });
+
+        ctaButton.addEventListener('mouseleave', () => {
+          ctaButton.style.transform = 'translate(0px, 0px) scale(1)';
+        });
+      }
+
+      // Enhanced value item interactions
+      document.querySelectorAll('.value-item').forEach(item => {
+        item.addEventListener('mouseenter', () => {
+          item.style.transform = 'translateY(-10px) scale(1.02)';
+          item.style.zIndex = '10';
+        });
+        
+        item.addEventListener('mouseleave', () => {
+          item.style.transform = 'translateY(0) scale(1)';
+          item.style.zIndex = '1';
+        });
+
+        // Add ripple effect on click
+        item.addEventListener('click', (e) => {
+          this.createRipple(e, item);
+        });
+      });
+
+      // Image hover effects
+      document.querySelectorAll('.image-wrapper').forEach(wrapper => {
+        wrapper.addEventListener('mouseenter', () => {
+          const img = wrapper.querySelector('img');
+          if (img) {
+            img.style.transform = 'scale(1.05) rotate(2deg)';
+            img.style.filter = 'brightness(1.1) contrast(1.1)';
+          }
+        });
+
+        wrapper.addEventListener('mouseleave', () => {
+          const img = wrapper.querySelector('img');
+          if (img) {
+            img.style.transform = 'scale(1) rotate(0deg)';
+            img.style.filter = 'brightness(1) contrast(1)';
+          }
+        });
+      });
+    }
+
+    createRipple(event, element) {
+      const ripple = document.createElement('div');
+      const rect = element.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height);
+      const x = event.clientX - rect.left - size / 2;
+      const y = event.clientY - rect.top - size / 2;
+
+      ripple.style.cssText = `
+        position: absolute;
+        width: ${size}px;
+        height: ${size}px;
+        left: ${x}px;
+        top: ${y}px;
+        background: rgba(251, 191, 36, 0.3);
+        border-radius: 50%;
+        transform: scale(0);
+        animation: ripple 0.6s ease-out;
+        pointer-events: none;
+        z-index: 1000;
+      `;
+
+      element.style.position = 'relative';
+      element.appendChild(ripple);
+
+      setTimeout(() => {
+        ripple.remove();
+      }, 600);
+    }
+
+    smoothScrollToSection(selector) {
+      const target = document.querySelector(selector);
+      if (target) {
+        const targetPosition = target.offsetTop - 80;
+        const startPosition = window.pageYOffset;
+        const distance = targetPosition - startPosition;
+        const duration = Math.abs(distance) / 2;
+        let start = null;
+
+        const step = (timestamp) => {
+          if (!start) start = timestamp;
+          const progress = timestamp - start;
+          const progressPercentage = Math.min(progress / duration, 1);
+          
+          // Easing function
+          const easeInOutCubic = progressPercentage < 0.5 
+            ? 4 * progressPercentage * progressPercentage * progressPercentage 
+            : (progressPercentage - 1) * (2 * progressPercentage - 2) * (2 * progressPercentage - 2) + 1;
+
+          window.scrollTo(0, startPosition + (distance * easeInOutCubic));
+
+          if (progressPercentage < 1) {
+            requestAnimationFrame(step);
+          }
+        };
+
+        requestAnimationFrame(step);
+      }
+    }
+
+    updateScrollProgress(scrolled) {
+      const indicator = document.querySelector('.scroll-progress');
+      if (!indicator) {
+        const newIndicator = document.createElement('div');
+        newIndicator.className = 'scroll-progress fixed top-0 left-0 w-0 h-1 bg-gradient-to-r from-yellow-400 to-yellow-300 z-50 transition-all duration-300';
+        document.body.appendChild(newIndicator);
+      }
+
+      const docHeight = document.body.offsetHeight - window.innerHeight;
+      const scrollPercent = Math.min((scrolled / docHeight) * 100, 100);
+      const progressBar = document.querySelector('.scroll-progress');
+      if (progressBar) {
+        progressBar.style.width = scrollPercent + '%';
+      }
+    }
+
+    setupPerformanceOptimizations() {
+      // Lazy load images
+      const imageObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const img = entry.target;
+            if (img.dataset.src) {
+              img.src = img.dataset.src;
+              img.removeAttribute('data-src');
+            }
+            img.classList.add('loaded');
+            imageObserver.unobserve(img);
+          }
+        });
+      });
+
+      document.querySelectorAll('img[data-src]').forEach(img => {
+        imageObserver.observe(img);
+      });
+
+      // Preload critical resources
+      const preloadLinks = [
+        '/media/inicio/titulo.jpg',
+        '/media/inicio/mision.jpg',
+        '/media/inicio/vision.jpg'
+      ];
+
+      preloadLinks.forEach(href => {
+        const link = document.createElement('link');
+        link.rel = 'preload';
+        link.as = 'image';
+        link.href = href;
+        document.head.appendChild(link);
+      });
+    }
+  }
+
+  // Initialize animation controller
+  const animController = new AnimationController();
+
+  // Add CSS for ripple animation
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes ripple {
+      to {
+        transform: scale(2);
+        opacity: 0;
+      }
+    }
+    
+    .loaded {
+      opacity: 1;
+      transition: opacity 0.5s ease;
+    }
+  `;
+  document.head.appendChild(style);
+
+  // Mouse trail effect
+  let mouseTrail = [];
+  const maxTrailLength = 20;
+
+  document.addEventListener('mousemove', (e) => {
+    mouseTrail.push({ x: e.clientX, y: e.clientY, time: Date.now() });
+    
+    if (mouseTrail.length > maxTrailLength) {
+      mouseTrail.shift();
+    }
+
+    updateMouseTrail();
+  });
+
+  function updateMouseTrail() {
+    const now = Date.now();
+    mouseTrail = mouseTrail.filter(point => now - point.time < 1000);
+
+    // Remove old trail elements
+    document.querySelectorAll('.mouse-trail-dot').forEach(dot => {
+      if (now - parseInt(dot.dataset.time) > 1000) {
+        dot.remove();
+      }
+    });
+
+    // Add new trail dots
+    mouseTrail.forEach((point, index) => {
+      if (!document.querySelector(`[data-trail-index="${index}"]`)) {
+        const dot = document.createElement('div');
+        dot.className = 'mouse-trail-dot fixed pointer-events-none z-40';
+        dot.dataset.trailIndex = index;
+        dot.dataset.time = point.time;
+        
+        const size = (index / maxTrailLength) * 6;
+        const opacity = index / maxTrailLength;
+        
+        dot.style.cssText = `
+          width: ${size}px;
+          height: ${size}px;
+          left: ${point.x - size/2}px;
+          top: ${point.y - size/2}px;
+          background: rgba(251, 191, 36, ${opacity});
+          border-radius: 50%;
+          transition: all 0.1s ease;
+        `;
+        
+        document.body.appendChild(dot);
+      }
+    });
+  }
+
+  // Keyboard navigation enhancement
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      const focused = document.activeElement;
+      if (focused.classList.contains('cta-button')) {
+        e.preventDefault();
+        focused.click();
+      }
+    }
+  });
+
+  // Touch gesture support
+  let touchStartY = 0;
+  document.addEventListener('touchstart', (e) => {
+    touchStartY = e.touches[0].clientY;
+  });
+
+  document.addEventListener('touchend', (e) => {
+    const touchEndY = e.changedTouches[0].clientY;
+    const diff = touchStartY - touchEndY;
+
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) {
+        // Swipe up - scroll to next section
+        const currentSection = getCurrentSection();
+        const nextSection = getNextSection(currentSection);
+        if (nextSection) {
+          animController.smoothScrollToSection(`#${nextSection.id}`);
+        }
+      }
+    }
+  });
+
+  function getCurrentSection() {
+    const sections = document.querySelectorAll('section');
+    const scrollPos = window.pageYOffset + window.innerHeight / 2;
+    
+    for (let section of sections) {
+      if (scrollPos >= section.offsetTop && scrollPos < section.offsetTop + section.offsetHeight) {
+        return section;
+      }
+    }
+    return sections[0];
+  }
+
+  function getNextSection(currentSection) {
+    const sections = Array.from(document.querySelectorAll('section'));
+    const currentIndex = sections.indexOf(currentSection);
+    return sections[currentIndex + 1] || null;
+  }
+});
+</script>
+
 {% endblock %}

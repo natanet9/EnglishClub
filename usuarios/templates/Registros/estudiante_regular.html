@@ -2,282 +2,811 @@
 {% block title %}Registrar Estudiante Regular{% endblock %}
 
 {% block content %}
-<!-- Bootstrap CSS, Icons, and Animate.css -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 
-<section class="container my-4">
-  <div class="card shadow-lg border-0 animate__animated animate__fadeIn">
-    <!-- Header with dark blue -->
-    <div class="card-header p-4 bg-gradient" style="background: #1a3b68; border: 3px solid #4a7abc;">
-      <h2 class="card-title text-white mb-0 d-flex align-items-center fw-bold">
-        <i class="bi bi-clipboard-check fs-3 me-2" style="color: #ffcc33;"></i> 
-        <span class="animate__animated animate__pulse animate__infinite animate__slower">ESTUDIANTE REGULAR - FORMULARIO DE INSCRIPCIÓN</span>
-      </h2>
-    </div>
-    
-    <div class="card-body bg-light">
-      <!-- Fecha -->
-      <div class="row mb-4 pb-3 border-bottom" style="border-color: #4a7abc !important; border-width: 2px;">
-        <div class="col-md-4 mb-3">
-          <div class="bg-white rounded shadow-sm p-3 h-100 border" style="border-color: #4a7abc !important; border-width: 2px;">
-            <label class="form-label fw-bold" style="color: #4a7abc;">
-              <i class="bi bi-calendar-date me-1"></i> Fecha
-            </label>
-            <input type="date" class="form-control form-control-lg" style="border-color: #4a7abc; border-width: 2px;" value="{{ today|date:'Y-m-d' }}" readonly>
-          </div>
-        </div>
-        <div class="col-md-8"></div>
+<div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-6">
+  <div class="max-w-7xl mx-auto px-4">
+    <!-- Header mejorado -->
+    <div class="bg-white rounded-xl shadow-lg border border-gray-200 mb-8 overflow-hidden">
+      <div class="bg-gradient-to-r from-[#1a3b68] to-[#2a4b78] p-8">
+        <h1 class="text-white text-3xl font-bold flex items-center">
+          <i class="bi bi-clipboard-check text-[#ffcc33] text-4xl mr-4"></i>
+          ESTUDIANTE REGULAR - FORMULARIO DE INSCRIPCIÓN
+        </h1>
+        <p class="text-blue-100 mt-2 text-lg">Complete todos los campos para procesar su inscripción</p>
       </div>
-      {% if form.errors %}
-  <div class="alert alert-danger">
-    <ul>
-      {% for field in form %}
-        {% for error in field.errors %}
-          <li><strong>{{ field.label }}:</strong> {{ error }}</li>
-        {% endfor %}
-      {% endfor %}
-      {% for error in form.non_field_errors %}
-        <li>{{ error }}</li>
-      {% endfor %}
-    </ul>
-  </div>
-{% endif %}
-      <!-- Formulario Principal -->
-      <form method="post" enctype="multipart/form-data" id="inscripcionForm" class="needs-validation" novalidate>
-        {% csrf_token %}
-  <!-- Usuario y Contraseña -->
-  <div class="card mb-4 border" style="border-color: #4a7abc !important; border-width: 2px;">
-    <div class="card-header" style="background-color: #1a3b68; color: white;">
-      <h3 class="h5 mb-0">
-        <i class="bi bi-person-circle me-2" style="color: #ffcc33;"></i> Credenciales de Usuario
-      </h3>
-    </div>
-    <div class="card-body">
-      <div class="row g-3">
-        <div class="col-md-6">
-          <label class="form-label"><i class="bi bi-person me-1" style="color: #4a7abc;"></i> Usuario</label>
-          <div class="input-group">
-            <span class="input-group-text" style="background-color: #1a3b68; color: white;"><i class="bi bi-person"></i></span>
-            {{ form.username }}
+      
+      <!-- Fecha con mejor diseño -->
+      <div class="p-6 bg-gray-50 border-b border-gray-200">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center space-x-4">
+            <div class="w-72">
+              <label class="block text-[#1a3b68] font-semibold mb-2 text-lg">
+                <i class="bi bi-calendar-date mr-3 text-[#ffcc33]"></i>Fecha de Inscripción
+              </label>
+              <input type="date" 
+                     class="w-full px-4 py-3 border-2 border-[#1a3b68] rounded-lg bg-white text-lg font-medium" 
+                     value="{{ today|date:'Y-m-d' }}" 
+                     readonly>
+            </div>
           </div>
-        </div>
-        <div class="col-md-6">
-          <label class="form-label"><i class="bi bi-lock me-1" style="color: #4a7abc;"></i> Contraseña</label>
-          <div class="input-group">
-            <span class="input-group-text" style="background-color: #1a3b68; color: white;"><i class="bi bi-lock"></i></span>
-            {{ form.password }}
+          <div class="text-right">
+            <div class="text-sm text-gray-500">Sistema de Inscripciones</div>
+            <div class="text-lg font-semibold text-[#1a3b68]">English CLub</div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-        <!-- Datos Personales -->
-        <div class="card mb-4 border" style="border-color: #4a7abc !important; border-width: 2px;">
-          <div class="card-header" style="background-color: #f18f01; color: white; border-bottom: 2px solid #ffcc33;">
-            <h3 class="h5 mb-0">
-              <i class="bi bi-person-vcard me-2" style="color: #ffcc33;"></i> Datos Personales
-            </h3>
-          </div>
-          <div class="card-body">
-            <div class="row g-3">
-              <div class="col-md-6">
-                <label class="form-label"><i class="bi bi-person me-1" style="color: #4a7abc;"></i> Apellidos</label>
-                <div class="input-group">
-                  <span class="input-group-text" style="background-color: #f18f01; color: white; border-color: #f18f01; border-width: 2px;"><i class="bi bi-pencil"></i></span>
-                  {{ form.apellidos }}
+
+    <!-- Error Messages mejorados -->
+    {% if form.errors %}
+    <div class="bg-red-50 border-l-4 border-red-500 p-6 mb-8 rounded-r-xl shadow-md">
+      <div class="flex items-center mb-3">
+        <i class="bi bi-exclamation-triangle-fill text-red-500 text-xl mr-3"></i>
+        <h3 class="text-red-700 font-semibold text-lg">Errores en el formulario</h3>
+      </div>
+      <div class="text-red-700">
+        <ul class="list-disc list-inside space-y-2">
+          {% for field in form %}
+            {% for error in field.errors %}
+              <li class="text-base"><strong>{{ field.label }}:</strong> {{ error }}</li>
+            {% endfor %}
+          {% endfor %}
+          {% for error in form.non_field_errors %}
+            <li class="text-base">{{ error }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- Main Form con layout mejorado -->
+    <form method="post" enctype="multipart/form-data" id="inscripcionForm" class="space-y-8">
+      {% csrf_token %}
+
+      <!-- Layout de dos columnas principales -->
+      <div class="grid grid-cols-1 xl:grid-cols-2 gap-8">
+        
+        <!-- Columna Izquierda -->
+        <div class="space-y-8">
+          
+          <!-- Credenciales de Usuario -->
+          <div class="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
+            <div class="bg-gradient-to-r from-[#1a3b68] to-[#2a4b78] px-6 py-4">
+              <h2 class="text-white font-semibold text-xl flex items-center">
+                <i class="bi bi-person-circle text-[#ffcc33] mr-3 text-2xl"></i>
+                Credenciales de Usuario
+              </h2>
+            </div>
+            <div class="p-8">
+              <div class="space-y-6">
+                <div>
+                  <label class="block text-[#1a3b68] font-semibold mb-3 text-lg">
+                    <i class="bi bi-person mr-2"></i>Usuario (Generado automáticamente)
+                  </label>
+                  <input type="text" 
+                         id="username"
+                         class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg bg-gray-100 text-gray-600 text-lg font-medium" 
+                         readonly
+                         placeholder="Se generará automáticamente">
+                         <input type="hidden" id="id_username" name="username" value="">
+
                 </div>
-              </div>
-              <div class="col-md-6">
-                <label class="form-label"><i class="bi bi-person me-1" style="color: #4a7abc;"></i> Nombres</label>
-                <div class="input-group">
-                  <span class="input-group-text" style="background-color: #f18f01; color: white; border-color: #f18f01; border-width: 2px;"><i class="bi bi-pencil"></i></span>
-                  {{ form.nombre }}
-                </div>
-              </div>
-              <div class="col-md-4">
-                <label class="form-label"><i class="bi bi-card-text me-1" style="color: #4a7abc;"></i> C.I.</label>
-                <div class="input-group">
-                  <span class="input-group-text" style="background-color: #f18f01; color: white; border-color: #f18f01; border-width: 2px;"><i class="bi bi-hash"></i></span>
-                  {{ form.carnet }}
-                </div>
-              </div>
-              <div class="col-md-4">
-                <label class="form-label"><i class="bi bi-calendar-heart me-1" style="color: #4a7abc;"></i> Fecha de nacimiento</label>
-                <div class="input-group">
-                  <span class="input-group-text" style="background-color: #f18f01; color: white; border-color: #f18f01; border-width: 2px;"><i class="bi bi-calendar"></i></span>
-                  {{ form.fecha_nacimiento }}
-                </div>
-              </div>
-              <div class="col-md-4">
-                <label class="form-label"><i class="bi bi-house-door me-1" style="color: #4a7abc;"></i> Domicilio</label>
-                <div class="input-group">
-                  <span class="input-group-text" style="background-color: #f18f01; color: white; border-color: #f18f01; border-width: 2px;"><i class="bi bi-house-door"></i></span>
-                  {{ form.domicilio }}
+                <div>
+                  <label class="block text-[#1a3b68] font-semibold mb-3 text-lg">
+                    <i class="bi bi-lock mr-2"></i>Contraseña *
+                  </label>
+                  <div class="relative">
+                    {{ form.password }}
+                    <button type="button" 
+                            id="togglePassword"
+                            class="absolute right-3 top-3 text-gray-500 hover:text-[#1a3b68] transition-colors text-xl">
+                      <i class="bi bi-eye" id="eyeIcon"></i>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <!-- Información de Contacto -->
-        <div class="card mb-4 border" style="border-color: #4a7abc !important; border-width: 2px;">
-          <div class="card-header" style="background-color: #4a7abc; color: white; border-bottom: 2px solid #4a7abc;">
-            <h3 class="h5 mb-0">
-              <i class="bi bi-telephone me-2" style="color: #ffcc33;"></i> Información de Contacto
-            </h3>
-          </div>
-          <div class="card-body">
-            <div class="row g-3">
-              <div class="col-md-6">
-                <label class="form-label"><i class="bi bi-envelope me-1" style="color: #4a7abc;"></i> Correo electrónico</label>
-                <div class="input-group">
-                  <span class="input-group-text" style="background-color: #4a7abc; color: white; border-color: #4a7abc; border-width: 2px;"><i class="bi bi-at"></i></span>
+          <!-- Información de Contacto -->
+          <div class="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
+            <div class="bg-gradient-to-r from-[#1a3b68] to-[#2a4b78] px-6 py-4">
+              <h2 class="text-white font-semibold text-xl flex items-center">
+                <i class="bi bi-telephone text-[#ffcc33] mr-3 text-2xl"></i>
+                Información de Contacto
+              </h2>
+            </div>
+            <div class="p-8">
+              <div class="space-y-6">
+                <div>
+                  <label class="block text-[#1a3b68] font-semibold mb-3 text-lg">
+                    <i class="bi bi-envelope mr-2"></i>Correo electrónico *
+                  </label>
                   {{ form.direccion }}
                 </div>
-              </div>
-              <div class="col-md-6">
-                <label class="form-label"><i class="bi bi-phone me-1" style="color: #4a7abc;"></i> Teléfono</label>
-                <div class="input-group">
-                  <span class="input-group-text" style="background-color: #4a7abc; color: white; border-color: #4a7abc; border-width: 2px;"><i class="bi bi-telephone"></i></span>
+                <div>
+                  <label class="block text-[#1a3b68] font-semibold mb-3 text-lg">
+                    <i class="bi bi-phone mr-2"></i>Teléfono *
+                  </label>
                   {{ form.telefono }}
                 </div>
               </div>
             </div>
           </div>
+
         </div>
 
-        <!-- Botón de envío -->
-        <div class="text-center mt-4">
-          <div class="d-inline-block position-relative">
-            <button type="submit" class="btn btn-lg px-5 py-3 shadow-lg animate__animated animate__pulse animate__infinite animate__slow" style="background-color: #4a7abc; color: white; border: 2px solid #1a3b68;" id="submitBtn">
-              <i class="bi bi-check-circle-fill me-2" style="color: #ffcc33;"></i> REGISTRAR ESTUDIANTE
-            </button>
-            <div class="position-absolute top-0 start-0 w-100 h-100" style="z-index: -1; transform: scale(1.1);">
-              <div class="position-absolute top-0 start-0 w-100 h-100 rounded-pill" style="background-color: #1a3b68; opacity: 0.25; filter: blur(10px);"></div>
+        <!-- Columna Derecha -->
+        <div class="space-y-8">
+          
+          <!-- Datos Personales -->
+          <div class="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
+            <div class="bg-gradient-to-r from-[#ffcc33] to-[#ffd700] px-6 py-4">
+              <h2 class="text-[#1a3b68] font-semibold text-xl flex items-center">
+                <i class="bi bi-person-vcard mr-3 text-2xl"></i>
+                Datos Personales
+              </h2>
+            </div>
+            <div class="p-8">
+              <div class="space-y-6">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  <div>
+                    <label class="block text-[#1a3b68] font-semibold mb-3 text-lg">
+                      <i class="bi bi-person mr-2"></i>Apellidos *
+                    </label>
+                    {{ form.apellidos }}
+                  </div>
+                  <div>
+                    <label class="block text-[#1a3b68] font-semibold mb-3 text-lg">
+                      <i class="bi bi-person mr-2"></i>Nombres *
+                    </label>
+                    {{ form.nombre }}
+                  </div>
+                </div>
+                
+                <!-- Carnet con diseño mejorado -->
+                <div>
+                  <label class="block text-[#1a3b68] font-semibold mb-3 text-lg">
+                    <i class="bi bi-card-text mr-2"></i>Cédula de Identidad *
+                  </label>
+                  <div class="flex gap-3">
+                    <div class="flex-1">
+                      <input type="text" 
+                             id="carnet_numero"
+                             class="w-full px-4 py-3 border-2 border-[#1a3b68] rounded-lg focus:outline-none focus:border-[#ffcc33] transition-colors text-lg"
+                             placeholder="Número de cédula"
+                             maxlength="8"
+                             pattern="[0-9]*">
+                    </div>
+                    <div class="w-24">
+                      <input type="text" 
+                             id="carnet_extension"
+                             class="w-full px-4 py-3 border-2 border-[#1a3b68] rounded-lg focus:outline-none focus:border-[#ffcc33] transition-colors text-lg text-center"
+                             placeholder="Ext"
+                             maxlength="3">
+                    </div>
+                  </div>
+                  {{ form.carnet }}
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  <div>
+                    <label class="block text-[#1a3b68] font-semibold mb-3 text-lg">
+                      <i class="bi bi-calendar-heart mr-2"></i>Fecha de nacimiento *
+                    </label>
+                    {{ form.fecha_nacimiento }}
+                  </div>
+                  <div>
+                    <label class="block text-[#1a3b68] font-semibold mb-3 text-lg">
+                      <i class="bi bi-house-door mr-2"></i>Domicilio *
+                    </label>
+                    {{ form.domicilio }}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </form>
-    </div>
-  </div>
-</section>
 
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        </div>
+      </div>
+
+      <!-- Submit Button mejorado -->
+      <div class="text-center pt-8">
+        <div class="bg-white rounded-xl shadow-lg border border-gray-200 p-8">
+          <button type="submit" 
+                  id="submitBtn"
+                  class="bg-gradient-to-r from-[#1a3b68] to-[#2a4b78] hover:from-[#ffcc33] hover:to-[#ffd700] hover:text-[#1a3b68] text-white px-12 py-4 rounded-xl font-bold text-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
+            <i class="bi bi-check-circle-fill mr-3 text-xl"></i>
+            REGISTRAR ESTUDIANTE
+          </button>
+          <p class="text-gray-600 mt-4 text-sm">Al registrarse, acepta los términos y condiciones de la institución</p>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    // Tooltips
-    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
-    tooltipTriggerList.forEach(el => new bootstrap.Tooltip(el));
+document.addEventListener('DOMContentLoaded', function() {
+  // Configurar estilos de campos del formulario Django
+  const formFields = document.querySelectorAll('input[type="text"], input[type="email"], input[type="password"], input[type="date"], textarea, select');
+  formFields.forEach(field => {
+    field.className = 'w-full px-4 py-3 border-2 border-[#1a3b68] rounded-lg focus:outline-none focus:border-[#ffcc33] transition-all duration-300 text-lg focus:ring-2 focus:ring-[#ffcc33] focus:ring-opacity-20';
+  });
 
-    // Form validation
-    const form = document.getElementById('inscripcionForm');
-    if (form) { 
-      form.addEventListener('submit', function(event) {
-        if (!form.checkValidity()) {
-          event.preventDefault();
-          event.stopPropagation();  
-          const firstInvalid = form.querySelector(':invalid');
-          if (firstInvalid) { 
-            firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' }); 
-            firstInvalid.classList.add('animate__animated', 'animate__headShake');
-            setTimeout(() => firstInvalid.classList.remove('animate__animated', 'animate__headShake'), 1000);
-          }
-        } else {  
-          const submitBtn = document.getElementById('submitBtn');
-          submitBtn.innerHTML = '<i class="spinner-border spinner-border-sm me-2"></i> Procesando...';
-          submitBtn.disabled = true;
-        } 
-        form.classList.add('was-validated');
-      });
+  // Campo carnet oculto (para Django)
+  const carnetField = document.querySelector('#id_carnet');
+  if (carnetField) {
+    carnetField.style.display = 'none';
+  }
 
-      const emailFields = form.querySelectorAll('input[type="email"]');
-      emailFields.forEach(field => {
-        field.addEventListener('input', function() {
-          if (this.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.value)) {
-            this.setCustomValidity('Ingrese un correo válido');
+  // Función para generar usuario automáticamente
+  function generateUsername() {
+    const nombre = document.querySelector('#id_nombre')?.value || '';
+    const apellidos = document.querySelector('#id_apellidos')?.value || '';
+    const carnetNumero = document.getElementById('carnet_numero')?.value || '';
+    
+    if (nombre && apellidos && carnetNumero) {
+      const primeraLetraNombre = nombre.trim().charAt(0).toLowerCase();
+      const primeraLetraApellido = apellidos.trim().charAt(0).toLowerCase();
+      const username = primeraLetraNombre + primeraLetraApellido + carnetNumero;
+      
+      document.getElementById('username').value = username;
+      
+      // Actualizar campo oculto si existe
+      const usernameField = document.querySelector('#id_username');
+      if (usernameField) {
+        usernameField.value = username;
+      }
+    }
+  }
+
+  // Función para actualizar carnet completo
+  function updateCarnet() {
+    const numero = document.getElementById('carnet_numero')?.value || '';
+    const extension = document.getElementById('carnet_extension')?.value || '';
+    const carnetCompleto = numero + (extension ? '-' + extension : '');
+    
+    const carnetField = document.querySelector('#id_carnet');
+    if (carnetField) {
+      carnetField.value = carnetCompleto;
+    }
+    
+    generateUsername();
+  }
+
+  // Event listeners para generar usuario automáticamente
+  const nombreField = document.querySelector('#id_nombre');
+  const apellidosField = document.querySelector('#id_apellidos');
+  const carnetNumeroField = document.getElementById('carnet_numero');
+  const carnetExtensionField = document.getElementById('carnet_extension');
+
+  if (nombreField) nombreField.addEventListener('input', generateUsername);
+  if (apellidosField) apellidosField.addEventListener('input', generateUsername);
+  if (carnetNumeroField) carnetNumeroField.addEventListener('input', updateCarnet);
+  if (carnetExtensionField) carnetExtensionField.addEventListener('input', updateCarnet);
+
+  // Validación solo números para carnet
+  if (carnetNumeroField) {
+    carnetNumeroField.addEventListener('input', function(e) {
+      this.value = this.value.replace(/[^0-9]/g, '');
+    });
+  }
+
+  // Toggle password visibility
+  const togglePassword = document.getElementById('togglePassword');
+  const passwordField = document.querySelector('#id_password');
+  const eyeIcon = document.getElementById('eyeIcon');
+
+  if (togglePassword && passwordField) {
+    togglePassword.addEventListener('click', function() {
+      const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordField.setAttribute('type', type);
+      eyeIcon.className = type === 'password' ? 'bi bi-eye' : 'bi bi-eye-slash';
+    });
+  }
+
+  // Sistema de validación mejorado
+  const form = document.getElementById('inscripcionForm');
+  const validationErrors = [];
+  
+  // Función para mostrar errores de validación
+  function showFieldError(field, message) {
+    // Remover errores previos
+    clearFieldError(field);
+    
+    // Agregar clases de error
+    field.classList.add('border-red-500', 'bg-red-50');
+    
+    // Crear mensaje de error
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'text-red-600 text-sm mt-2 flex items-center validation-error';
+    errorDiv.innerHTML = `<i class="bi bi-exclamation-circle mr-2"></i>${message}`;
+    
+    // Insertar después del campo
+    field.parentNode.appendChild(errorDiv);
+    
+    // Scroll suave al primer error
+    if (validationErrors.length === 0) {
+      field.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+    
+    validationErrors.push(field);
+  }
+  
+  // Función para limpiar errores de campo
+  function clearFieldError(field) {
+    field.classList.remove('border-red-500', 'bg-red-50');
+    const errorMsg = field.parentNode.querySelector('.validation-error');
+    if (errorMsg) {
+      errorMsg.remove();
+    }
+  }
+  
+  // Función para mostrar éxito en campo
+  function showFieldSuccess(field) {
+    clearFieldError(field);
+    field.classList.add('border-green-500');
+    setTimeout(() => {
+      field.classList.remove('border-green-500');
+    }, 2000);
+  }
+  
+  // Validaciones en tiempo real
+  function setupRealTimeValidation() {
+    // Validación de nombres y apellidos
+    const nombreField = document.querySelector('#id_nombre');
+    const apellidosField = document.querySelector('#id_apellidos');
+    
+    [nombreField, apellidosField].forEach(field => {
+      if (field) {
+        field.addEventListener('blur', function() {
+          const value = this.value.trim();
+          if (value.length < 2) {
+            showFieldError(this, 'Debe tener al menos 2 caracteres');
+          } else if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(value)) {
+            showFieldError(this, 'Solo se permiten letras y espacios');
           } else {
-            this.setCustomValidity('');
+            showFieldSuccess(this);
           }
         });
-      }); 
-    }
-
-    // Input focus effects
-    document.querySelectorAll('.form-control, .form-select').forEach(input => {
-      input.addEventListener('focus', function() {
-        this.closest('.input-group')?.classList.add('shadow');
-        this.closest('.card')?.classList.add('border');
-        if (this.closest('.card')) this.closest('.card').style.borderColor = '#1a3b68';
-      }); 
-      input.addEventListener('blur', function() {
-        this.closest('.input-group')?.classList.remove('shadow');
-        this.closest('.card')?.classList.remove('border');
+        
+        // Filtrar caracteres no válidos en tiempo real
+        field.addEventListener('input', function() {
+          this.value = this.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g, '');
+          clearFieldError(this);
+        });
+      }
+    });
+    
+    // Validación de carnet
+    const carnetNumeroField = document.getElementById('carnet_numero');
+    if (carnetNumeroField) {
+      carnetNumeroField.addEventListener('blur', function() {
+        const value = this.value.trim();
+        if (value.length < 6) {
+          showFieldError(this, 'El número de cédula debe tener al menos 6 dígitos');
+        } else if (value.length > 8) {
+          showFieldError(this, 'El número de cédula no puede tener más de 8 dígitos');
+        } else {
+          showFieldSuccess(this);
+        }
       });
+    }
+    
+    // Validación de email
+    const emailField = document.querySelector('#id_direccion');
+    if (emailField) {
+      emailField.addEventListener('blur', function() {
+        const value = this.value.trim();
+        if (value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+          showFieldError(this, 'Ingrese un correo electrónico válido');
+        } else if (value) {
+          showFieldSuccess(this);
+        }
+      });
+    }
+    
+    // Validación de teléfono
+    const telefonoField = document.querySelector('#id_telefono');
+    if (telefonoField) {
+      telefonoField.addEventListener('input', function() {
+        // Permitir solo números, espacios, guiones y paréntesis
+        this.value = this.value.replace(/[^0-9\s\-\(\)]/g, '');
+      });
+      
+      telefonoField.addEventListener('blur', function() {
+        const value = this.value.trim();
+        if (value && value.length < 7) {
+          showFieldError(this, 'El teléfono debe tener al menos 7 dígitos');
+        } else if (value && !/^[\d\s\-\(\)]+$/.test(value)) {
+          showFieldError(this, 'Formato de teléfono inválido');
+        } else if (value) {
+          showFieldSuccess(this);
+        }
+      });
+    }
+    
+    // Validación de fecha de nacimiento
+    const fechaNacimientoField = document.querySelector('#id_fecha_nacimiento');
+    if (fechaNacimientoField) {
+      fechaNacimientoField.addEventListener('change', function() {
+        const fechaNacimiento = new Date(this.value);
+        const fechaActual = new Date();
+        const edad = fechaActual.getFullYear() - fechaNacimiento.getFullYear();
+        const mesActual = fechaActual.getMonth();
+        const mesNacimiento = fechaNacimiento.getMonth();
+        
+        let edadReal = edad;
+        if (mesActual < mesNacimiento || (mesActual === mesNacimiento && fechaActual.getDate() < fechaNacimiento.getDate())) {
+          edadReal--;
+        }
+        
+        if (edadReal < 4) {
+          showFieldError(this, 'Debe ser mayor de 4 años');
+        } else if (edadReal > 17) {
+          showFieldError(this, 'Verifique la fecha de nacimiento');
+        } else {
+          showFieldSuccess(this);
+        }
+      });
+    }
+    
+    // Validación de contraseña
+    const passwordField = document.querySelector('#id_password');
+    if (passwordField) {
+      passwordField.addEventListener('input', function() {
+        const value = this.value;
+        const passwordStrength = document.getElementById('password-strength') || createPasswordStrengthIndicator(this);
+        
+        let strength = 0;
+        let messages = [];
+        
+        if (value.length >= 8) strength++;
+        else messages.push('Al menos 8 caracteres');
+        
+        if (/[A-Z]/.test(value)) strength++;
+        else messages.push('Una mayúscula');
+        
+        if (/[a-z]/.test(value)) strength++;
+        else messages.push('Una minúscula');
+        
+        if (/[0-9]/.test(value)) strength++;
+        else messages.push('Un número');
+        
+        if (/[^A-Za-z0-9]/.test(value)) strength++;
+        else messages.push('Un carácter especial');
+        
+        updatePasswordStrength(passwordStrength, strength, messages);
+      });
+    }
+  }
+  
+  // Crear indicador de fortaleza de contraseña
+  function createPasswordStrengthIndicator(passwordField) {
+    const strengthDiv = document.createElement('div');
+    strengthDiv.id = 'password-strength';
+    strengthDiv.className = 'mt-2';
+    passwordField.parentNode.appendChild(strengthDiv);
+    return strengthDiv;
+  }
+  
+  // Actualizar indicador de fortaleza
+  function updatePasswordStrength(strengthDiv, strength, messages) {
+    const colors = ['bg-red-500', 'bg-red-400', 'bg-yellow-500', 'bg-yellow-400', 'bg-green-500'];
+    const labels = ['Muy débil', 'Débil', 'Regular', 'Buena', 'Excelente'];
+    
+    strengthDiv.innerHTML = `
+      <div class="flex items-center gap-2 mb-2">
+        <div class="flex gap-1 flex-1">
+          ${[1,2,3,4,5].map(i => `
+            <div class="h-2 flex-1 rounded ${i <= strength ? colors[strength-1] || 'bg-gray-300' : 'bg-gray-300'}"></div>
+          `).join('')}
+        </div>
+        <span class="text-sm font-medium ${strength >= 3 ? 'text-green-600' : 'text-red-600'}">
+          ${labels[strength-1] || 'Muy débil'}
+        </span>
+      </div>
+      ${messages.length > 0 ? `
+        <div class="text-xs text-gray-600">
+          Necesita: ${messages.join(', ')}
+        </div>
+      ` : ''}
+    `;
+  }
+  
+  // Validación completa del formulario
+  if (form) {
+    setupRealTimeValidation();
+    
+    form.addEventListener('submit', function(event) {
+      validationErrors.length = 0;
+      let isValid = true;
+      
+      // Limpiar errores previos
+      document.querySelectorAll('.validation-error').forEach(error => error.remove());
+      document.querySelectorAll('input, select, textarea').forEach(field => {
+        field.classList.remove('border-red-500', 'bg-red-50');
+      });
+      
+      // Validar campos requeridos
+      const requiredFields = [
+        { field: document.querySelector('#id_nombre'), name: 'Nombres' },
+        { field: document.querySelector('#id_apellidos'), name: 'Apellidos' },
+        { field: document.getElementById('carnet_numero'), name: 'Cédula de Identidad' },
+        { field: document.querySelector('#id_fecha_nacimiento'), name: 'Fecha de nacimiento' },
+        { field: document.querySelector('#id_domicilio'), name: 'Domicilio' },
+        { field: document.querySelector('#id_direccion'), name: 'Correo electrónico' },
+        { field: document.querySelector('#id_telefono'), name: 'Teléfono' },
+        { field: document.querySelector('#id_password'), name: 'Contraseña' }
+      ];
+      
+      requiredFields.forEach(({field, name}) => {
+        if (field && !field.value.trim()) {
+          showFieldError(field, `${name} es obligatorio`);
+          isValid = false;
+        }
+      });
+      
+      // Validaciones específicas
+      const carnetNumero = document.getElementById('carnet_numero')?.value.trim();
+      if (carnetNumero && (carnetNumero.length < 6 || carnetNumero.length > 8)) {
+        showFieldError(document.getElementById('carnet_numero'), 'La cédula debe tener entre 6 y 8 dígitos');
+        isValid = false;
+      }
+      
+      const email = document.querySelector('#id_direccion')?.value.trim();
+      if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showFieldError(document.querySelector('#id_direccion'), 'Correo electrónico inválido');
+        isValid = false;
+      }
+      
+      const telefono = document.querySelector('#id_telefono')?.value.trim();
+      if (telefono && telefono.length < 7) {
+        showFieldError(document.querySelector('#id_telefono'), 'Teléfono debe tener al menos 7 dígitos');
+        isValid = false;
+      }
+      
+      const password = document.querySelector('#id_password')?.value;
+      if (password && password.length < 8) {
+        showFieldError(document.querySelector('#id_password'), 'La contraseña debe tener al menos 8 caracteres');
+        isValid = false;
+      }
+      
+      // Validar edad
+      const fechaNacimiento = document.querySelector('#id_fecha_nacimiento')?.value;
+      if (fechaNacimiento) {
+        const fecha = new Date(fechaNacimiento);
+        const edad = new Date().getFullYear() - fecha.getFullYear();
+        if (edad < 4 || edad > 17) {
+          showFieldError(document.querySelector('#id_fecha_nacimiento'), 'Edad debe estar entre 4 y 17 años');
+          isValid = false;
+        }
+      }
+      
+      if (!isValid) {
+        event.preventDefault();
+        event.stopPropagation();
+        
+        // Mostrar resumen de errores
+        showErrorSummary(validationErrors.length);
+        
+        // Scroll al primer error
+        if (validationErrors.length > 0) {
+          validationErrors[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+          validationErrors[0].focus();
+        }
+      } else {
+        // Mostrar indicador de carga
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.innerHTML = '<i class="bi bi-hourglass-split mr-3 text-xl animate-spin"></i> Procesando inscripción...';
+        submitBtn.disabled = true;
+        submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
+        
+        // Mostrar mensaje de éxito temporal
+        showSuccessMessage();
+      }
+    });
+  }
+  
+  // Mostrar resumen de errores
+  function showErrorSummary(errorCount) {
+    const existingSummary = document.getElementById('error-summary');
+    if (existingSummary) existingSummary.remove();
+    
+    const errorSummary = document.createElement('div');
+    errorSummary.id = 'error-summary';
+    errorSummary.className = 'fixed top-4 right-4 bg-red-500 text-white px-6 py-4 rounded-lg shadow-lg z-50 max-w-sm';
+    errorSummary.innerHTML = `
+      <div class="flex items-center mb-2">
+        <i class="bi bi-exclamation-triangle-fill mr-2 text-xl"></i>
+        <strong>Errores de validación</strong>
+      </div>
+      <p class="text-sm">${errorCount} campo${errorCount > 1 ? 's necesitan' : ' necesita'} corrección</p>
+      <button onclick="this.parentElement.remove()" class="absolute top-2 right-2 text-white hover:text-red-200">
+        <i class="bi bi-x-lg"></i>
+      </button>
+    `;
+    
+    document.body.appendChild(errorSummary);
+    
+    // Auto-remove después de 6 segundos
+    setTimeout(() => {
+      if (errorSummary.parentNode) {
+        errorSummary.remove();
+      }
+    }, 6000);
+  }
+  
+  // Mostrar mensaje de éxito
+  function showSuccessMessage() {
+    const successMsg = document.createElement('div');
+    successMsg.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-4 rounded-lg shadow-lg z-50 max-w-sm';
+    successMsg.innerHTML = `
+      <div class="flex items-center">
+        <i class="bi bi-check-circle-fill mr-2 text-xl"></i>
+        <strong>Validación exitosa</strong>
+      </div>
+      <p class="text-sm mt-1">Procesando su inscripción...</p>
+    `;
+    
+    document.body.appendChild(successMsg);
+    
+    setTimeout(() => {
+      if (successMsg.parentNode) {
+        successMsg.remove();
+      }
+    }, 3000);
+  }
+
+  // Efectos de animación mejorados
+  document.querySelectorAll('input, textarea, select').forEach(input => {
+    input.addEventListener('focus', function() {
+      this.style.transform = 'scale(1.02)';
+      this.style.boxShadow = '0 8px 25px rgba(26, 59, 104, 0.15)';
+    });
+    
+    input.addEventListener('blur', function() {
+      this.style.transform = 'scale(1)';
+      this.style.boxShadow = 'none';
     });
   });
+
+  // Efecto de hover mejorado en botón
+  const submitBtn = document.getElementById('submitBtn');
+  if (submitBtn) {
+    submitBtn.addEventListener('mouseenter', function() {
+      this.style.boxShadow = '0 10px 30px rgba(26, 59, 104, 0.4)';
+    });
+    
+    submitBtn.addEventListener('mouseleave', function() {
+      this.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.1)';
+    });
+  }
+
+  // Animación de entrada para las secciones
+  const sections = document.querySelectorAll('.bg-white');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  });
+
+  sections.forEach(section => {
+    section.style.opacity = '0';
+    section.style.transform = 'translateY(20px)';
+    section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(section);
+  });
+});
 </script>
 
-<style> 
-  body {
-    background: linear-gradient(135deg, #f3f4f6 0%, #e8f0fe 100%);
-    min-height: 100vh;
-  } 
-  .card {
-    border-radius: 1rem;
-    overflow: hidden; 
-    transition: transform 0.3s, box-shadow 0.3s;
-  } 
-  .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 1rem 3rem rgba(26, 59, 104, 0.2) !important;
+<style>
+/* Animaciones y efectos mejorados */
+@keyframes gentle-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.9; }
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
   }
-  .form-control, .form-select {
-    border-width: 2px !important;
-    transition: border-color 0.3s, box-shadow 0.3s;
-  }
-  .form-control:focus, .form-select:focus {
-    border-color: #1a3b68 !important;
-    box-shadow: 0 0 0 0.25rem rgba(26, 59, 104, 0.25) !important;
-  }
-  .input-group-text {
-    border-width: 2px !important;
-  }
-  #submitBtn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(74, 122, 188, 0.4) !important;
-  }
-  #submitBtn:active {
+  to {
+    opacity: 1;
     transform: translateY(0);
-  } 
-   .form-control,
-  .form-select,
-  .input-group-text,
-  input[type="date"],
-  input[type="text"],
-  input[type="email"],
-  input[type="number"],
-  input[type="password"],
-  textarea,
-  select {
-    border: 2px solid #4a7abc !important;
-    box-shadow: none !important;
-    background-clip: padding-box;
   }
-  .form-control:focus,
-  .form-select:focus,
-  input[type="date"]:focus,
-  input[type="text"]:focus,
-  input[type="email"]:focus,
-  input[type="number"]:focus,
-  input[type="password"]:focus,
-  textarea:focus,
-  select:focus {
-    border-color: #1a3b68 !important;
-    box-shadow: 0 0 0 0.25rem rgba(26, 59, 104, 0.25) !important;
+}
+
+.form-field-glow:focus {
+  box-shadow: 0 0 0 4px rgba(255, 204, 51, 0.3);
+}
+
+/* Transiciones suaves globales */
+* {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Efectos de hover mejorados */
+input:hover:not(:focus), textarea:hover:not(:focus), select:hover:not(:focus) {
+  border-color: #ffcc33;
+  transform: translateY(-1px);
+}
+
+/* Estilo para campos válidos */
+input:required:valid {
+  border-color: #10b981;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%2310b981' d='m6.564.75-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+}
+
+/* Efectos de gradiente en hover */
+.bg-gradient-to-r:hover {
+  background-size: 200% 100%;
+  animation: gradient-shift 3s ease infinite;
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Responsive mejorado */
+@media (max-width: 1280px) {
+  .grid-cols-1.xl\\:grid-cols-2 {
+    grid-template-columns: 1fr;
   }
+}
+
+@media (max-width: 1024px) {
+  .grid-cols-1.lg\\:grid-cols-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .max-w-7xl {
+    max-width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .px-8 {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+  
+  .text-3xl {
+    font-size: 1.75rem;
+  }
+  
+  .text-xl {
+    font-size: 1.125rem;
+  }
+}
+
+/* Scroll smooth */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Loading animation */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
 </style>
 {% endblock %}
