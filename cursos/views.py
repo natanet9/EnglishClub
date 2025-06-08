@@ -12,6 +12,10 @@ def is_secretaria_or_directivo(user):
 def is_directivo(user):
     return user.is_authenticated and user.rol == 'directivo'
 
+def is_secretaria_or_directivo_or_docente(user):
+    return user.is_authenticated and user.rol in ['secretaria', 'directivo', 'docente']
+
+
 #modulo inscripcion
 @login_required
 @user_passes_test(is_secretaria_or_directivo)
@@ -65,9 +69,13 @@ def inscripcion_delete(request, pk):
 
 #Modulo Curso
 @login_required
-@user_passes_test(is_secretaria_or_directivo)
+@user_passes_test(is_secretaria_or_directivo_or_docente)
 def curso_list(request):
+    query = request.GET.get("q")
     cursos = Curso.objects.all()
+
+    if query:
+        cursos = cursos.filter(docente__nombre__icontains=query)
     return render(request, 'Cursos/curso_list.html', {'cursos': cursos})
 
 @login_required
@@ -110,3 +118,4 @@ def curso_delete(request, pk):
         messages.success(request, 'Curso eliminado con éxito.')
         return redirect('curso_list')
     return render(request, 'Cursos/curso_confirm_delete.html', {'curso': curso})
+
