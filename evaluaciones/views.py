@@ -7,7 +7,8 @@ from .forms import EvaluacionDiariaForm, NotaForm, TestVakForm
 class EvaluacionDiariaListView(ListView):
     model = EvaluacionDiaria
     template_name = 'evaluaciondiaria_lista.html'
-    context_object_name = 'evaluaciones'
+    context_object_name = 'evaluaciondiaria_list'
+
 
 class EvaluacionDiariaCreateView(CreateView):
     model = EvaluacionDiaria
@@ -25,7 +26,7 @@ class EvaluacionDiariaUpdateView(UpdateView):
 class NotaListView(ListView):
     model = Nota
     template_name = 'nota_lista.html'
-    context_object_name = 'notas'
+    context_object_name = 'nota_list'
 
 class NotaCreateView(CreateView):
     model = Nota
@@ -43,7 +44,7 @@ class NotaUpdateView(UpdateView):
 class TestVakListView(ListView):
     model = TestVak
     template_name = 'testvak_lista.html'
-    context_object_name = 'tests'
+    context_object_name = 'testvak_list'
 
 class TestVakCreateView(CreateView):
     model = TestVak
