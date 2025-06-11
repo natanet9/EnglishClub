@@ -1,0 +1,69 @@
+{% if user_type == "administrador" or user_type == "directivo" %}
+  {% for usuario in otros_usuarios %}
+    <!-- Modal de edición para cada usuario -->
+    <div class="modal fade" id="editarUsuarioModal{{ usuario.id }}" tabindex="-1" aria-labelledby="editarUsuarioLabel{{ usuario.id }}" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form method="post" action="{% url 'usuarios:editar_usuario' usuario.id %}">
+            {% csrf_token %}
+            <div class="modal-header">
+              <h5 class="modal-title" id="editarUsuarioLabel{{ usuario.id }}">Editar Usuario</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+              <div class="mb-3">
+                <label class="form-label">Nombre</label>
+                <input type="text" class="form-control" name="nombre" value="{{ usuario.nombre }}">
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Apellidos</label>
+                <input type="text" class="form-control" name="apellidos" value="{{ usuario.apellidos }}">
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Correo</label>
+                <input type="email" class="form-control" name="email" value="{{ usuario.email }}">
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Rol</label>
+                <select class="form-control" name="rol" required>
+                  <option value="Secretaria" {% if usuario.rol == "Secretaria" %}selected{% endif %}>Secretaria</option>
+                  <option value="Docente" {% if usuario.rol == "Docente" %}selected{% endif %}>Docente</option>
+                  <option value="Directivo" {% if usuario.rol == "Directivo" %}selected{% endif %}>Directivo</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Carnet</label>
+                <input type="text" class="form-control" name="carnet" value="{{ usuario.carnet }}">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+              <button type="submit" class="btn btn-primary">Guardar cambios</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- Modal de eliminación para cada usuario -->
+    <div class="modal fade" id="eliminarUsuarioModal{{ usuario.id }}" tabindex="-1" aria-labelledby="eliminarUsuarioLabel{{ usuario.id }}" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form method="post" action="{% url 'usuarios:eliminar_usuario' usuario.id %}">
+            {% csrf_token %}
+            <div class="modal-header">
+              <h5 class="modal-title" id="eliminarUsuarioLabel{{ usuario.id }}">Eliminar Usuario</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+              <p>¿Estás seguro de que deseas eliminar a <strong>{{ usuario.nombre }} {{ usuario.apellidos }}</strong>?</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+              <button type="submit" class="btn btn-danger">Eliminar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+{% endif %}

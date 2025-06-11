@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .models import Usuario
+from cursos.models import Curso, Inscripcion
 from .forms import EstudianteRegularForm, EstudianteTecnicoForm, TutorForm, AdministrativoForm
 from django.contrib.auth import logout
 
@@ -190,3 +191,70 @@ def crear_administrativo(request):
         'today': now().date(),
         'dias_semana': ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
     })
+
+@login_required
+def lista_usuarios(request):
+    user = request.user
+    rol = getattr(user, 'rol', None)
+    context = {'user_type': rol}
+
+    if rol == 'secretaria':
+        # Todos los cursos y sus estudiantes
+        cursos = Curso.objects.all()
+        cursos_data = []
+        for curso in cursos:
+            inscripciones = Inscripcion.objects.filter(curso=curso)
+            estudiantes = [i.estudiante for i in inscripciones]
+            cursos_data.append({'curso': curso, 'estudiantes': estudiantes})
+        context['cursos'] = cursos_data
+
+    elif rol == 'administrador' or rol == 'directivo':
+        # Todos los cursos y estudiantes
+        cursos = Curso.objects.all()
+        cursos_data = []
+        for curso in cursos:
+            inscripciones = Inscripcion.objects.filter(curso=curso)
+            estudiantes = [i.estudiante for i in inscripciones]
+            cursos_data.append({'curso': curso, 'estudiantes': estudiantes})
+        context['cursos'] = cursos_data
+        # Todos los usuarios administrativos y docentes
+        otros_usuarios = Usuario.objects.filter(rol__in=['docente', 'administrador', 'secretaria'])
+        context['otros_usuarios'] = otros_usuarios
+
+    elif rol == 'docente':
+        # Solo los cursos asignados al docente y sus estudiantes
+        cursos = Curso.objects.filter(docente=user)
+        cursos_data = []
+        for curso in cursos:
+            inscripciones = Inscripcion.objects.filter(curso=curso)
+            estudiantes = [i.estudiante for i in inscripciones]
+            cursos_data.append({'curso': curso, 'estudiantes': estudiantes})
+        context['cursos'] = cursos_data
+
+    else:
+        context['cursos'] = []
+
+    return render(request, 'ListaUsuarios/listaEstudiantes.html', context)
+
+    
+@login_required
+def editar_usuario(request, usuario_id):
+    usuario = get_object_or_404(Usuario, id=usuario_id)
+    if request.method == 'POST':
+        usuario.nombre = request.POST.get('nombre')
+        usuario.apellidos = request.POST.get('apellidos')
+        usuario.email = request.POST.get('email')
+        usuario.rol = request.POST.get('rol')
+        usuario.carnet = request.POST.get('carnet')
+        # Agrega más campos si lo deseas
+        usuario.save()
+        messages.success(request, "Usuario editado correctamente.")
+    return redirect('usuarios:lista_usuarios')
+
+@login_required
+def eliminar_usuario(request, usuario_id):
+    usuario = get_object_or_404(Usuario, id=usuario_id)
+    if request.method == 'POST':
+        usuario.delete()
+        messages.success(request, "Usuario eliminado correctamente.")
+    return redirect('usuarios:lista_usuarios')
