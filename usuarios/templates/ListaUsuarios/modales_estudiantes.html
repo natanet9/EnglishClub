@@ -1,0 +1,67 @@
+{% for item in cursos %}
+  {% for estudiante in item.estudiantes %}
+    <!-- Modal de edición para cada estudiante -->
+    <div class="modal fade" id="editarEstudianteModal{{ estudiante.id }}" tabindex="-1" aria-labelledby="editarEstudianteLabel{{ estudiante.id }}" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form method="post" action="{% url 'usuarios:editar_usuario' estudiante.id %}">
+            {% csrf_token %}
+            <div class="modal-header">
+              <h5 class="modal-title" id="editarEstudianteLabel{{ estudiante.id }}">Editar Estudiante</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+              <div class="mb-3">
+                <label class="form-label">Nombre</label>
+                <input type="text" class="form-control" name="nombre" value="{{ estudiante.nombre }}">
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Apellidos</label>
+                <input type="text" class="form-control" name="apellidos" value="{{ estudiante.apellidos }}">
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Correo</label>
+                <input type="email" class="form-control" name="email" value="{{ estudiante.email }}">
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Rol</label>
+                <select class="form-control" name="rol" required>
+                  <option value="Estudiante" selected>Estudiante</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Carnet</label>
+                <input type="text" class="form-control" name="carnet" value="{{ estudiante.carnet }}">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+              <button type="submit" class="btn btn-primary">Guardar cambios</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- Modal de eliminación para cada estudiante -->
+    <div class="modal fade" id="eliminarEstudianteModal{{ estudiante.id }}" tabindex="-1" aria-labelledby="eliminarEstudianteLabel{{ estudiante.id }}" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form method="post" action="{% url 'usuarios:eliminar_usuario' estudiante.id %}">
+            {% csrf_token %}
+            <div class="modal-header">
+              <h5 class="modal-title" id="eliminarEstudianteLabel{{ estudiante.id }}">Eliminar Estudiante</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+              <p>¿Estás seguro de que deseas eliminar a <strong>{{ estudiante.nombre }} {{ estudiante.apellidos }}</strong>?</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+              <button type="submit" class="btn btn-danger">Eliminar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+{% endfor %}
