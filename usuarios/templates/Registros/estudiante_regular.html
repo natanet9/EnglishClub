@@ -33,7 +33,7 @@
           </div>
           <div class="text-right">
             <div class="text-sm text-gray-500">Sistema de Inscripciones</div>
-            <div class="text-lg font-semibold text-[#1a3b68]">English CLub</div>
+            <div class="text-lg font-semibold text-[#1a3b68]">English Club</div>
           </div>
         </div>
       </div>
@@ -90,8 +90,7 @@
                          class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg bg-gray-100 text-gray-600 text-lg font-medium" 
                          readonly
                          placeholder="Se generará automáticamente">
-                         <input type="hidden" id="id_username" name="username" value="">
-
+                         <input type="hidden" id="id_username" name="username" value="">  
                 </div>
                 <div>
                   <label class="block text-[#1a3b68] font-semibold mb-3 text-lg">
@@ -313,27 +312,17 @@ document.addEventListener('DOMContentLoaded', function() {
   const validationErrors = [];
   
   // Función para mostrar errores de validación
-  function showFieldError(field, message) {
-    // Remover errores previos
-    clearFieldError(field);
-    
-    // Agregar clases de error
+  function showFieldError(field, message) { 
+    clearFieldError(field); 
     field.classList.add('border-red-500', 'bg-red-50');
-    
-    // Crear mensaje de error
-    const errorDiv = document.createElement('div');
+    const errorDiv = document.createElement('div'); 
     errorDiv.className = 'text-red-600 text-sm mt-2 flex items-center validation-error';
-    errorDiv.innerHTML = `<i class="bi bi-exclamation-circle mr-2"></i>${message}`;
-    
-    // Insertar después del campo
-    field.parentNode.appendChild(errorDiv);
-    
-    // Scroll suave al primer error
-    if (validationErrors.length === 0) {
-      field.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    errorDiv.innerHTML = `<i class="bi bi-exclamation-circle mr-2"></i>${message}`; 
+    field.parentNode.appendChild(errorDiv); 
+    if (validationErrors.length === 0) {  
+      field.scrollIntoView({ behavior: 'smooth', block: 'center' });  
     }
-    
-    validationErrors.push(field);
+    validationErrors.push(field); 
   }
   
   // Función para limpiar errores de campo
@@ -372,8 +361,7 @@ document.addEventListener('DOMContentLoaded', function() {
             showFieldSuccess(this);
           }
         });
-        
-        // Filtrar caracteres no válidos en tiempo real
+
         field.addEventListener('input', function() {
           this.value = this.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g, '');
           clearFieldError(this);
@@ -413,8 +401,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const telefonoField = document.querySelector('#id_telefono');
     if (telefonoField) {
       telefonoField.addEventListener('input', function() {
-        // Permitir solo números, espacios, guiones y paréntesis
-        this.value = this.value.replace(/[^0-9\s\-\(\)]/g, '');
+        this.value = this.value.replace(/[^0-9\s\-\(\)]/g, ''); 
       });
       
       telefonoField.addEventListener('blur', function() {
@@ -446,9 +433,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         if (edadReal < 4) {
           showFieldError(this, 'Debe ser mayor de 4 años');
-        } else if (edadReal > 17) {
-          showFieldError(this, 'Verifique la fecha de nacimiento');
-        } else {
+        } else {  
           showFieldSuccess(this);
         }
       });
@@ -580,8 +565,8 @@ document.addEventListener('DOMContentLoaded', function() {
       if (fechaNacimiento) {
         const fecha = new Date(fechaNacimiento);
         const edad = new Date().getFullYear() - fecha.getFullYear();
-        if (edad < 4 || edad > 17) {
-          showFieldError(document.querySelector('#id_fecha_nacimiento'), 'Edad debe estar entre 4 y 17 años');
+        if (edad < 4) {
+          showFieldError(document.querySelector('#id_fecha_nacimiento'), 'Edad debe ser mayor a 4 años');
           isValid = false;
         }
       }
@@ -631,8 +616,7 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
     
     document.body.appendChild(errorSummary);
-    
-    // Auto-remove después de 6 segundos
+      
     setTimeout(() => {
       if (errorSummary.parentNode) {
         errorSummary.remove();
@@ -707,8 +691,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <style>
-/* Animaciones y efectos mejorados */
-@keyframes gentle-pulse {
+@keyframes gentle-pulse { 
   0%, 100% { opacity: 1; }
   50% { opacity: 0.9; }
 }
@@ -727,19 +710,16 @@ document.addEventListener('DOMContentLoaded', function() {
 .form-field-glow:focus {
   box-shadow: 0 0 0 4px rgba(255, 204, 51, 0.3);
 }
-
-/* Transiciones suaves globales */
+  
 * {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Efectos de hover mejorados */
 input:hover:not(:focus), textarea:hover:not(:focus), select:hover:not(:focus) {
   border-color: #ffcc33;
   transform: translateY(-1px);
 }
 
-/* Estilo para campos válidos */
 input:required:valid {
   border-color: #10b981;
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%2310b981' d='m6.564.75-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3e%3c/svg%3e");
@@ -748,7 +728,6 @@ input:required:valid {
   background-size: 16px;
 }
 
-/* Efectos de gradiente en hover */
 .bg-gradient-to-r:hover {
   background-size: 200% 100%;
   animation: gradient-shift 3s ease infinite;
@@ -758,8 +737,7 @@ input:required:valid {
   0%, 100% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
 }
-
-/* Responsive mejorado */
+  
 @media (max-width: 1280px) {
   .grid-cols-1.xl\\:grid-cols-2 {
     grid-template-columns: 1fr;
@@ -793,12 +771,10 @@ input:required:valid {
   }
 }
 
-/* Scroll smooth */
 html {
   scroll-behavior: smooth;
 }
 
-/* Loading animation */
 @keyframes spin {
   to {
     transform: rotate(360deg);
