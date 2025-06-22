@@ -20,7 +20,7 @@ class EstudianteTecnicoForm(forms.ModelForm):
 
     class Meta:
         model = Usuario
-        exclude = ['hijo', 'parentesco', 'is_staff', 'is_active', 'fecha_registro', 'rol']
+        exclude = ['tutor', 'parentesco', 'is_staff', 'is_active', 'fecha_registro', 'rol']
         widgets = {
             'fecha_nacimiento': forms.DateInput(attrs={'type': 'date'}),
         }
@@ -52,7 +52,7 @@ class AdministrativoForm(forms.ModelForm):
 
     class Meta:
         model = Usuario
-        exclude = ['hijo', 'parentesco', 'is_staff', 'is_active', 'fecha_registro']
+        exclude = ['tutor', 'parentesco', 'is_staff', 'is_active', 'fecha_registro']
         widgets = {
             'fecha_nacimiento': forms.DateInput(attrs={'type': 'date'}),
         }

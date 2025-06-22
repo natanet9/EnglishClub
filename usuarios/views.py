@@ -48,6 +48,29 @@ def crear_estudiante_regular(request):
                 today = date.today()
                 edad = today.year - fecha_nacimiento.year - ((today.month, today.day) < (fecha_nacimiento.month, fecha_nacimiento.day))
 
+                # Preparar datos del tutor si es menor de edad
+                tutor_data = {}
+                if edad < 18:
+                    tutor_nombre = request.POST.get('tutor_nombre')
+                    tutor_parentesco = request.POST.get('tutor_parentesco')
+                    tutor_ocupacion = request.POST.get('tutor_ocupacion')
+                    tutor_telefono = request.POST.get('tutor_telefono')
+
+                    if not all([tutor_nombre, tutor_parentesco, tutor_ocupacion, tutor_telefono]):
+                        messages.error(request, "❌ Todos los campos del tutor son obligatorios para menores de edad.")
+                        return render(request, 'Registros/estudiante_regular.html', {
+                            'form': form,
+                            'today': now().date(),
+                            'dias_semana': ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
+                        })
+
+                    tutor_data = {
+                        'nombre': tutor_nombre,
+                        'parentesco': tutor_parentesco,
+                        'ocupacion': tutor_ocupacion,
+                        'telefono': tutor_telefono
+                    }
+
                 # Crear el usuario
                 usuario = Usuario.objects.create_user(
                     carnet=data['carnet'],
@@ -60,14 +83,10 @@ def crear_estudiante_regular(request):
                     fecha_nacimiento=data['fecha_nacimiento'],
                     domicilio=data['domicilio'],
                     rol='estudiante',
+                    tutor=tutor_data if tutor_data else None
                 )
                 messages.success(request, "✅ Estudiante regular creado exitosamente.")
-
-                # Redirigir según la edad
-                if edad < 18:
-                    return redirect('usuarios:asignar_tutor', estudiante_id=usuario.id)
-                else:
-                    return redirect('usuarios:estudiante_registrado')
+                return redirect('usuarios:estudiante_registrado')
 
             except Exception as e:
                 messages.error(request, f"❌ Error al guardar estudiante: {str(e)}")

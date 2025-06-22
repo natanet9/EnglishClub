@@ -43,7 +43,7 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     fecha_nacimiento = models.DateField(default=timezone.now)
     fecha_registro = models.DateField(default=timezone.now)
 
-    tutor = models.JSONField(null=True, blank=True, default=dict)
+    hijo = models.JSONField(null=True, blank=True, default=dict)
     domicilio = models.CharField(max_length=255, default='Domicilio por defecto')
     rol = models.CharField(max_length=100, default='Rol por defecto')
     ocupacion = models.TextField(null=True, blank=True)

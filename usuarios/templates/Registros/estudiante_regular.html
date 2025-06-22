@@ -208,6 +208,64 @@
             </div>
           </div>
 
+          <!-- Información del Tutor (visible si es menor de edad) -->
+          <div id="tutorSection" class="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden hidden">
+            <div class="bg-gradient-to-r from-[#1a3b68] to-[#2a4b78] px-6 py-4">
+              <h2 class="text-white font-semibold text-xl flex items-center">
+                <i class="bi bi-person-badge text-[#ffcc33] mr-3 text-2xl"></i>
+                Información del Tutor
+              </h2>
+            </div>
+            <div class="p-8">
+              <div class="space-y-6">
+                <div>
+                  <label class="block text-[#1a3b68] font-semibold mb-3 text-lg">
+                    <i class="bi bi-person mr-2"></i>Nombre completo del tutor *
+                  </label>
+                  <input type="text" 
+                         id="tutor_nombre"
+                         name="tutor_nombre"
+                         class="w-full px-4 py-3 border-2 border-[#1a3b68] rounded-lg focus:outline-none focus:border-[#ffcc33] transition-all duration-300 text-lg focus:ring-2 focus:ring-[#ffcc33] focus:ring-opacity-20"
+                         placeholder="Ingrese nombre completo">
+                </div>
+                <div>
+                  <label class="block text-[#1a3b68] font-semibold mb-3 text-lg">
+                    <i class="bi bi-family mr-2"></i>Parentesco *
+                  </label>
+                  <select id="tutor_parentesco" 
+                          name="tutor_parentesco"
+                          class="w-full px-4 py-3 border-2 border-[#1a3b68] rounded-lg focus:outline-none focus:border-[#ffcc33] transition-all duration-300 text-lg focus:ring-2 focus:ring-[#ffcc33] focus:ring-opacity-20">
+                    <option value="">Seleccione parentesco</option>
+                    <option value="Padre">Padre</option>
+                    <option value="Madre">Madre</option>
+                    <option value="Tutor legal">Tutor legal</option>
+                    <option value="Otro">Otro</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-[#1a3b68] font-semibold mb-3 text-lg">
+                    <i class="bi bi-briefcase mr-2"></i>Ocupación *
+                  </label>
+                  <input type="text" 
+                         id="tutor_ocupacion"
+                         name="tutor_ocupacion"
+                         class="w-full px-4 py-3 border-2 border-[#1a3b68] rounded-lg focus:outline-none focus:border-[#ffcc33] transition-all duration-300 text-lg focus:ring-2 focus:ring-[#ffcc33] focus:ring-opacity-20"
+                         placeholder="Ingrese ocupación">
+                </div>
+                <div>
+                  <label class="block text-[#1a3b68] font-semibold mb-3 text-lg">
+                    <i class="bi bi-phone mr-2"></i>Teléfono del tutor *
+                  </label>
+                  <input type="text" 
+                         id="tutor_telefono"
+                         name="tutor_telefono"
+                         class="w-full px-4 py-3 border-2 border-[#1a3b68] rounded-lg focus:outline-none focus:border-[#ffcc33] transition-all duration-300 text-lg focus:ring-2 focus:ring-[#ffcc33] focus:ring-opacity-20"
+                         placeholder="Ingrese número de teléfono">
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
 
@@ -305,6 +363,34 @@ document.addEventListener('DOMContentLoaded', function() {
       passwordField.setAttribute('type', type);
       eyeIcon.className = type === 'password' ? 'bi bi-eye' : 'bi bi-eye-slash';
     });
+  }
+
+  // Mostrar/Ocultar sección del tutor según edad
+  const fechaNacimientoField = document.querySelector('#id_fecha_nacimiento');
+  const tutorSection = document.getElementById('tutorSection');
+
+  function toggleTutorSection() {
+    if (fechaNacimientoField.value) {
+      const fechaNacimiento = new Date(fechaNacimientoField.value);
+      const fechaActual = new Date();
+      let edad = fechaActual.getFullYear() - fechaNacimiento.getFullYear();
+      const mesActual = fechaActual.getMonth();
+      const mesNacimiento = fechaNacimiento.getMonth();
+      
+      if (mesActual < mesNacimiento || (mesActual === mesNacimiento && fechaActual.getDate() < fechaNacimiento.getDate())) {
+        edad--;
+      }
+      
+      tutorSection.classList.toggle('hidden', edad >= 18);
+      tutorSection.querySelectorAll('input, select').forEach(field => {
+        field.required = edad < 18;
+      });
+    }
+  }
+
+  if (fechaNacimientoField) {
+    fechaNacimientoField.addEventListener('change', toggleTutorSection);
+    toggleTutorSection(); // Ejecutar al cargar
   }
 
   // Sistema de validación mejorado
@@ -417,7 +503,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Validación de fecha de nacimiento
-    const fechaNacimientoField = document.querySelector('#id_fecha_nacimiento');
     if (fechaNacimientoField) {
       fechaNacimientoField.addEventListener('change', function() {
         const fechaNacimiento = new Date(this.value);
@@ -465,6 +550,68 @@ document.addEventListener('DOMContentLoaded', function() {
         else messages.push('Un carácter especial');
         
         updatePasswordStrength(passwordStrength, strength, messages);
+      });
+    }
+
+    // Validación de campos del tutor
+    const tutorNombreField = document.getElementById('tutor_nombre');
+    const tutorParentescoField = document.getElementById('tutor_parentesco');
+    const tutorOcupacionField = document.getElementById('tutor_ocupacion');
+    const tutorTelefonoField = document.getElementById('tutor_telefono');
+
+    if (tutorNombreField) {
+      tutorNombreField.addEventListener('blur', function() {
+        const value = this.value.trim();
+        if (value.length < 2) {
+          showFieldError(this, 'Debe tener al menos 2 caracteres');
+        } else if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(value)) {
+          showFieldError(this, 'Solo se permiten letras y espacios');
+        } else {
+          showFieldSuccess(this);
+        }
+      });
+
+      tutorNombreField.addEventListener('input', function() {
+        this.value = this.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g, '');
+        clearFieldError(this);
+      });
+    }
+
+    if (tutorParentescoField) {
+      tutorParentescoField.addEventListener('change', function() {
+        if (!this.value) {
+          showFieldError(this, 'Seleccione un parentesco');
+        } else {
+          showFieldSuccess(this);
+        }
+      });
+    }
+
+    if (tutorOcupacionField) {
+      tutorOcupacionField.addEventListener('blur', function() {
+        const value = this.value.trim();
+        if (value.length < 2) {
+          showFieldError(this, 'Debe tener al menos 2 caracteres');
+        } else {
+          showFieldSuccess(this);
+        }
+      });
+    }
+
+    if (tutorTelefonoField) {
+      tutorTelefonoField.addEventListener('input', function() {
+        this.value = this.value.replace(/[^0-9\s\-\(\)]/g, '');
+      });
+
+      tutorTelefonoField.addEventListener('blur', function() {
+        const value = this.value.trim();
+        if (value && value.length < 7) {
+          showFieldError(this, 'El teléfono debe tener al menos 7 dígitos');
+        } else if (value && !/^[\d\s\-\(\)]+$/.test(value)) {
+          showFieldError(this, 'Formato de teléfono inválido');
+        } else if (value) {
+          showFieldSuccess(this);
+        }
       });
     }
   }
@@ -528,6 +675,16 @@ document.addEventListener('DOMContentLoaded', function() {
         { field: document.querySelector('#id_password'), name: 'Contraseña' }
       ];
       
+      // Añadir validación de campos del tutor si es visible
+      if (!tutorSection.classList.contains('hidden')) {
+        requiredFields.push(
+          { field: document.getElementById('tutor_nombre'), name: 'Nombre del tutor' },
+          { field: document.getElementById('tutor_parentesco'), name: 'Parentesco' },
+          { field: document.getElementById('tutor_ocupacion'), name: 'Ocupación del tutor' },
+          { field: document.getElementById('tutor_telefono'), name: 'Teléfono del tutor' }
+        );
+      }
+
       requiredFields.forEach(({field, name}) => {
         if (field && !field.value.trim()) {
           showFieldError(field, `${name} es obligatorio`);
@@ -571,6 +728,39 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       }
       
+      // Validaciones de tutor
+      if (!tutorSection.classList.contains('hidden')) {
+        const tutorNombre = tutorNombreField?.value.trim();
+        if (tutorNombre && tutorNombre.length < 2) {
+          showFieldError(tutorNombreField, 'El nombre del tutor debe tener al menos 2 caracteres');
+          isValid = false;
+        } else if (tutorNombre && !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(tutorNombre)) {
+          showFieldError(tutorNombreField, 'Solo se permiten letras y espacios');
+          isValid = false;
+        }
+
+        const tutorParentesco = tutorParentescoField?.value;
+        if (!tutorParentesco) {
+          showFieldError(tutorParentescoField, 'Seleccione un parentesco');
+          isValid = false;
+        }
+
+        const tutorOcupacion = tutorOcupacionField?.value.trim();
+        if (tutorOcupacion && tutorOcupacion.length < 2) {
+          showFieldError(tutorOcupacionField, 'La ocupación debe tener al menos 2 caracteres');
+          isValid = false;
+        }
+
+        const tutorTelefono = tutorTelefonoField?.value.trim();
+        if (tutorTelefono && tutorTelefono.length < 7) {
+          showFieldError(tutorTelefonoField, 'El teléfono debe tener al menos 7 dígitos');
+          isValid = false;
+        } else if (tutorTelefono && !/^[\d\s\-\(\)]+$/.test(tutorTelefono)) {
+          showFieldError(tutorTelefonoField, 'Formato de teléfono inválido');
+          isValid = false;
+        }
+      }
+
       if (!isValid) {
         event.preventDefault();
         event.stopPropagation();
