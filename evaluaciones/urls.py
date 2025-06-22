@@ -2,7 +2,7 @@ from django.urls import path
 from .views import (
     EvaluacionDiariaListView, EvaluacionDiariaCreateView, EvaluacionDiariaUpdateView,
     NotaListView, NotaCreateView, NotaUpdateView,
-    TestVakListView, TestVakCreateView, TestVakUpdateView,
+    TestVakListView, TestVakCreateView, TestVakUpdateView, resultados_vark, realizar_test_vark
 )
 
 app_name = 'evaluaciones'
@@ -22,4 +22,6 @@ urlpatterns = [
     path('testvak/', TestVakListView.as_view(), name='lista_testvak'),
     path('testvak/crear/', TestVakCreateView.as_view(), name='crear_testvak'),
     path('testvak/editar/<int:pk>/', TestVakUpdateView.as_view(), name='editar_testvak'),
+    path('test-vark/', realizar_test_vark, name='realizar_test_vark'),
+    path('resultados-vark/', resultados_vark, name='resultados_vark'),
 ]
