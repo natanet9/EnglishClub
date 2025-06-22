@@ -7,12 +7,17 @@ from .forms import EvaluacionDiariaForm, NotaForm, TestVakForm,TestVarkFormE
 from django.contrib import messages
 from .ml_utils import predecir_recurso
 
+
 # EVALUACIÓN DIARIA
 class EvaluacionDiariaListView(ListView):
     model = EvaluacionDiaria
     template_name = 'evaluaciondiaria_lista.html'
     context_object_name = 'evaluaciondiaria_list'
-
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Aquí capturamos el modo edición desde la URL ?editar=1
+        context['modo_edicion'] = self.request.GET.get('editar') == '1'
+        return context
 
 class EvaluacionDiariaCreateView(CreateView):
     model = EvaluacionDiaria
@@ -25,6 +30,47 @@ class EvaluacionDiariaUpdateView(UpdateView):
     form_class = EvaluacionDiariaForm
     template_name = 'formulario.html'
     success_url = reverse_lazy('evaluaciones:lista_evaluaciondiaria')
+
+
+@login_required
+def guardar_lista_evaluaciones(request):
+    if request.method == 'POST':
+        ids = request.POST.getlist('evaluaciones_ids')
+        for eval_id in ids:
+            try:
+                evaluacion = EvaluacionDiaria.objects.get(pk=eval_id)
+
+                def limpiar_entero(valor, default=0):
+                    try:
+                        v = int(valor)
+                        return max(0, min(10, v))  # Limita entre 0 y 10
+                    except (ValueError, TypeError):
+                        return default
+
+                participacion = limpiar_entero(request.POST.get(f'participacion_{eval_id}'), evaluacion.is_participate)
+                tarea = limpiar_entero(request.POST.get(f'tarea_{eval_id}'), evaluacion.is_tarea)
+                presente = f'presente_{eval_id}' in request.POST
+
+                evaluacion.is_participate = participacion
+                evaluacion.is_tarea = tarea
+                evaluacion.is_present = presente
+                evaluacion.save()
+            except EvaluacionDiaria.DoesNotExist:
+                continue
+
+    messages.success(request, "Cambios guardados correctamente.")
+    return redirect('evaluaciones:lista_evaluaciondiaria')
+
+@login_required
+def lista_evaluaciondiaria(request):
+    evaluaciones = EvaluacionDiaria.objects.all()
+    modo_edicion = request.GET.get('editar') == '1'  # 👈 activa si hay ?editar=1
+    context = {
+        'evaluaciondiaria_list': evaluaciones,
+        'modo_edicion': modo_edicion,
+    }
+    return render(request, 'evaluaciones/lista.html', context)
+
 
 # NOTA
 class NotaListView(ListView):

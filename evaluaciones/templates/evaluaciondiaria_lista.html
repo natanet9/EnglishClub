@@ -1,47 +1,236 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="max-w-6xl mx-auto py-10 px-6">
-    <div class="flex items-center justify-between mb-6">
-        <h2 class="text-2xl font-semibold text-gray-800">Evaluaciones Diarias</h2>
-        <a href="{% url 'evaluaciones:crear_evaluaciondiaria' %}" class="px-4 py-2 bg-blue-600 text-white text-sm rounded hover:bg-blue-700">
-            + Nueva Evaluación
-        </a>
-    </div>
 
-    <div class="overflow-x-auto bg-white shadow rounded-lg">
-        <table class="min-w-full text-sm text-left border border-gray-200">
-            <thead class="bg-gray-100 text-gray-700">
-                <tr>
-                    <th class="px-6 py-3 border-b">Estudiante</th>
-                    <th class="px-6 py-3 border-b">Curso</th>
-                    <th class="px-6 py-3 border-b">Asignatura</th>
-                    <th class="px-6 py-3 border-b">Participación</th>
-                    <th class="px-6 py-3 border-b">Tarea</th>
-                    <th class="px-6 py-3 border-b">Presente</th>
-                    <th class="px-6 py-3 border-b text-center">Acciones</th>
-                </tr>
-            </thead>
-            <tbody class="text-gray-700 divide-y divide-gray-200">
-                {% for evaluacion in evaluaciondiaria_list %}
-                <tr class="hover:bg-gray-50">
-                    <td class="px-6 py-4">{{ evaluacion.estudiante }}</td>
-                    <td class="px-6 py-4">{{ evaluacion.curso }}</td>
-                    <td class="px-6 py-4">{{ evaluacion.asignatura }}</td>
-                    <td class="px-6 py-4">{{ evaluacion.is_participate }}</td>
-                    <td class="px-6 py-4">{{ evaluacion.is_tarea }}</td>
-                    <td class="px-6 py-4">{{ evaluacion.is_present|yesno:"Sí,No" }}</td>
-                    <td class="px-6 py-4 text-center">
-                        <a href="{% url 'evaluaciones:editar_evaluaciondiaria' evaluacion.pk %}" class="px-3 py-1 text-xs text-white bg-green-500 rounded hover:bg-green-600">
-                            Editar
-                        </a>
-                    </td>
-                </tr>
-                {% empty %}
-                <tr><td colspan="7" class="px-6 py-4 text-center text-gray-500">Sin evaluaciones registradas.</td></tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+<div class="max-w-6xl mx-auto py-10 px-6">
+
+    <div class="flex items-center justify-between mb-6">
+  <h2 class="text-2xl font-semibold text-gray-800">Evaluaciones Diarias</h2>
+  {% if modo_edicion %}
+    <a href="{% url 'evaluaciones:lista_evaluaciondiaria' %}" class="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700">
+      Cancelar edición
+    </a>
+  {% else %}
+    <a href="{% url 'evaluaciones:lista_evaluaciondiaria' %}?editar=1" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+      Editar evaluaciones
+    </a>
+  {% endif %}
 </div>
+        <!-- <a href="{% url 'evaluaciones:crear_evaluaciondiaria' %}" class="px-4 py-2 bg-blue-600 text-white text-sm rounded hover:bg-blue-700">
+            + Nueva Evaluación
+        </a>-->
+    
+
+  <form method="post" action="{% url 'evaluaciones:guardar_lista_evaluaciones' %}">
+  {% csrf_token %}
+  <div class="overflow-x-auto bg-white shadow rounded-lg">
+    <table class="min-w-full text-sm text-left border border-gray-200">
+      <thead class="bg-gray-100 text-gray-700">
+        <tr>
+          <th class="px-6 py-3 border-b">Estudiante</th>
+          <th class="px-6 py-3 border-b">Curso</th>
+          <th class="px-6 py-3 border-b">Asignatura</th>
+          <th class="px-6 py-3 border-b">Fecha</th>
+          <th class="px-6 py-3 border-b">Participación</th>
+          <th class="px-6 py-3 border-b">Tarea</th>
+          <th class="px-6 py-3 border-b">Presente</th>
+        </tr>
+      </thead>
+      <tbody class="text-gray-700 divide-y divide-gray-200">
+        {% for evaluacion in evaluaciondiaria_list %}
+        <tr class="hover:bg-gray-50">
+          <td class="px-6 py-4">{{ evaluacion.estudiante }}</td>
+          <td class="px-6 py-4">{{ evaluacion.curso }}</td>
+          <td class="px-6 py-4">{{ evaluacion.asignatura }}</td>
+          <td class="px-6 py-4">{{ evaluacion.fecha|date:"d/m/Y" }}</td>
+
+          <!-- Participación -->
+          <td class="px-6 py-4">
+            {% if modo_edicion %}
+              <input type="number"
+                name="participacion_{{ evaluacion.pk }}"
+                value="{{ evaluacion.is_participate|default:0 }}"
+                min="0"
+                max="10"
+                step="1"
+                required
+                class="calificacion-input w-20 border rounded px-2 py-1 campo-eval-{{ evaluacion.pk }}"
+                />
+            {% else %}
+              {{ evaluacion.is_participate }}
+            {% endif %}
+          </td>
+
+          <!-- Tarea -->
+          <td class="px-6 py-4">
+            {% if modo_edicion %}
+              <input
+                type="number"
+                name="tarea_{{ evaluacion.pk }}"
+                value="{{ evaluacion.is_tarea|default:0 }}"
+                min="0"
+                max="10"
+                step="1"
+                required
+                class="calificacion-input w-20 border rounded px-2 py-1 campo-eval-{{ evaluacion.pk }}"
+                />
+            {% else %}
+              {{ evaluacion.is_tarea }}
+            {% endif %}
+          </td>
+
+          <!-- Presente -->
+          <td class="px-6 py-4 text-center">
+            {% if modo_edicion %}
+             <input
+            type="checkbox"
+            name="presente_{{ evaluacion.pk }}"
+            class="checkbox-presente w-5 h-5"
+            data-eval-id="{{ evaluacion.pk }}"
+            {% if evaluacion.is_present %}checked{% endif %}
+            />
+            {% else %}
+              {{ evaluacion.is_present|yesno:"Sí,No" }}
+            {% endif %}
+          </td>
+
+          {% if modo_edicion %}
+            <!-- ID oculto solo en edición -->
+            <input type="hidden" name="evaluaciones_ids" value="{{ evaluacion.pk }}">
+          {% endif %}
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="7" class="px-6 py-4 text-center text-gray-500">
+            Sin evaluaciones registradas.
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  {% if modo_edicion %}
+  <div class="mt-4 text-right">
+    <button type="submit" class="px-6 py-2 bg-green-600 text-white rounded hover:bg-green-700">
+      Guardar Cambios
+    </button>
+  </div>
+  {% endif %}
+</form>
+
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const inputs = document.querySelectorAll('.calificacion-input');
+
+  inputs.forEach(input => {
+    input.addEventListener('input', function () {
+      const value = this.value.trim();
+
+      // Si está vacío, pon 0
+      if (value === '') {
+        this.value = 0;
+        this.classList.remove('border-red-500', 'ring-red-400');
+        return;
+      }
+
+      const number = Number(this.value);
+
+      if (
+        Number.isInteger(number) && // debe ser entero
+        number >= 0 &&
+        number <= 10
+      ) {
+        // válido
+        this.classList.remove('border-red-500', 'ring-red-400');
+        this.classList.add('border-gray-300');
+      } else {
+        // inválido
+        this.classList.remove('border-gray-300');
+        this.classList.add('border-red-500', 'ring-red-400');
+      }
+    });
+
+    // Validar al salir del campo (por si borra el valor y no escribe nada)
+    input.addEventListener('blur', function () {
+      if (this.value.trim() === '') {
+        this.value = 0;
+        this.classList.remove('border-red-500', 'ring-red-400');
+      }
+    });
+  });
+});
+
+
+document.addEventListener('DOMContentLoaded', function () {
+  const inputs = document.querySelectorAll('.calificacion-input');
+  const checkboxes = document.querySelectorAll('.checkbox-presente');
+
+  function validarInput(input) {
+    const valor = input.value.trim();
+    const numero = Number(valor);
+
+    if (
+      valor === '' ||
+      !Number.isInteger(numero) ||
+      numero < 0 ||
+      numero > 10
+    ) {
+      input.classList.add('border-red-500', 'ring-red-400');
+      input.classList.remove('border-gray-300');
+    } else {
+      input.classList.remove('border-red-500', 'ring-red-400');
+      input.classList.add('border-gray-300');
+    }
+  }
+
+  // Validación en tiempo real
+  inputs.forEach(input => {
+    input.addEventListener('input', function () {
+      if (this.value.trim() === '') {
+        this.value = 0;
+      }
+      validarInput(this);
+    });
+
+    input.addEventListener('blur', function () {
+      if (this.value.trim() === '') {
+        this.value = 0;
+        validarInput(this);
+      }
+    });
+  });
+
+  // Controlar habilitación/deshabilitación de campos según asistencia
+  checkboxes.forEach(checkbox => {
+    const evalId = checkbox.dataset.evalId;
+    const campos = document.querySelectorAll(`.campo-eval-${evalId}`);
+
+    function actualizarEstadoCampos(presente) {
+      campos.forEach(input => {
+        input.disabled = !presente;
+
+        if (!presente) {
+          input.value = 0;
+          input.classList.remove('border-red-500', 'ring-red-400');
+          input.classList.add('bg-gray-100', 'cursor-not-allowed');
+        } else {
+          input.classList.remove('bg-gray-100', 'cursor-not-allowed');
+          input.classList.add('border-gray-300');
+          validarInput(input);
+        }
+      });
+    }
+
+    // Verificar estado al cargar
+    actualizarEstadoCampos(checkbox.checked);
+
+    // Cambiar estado al marcar/desmarcar
+    checkbox.addEventListener('change', function () {
+      actualizarEstadoCampos(this.checked);
+    });
+  });
+});
+</script>
 {% endblock %}

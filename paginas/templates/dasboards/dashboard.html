@@ -13,42 +13,6 @@
      
     </p>
  
-<<<<<<< HEAD
- 
-    <!-- Métricas principales -->
-   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-  <!-- Estudiantes -->
-   {% if user.rol == 'directivo' %}
- 
-  <div class="bg-white p-4 rounded-2xl shadow text-center">
-    <canvas id="chartEstudiantes" width="100" height="100"></canvas>
-    <h3 class="mt-2 text-sm font-semibold text-gray-500">Calificaciones Diarias </h3>
-    <p class="text-lg font-bold text-blue-600">25</p>
-  </div>
-  
-  
-  <!-- Asistencia promedio -->
-  <div class="bg-white p-4 rounded-2xl shadow text-center">
-    <canvas id="chartAsistencia" width="100" height="100"></canvas>
-    <h3 class="mt-2 text-sm font-semibold text-gray-500">Asistencia promedio</h3>
-    <p class="text-lg font-bold text-green-600">89%</p>
-  </div>
-
-  <!-- Tasa de aprobación -->
-  <div class="bg-white p-4 rounded-2xl shadow text-center">
-    <canvas id="chartAprobacion" width="100" height="100"></canvas>
-    <h3 class="mt-2 text-sm font-semibold text-gray-500">Tasa de aprobación</h3>
-    <p class="text-lg font-bold text-purple-600">76%</p>
-  </div>
-   <!-- Índice de deserción -->
-  <div class="bg-white p-4 rounded-2xl shadow text-center">
-    <canvas id="chartDesercion" width="100" height="100"></canvas>
-    <h3 class="mt-2 text-sm font-semibold text-gray-500">Índice de deserción</h3>
-    <p class="text-lg font-bold text-red-600">5.2%</p>
-  </div>
-
-
-=======
     {% if user.rol == 'directivo' %}
     
     <!-- Métricas principales -->
@@ -67,23 +31,22 @@
         <h3 class="mt-2 text-sm font-semibold text-gray-500">Asistencia promedio</h3>
         <p class="text-lg font-bold text-green-600">89%</p>
       </div>
->>>>>>> 81f0ee460d478af51673d81d1742c7028846a830
 
-      <!-- Tasa de aprobación -->
-      <div class="bg-white p-4 rounded-2xl shadow text-center">
-        <canvas id="chartAprobacion" width="100" height="100"></canvas>
-        <h3 class="mt-2 text-sm font-semibold text-gray-500">Tasa de aprobación</h3>
-        <p class="text-lg font-bold text-purple-600">76%</p>
-      </div>
-      
-      <!-- Índice de deserción -->
-      <div class="bg-white p-4 rounded-2xl shadow text-center">
-        <canvas id="chartDesercion" width="100" height="100"></canvas>
-        <h3 class="mt-2 text-sm font-semibold text-gray-500">Índice de deserción</h3>
-        <p class="text-lg font-bold text-red-600">5.2%</p>
-      </div>
-      
-    </div>
+  <!-- Tasa de aprobación -->
+  <div class="bg-white p-4 rounded-2xl shadow text-center">
+    <canvas id="chartAprobacion" width="100" height="100"></canvas>
+    <h3 class="mt-2 text-sm font-semibold text-gray-500">Tasa de aprobación</h3>
+    <p class="text-lg font-bold text-purple-600">76%</p>
+  </div>
+   <!-- Índice de deserción -->
+  <div class="bg-white p-4 rounded-2xl shadow text-center">
+    <canvas id="chartDesercion" width="100" height="100"></canvas>
+    <h3 class="mt-2 text-sm font-semibold text-gray-500">Índice de deserción</h3>
+    <p class="text-lg font-bold text-red-600">5.2%</p>
+  </div>
+
+
+
 
     <!-- Filtros -->
     <div class="flex flex-wrap gap-4 mb-10">
@@ -114,10 +77,10 @@
     <div class="bg-white p-6 rounded-xl shadow text-gray-600">
       <p>Selecciona una opción del panel lateral para ver más detalles o gestionar el sistema.</p>
     </div>
-    
   </main>
+</div>
 
-  {% endif %}
+{% endif %}
 
 
 {% if user.rol == 'estudiante' %}
@@ -167,9 +130,10 @@
           </div>
           <h3 class="text-lg sm:text-xl lg:text-2xl font-bold text-gray-800 mb-2 sm:mb-3 lg:mb-4">Solicitar Permiso</h3>
           <p class="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6 lg:mb-8 px-2">Envía solicitudes de permisos por ausencias, justificaciones o situaciones especiales.</p>
-          <button class="bg-purple-600 hover:bg-purple-700 text-white px-4 sm:px-6 lg:px-8 py-2 sm:py-3 lg:py-4 rounded-lg sm:rounded-xl font-semibold transition-colors duration-300 text-sm sm:text-base lg:text-lg">
-            Crear Solicitud
-          </button>
+         <a href="{% url 'permisos:crear_permiso' %}"
+   class="bg-purple-600 hover:bg-purple-700 text-white px-4 sm:px-6 lg:px-8 py-2 sm:py-3 lg:py-4 rounded-lg sm:rounded-xl font-semibold transition-colors duration-300 text-sm sm:text-base lg:text-lg inline-block text-center">
+  Crear Solicitud
+</a>
         </div>
       </div>
 
@@ -178,12 +142,7 @@
 {% endif %}
 
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
 
->>>>>>> 62872994aa3f00c0ff4043f43b11a872a27858c2
 {% if user.rol == 'docente' %}
   
   <!-- Contenido principal para docentes -->
@@ -449,9 +408,8 @@
 
   {% endif %}
 
->>>>>>> 81f0ee460d478af51673d81d1742c7028846a830
 
-
+{% endblock %}
 <script>
   const crearGraficaCircular = (idCanvas, porcentaje, color) => {
     new Chart(document.getElementById(idCanvas), {
@@ -478,8 +436,5 @@
   crearGraficaCircular("chartAsistencia", 89, "#22c55e");
   crearGraficaCircular("chartAprobacion", 76, "#a855f7");
   crearGraficaCircular("chartDesercion", 5.2, "#ef4444");
-
-  
 </script>
 
-{% endblock %}

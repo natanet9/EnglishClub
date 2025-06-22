@@ -4,18 +4,25 @@
 <div class="max-w-2xl mx-auto py-10 px-6 bg-white shadow rounded-lg">
     <h2 class="text-xl font-semibold mb-6">Nuevo Permiso de Ausencia</h2>
 
+  <p class="mb-2 text-gray-700 font-semibold">Estudiante: {{ estudiante_nombre }}</p>
+  <p class="mb-4 text-gray-700 font-semibold">Curso: {{ curso_nombre }}</p>
+
     <form method="post" class="space-y-4">
         {% csrf_token %}
         {{ form.non_field_errors }}
+
         {% for field in form %}
-            <div>
-                <label class="block text-gray-700 font-medium">{{ field.label }}</label>
-                {{ field }}
-                {% if field.errors %}
-                    <p class="text-red-500 text-sm">{{ field.errors|striptags }}</p>
-                {% endif %}
-            </div>
-        {% endfor %}
+    {% if field.name != 'estudiante' and field.name != 'curso' %}
+    <div>
+        <label class="block text-gray-700 font-medium">{{ field.label }}</label>
+        {{ field }}
+        {% if field.errors %}
+            <p class="text-red-500 text-sm">{{ field.errors|striptags }}</p>
+        {% endif %}
+    </div>
+    {% endif %}
+{% endfor %}
+        
         <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Guardar</button>
     </form>
 </div>
