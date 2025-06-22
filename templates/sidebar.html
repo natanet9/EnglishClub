@@ -84,7 +84,7 @@
               <!--FUNCIONES DE DOCENTES -->
 
     <!------------------------------------------------>
-    {% if user.rol == 'docente' or user.rol == 'directivo' or user.rol == 'estudiante' %}
+    {% if user.rol == 'docente' or user.rol == 'directivo' %}
         <!-- Calificaciones -->
           <a href="{% url 'evaluaciones:lista_nota' %}" class="flex items-center gap-2 hover:bg-blue-700 px-3 py-2 rounded">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -135,7 +135,7 @@
        {% endif %}
      <!------------------------------------------------>
 
-           <!--FUNCIONES DE ESTUDIANTES Y TURORES -->
+           <!--FUNCIONES DE ESTUDIANTES Y TUTORES -->
 
     <!------------------------------------------------>
       {% if user.rol == 'estudiante' %}
