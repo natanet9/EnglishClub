@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from .models import EvaluacionDiaria, Nota, TestVak
 from .forms import EvaluacionDiariaForm, NotaForm, TestVakForm,TestVarkFormE
 from django.contrib import messages
+from .ml_utils import predecir_recurso
 
 # EVALUACIÓN DIARIA
 class EvaluacionDiariaListView(ListView):
@@ -82,42 +83,59 @@ def realizar_test_vark(request):
                 elif respuesta == 'kinestesico':
                     kinestesico += 1
 
-            puntajes = {
-                'Visual': visual,
-                'Auditivo': auditivo,
-                'Lectura/Escritura': lectura,
-                'Kinestésico': kinestesico
-            }
-            estilo_predominante = max(puntajes, key=puntajes.get)
+            # Llamar al modelo para predecir el recurso
+            recurso_recomendado = predecir_recurso(
+                visual=visual,
+                auditivo=auditivo,
+                lectura=lectura,
+                kinestesico=kinestesico
+            )
 
+            # Guardar en la base de datos
             TestVak.objects.create(
                 visual=visual,
                 auditorio=auditivo,
                 lectutura=lectura,
                 kinestesico=kinestesico,
-                estilo_predominante=estilo_predominante,
+                estilo_predominante=recurso_recomendado,
                 estudiante=request.user
             )
 
             messages.success(request, '¡Test VARK completado! Tus resultados han sido guardados.')
-            return redirect('evaluaciones:resultados_vark')  # Usar espacio de nombres
+            return redirect('evaluaciones:resultados_vark')
     else:
         form = TestVarkFormE()
 
     return render(request, 'evaluaciones/test_vark.html', {'form': form})
+
+import csv
+import random
 
 @login_required
 def resultados_vark(request):
     test = TestVak.objects.filter(estudiante=request.user).last()
     if not test:
         messages.warning(request, 'No has realizado el test VARK.')
-        return redirect('evaluaciones:realizar_test_vark')  # Usar espacio de nombres
+        return redirect('evaluaciones:realizar_test_vark')
+
+    estilo = test.estilo_predominante
+    recomendaciones = []
+
+    # Leer el archivo CSV y filtrar por estilo predominante
+    with open('Analisis/recomendaciones.csv', 'r', encoding='utf-8') as file:
+        reader = csv.DictReader(file)
+        recomendaciones_filtradas = [row['recomendacion'] for row in reader if row['metodo'] == estilo]
+
+    # Seleccionar entre 2 y 5 recomendaciones aleatorias
+    if recomendaciones_filtradas:
+        recomendaciones = random.sample(recomendaciones_filtradas, min(len(recomendaciones_filtradas), 5))
 
     context = {
         'visual': test.visual,
         'auditivo': test.auditorio,
         'lectura': test.lectutura,
         'kinestesico': test.kinestesico,
-        'estilo_predominante': test.estilo_predominante
+        'recurso': estilo,
+        'recomendaciones': recomendaciones
     }
     return render(request, 'evaluaciones/resultados_vark.html', context)

@@ -2,260 +2,447 @@
 {% block title %}Resultados Test VARK{% endblock %}
 
 {% block content %}
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 
-<style>
-  /* Reset y estilos base */
-  * {
-    box-sizing: border-box;
-  }
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    min-height: 100vh;
-    margin: 0;
-    padding: 20px 0;
-  }
+        .div-body {
+            width: 100%;
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #2d3748;
+        }
 
-  /* Container personalizado */
-  .custom-container {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 0 20px;
-  }
+        .container {
+            max-width: 900px;
+            width: 100%;
+            margin: 0 auto;
+        }
 
-  /* Card principal */
-  .tutor-card {
-    background: white;
-    border-radius: 20px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    position: relative;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-  }
+        .results-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+            position: relative;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            animation: fadeIn 0.8s ease-out;
+        }
 
-  .tutor-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, #4a7abc, #f18f01, #ffcc33);
-  }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-  /* Header */
-  .card-header {
-    background: linear-gradient(135deg, #1a3b68 0%, #4a7abc 100%);
-    padding: 30px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
+        .card-header {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
 
-  .card-header::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(255, 204, 51, 0.1) 0%, transparent 70%);
-    animation: rotate 20s linear infinite;
-  }
+        .card-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
 
-  @keyframes rotate {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
 
-  .card-title {
-    color: white;
-    font-size: 2.2rem;
-    font-weight: 700;
-    margin: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-    position: relative;
-    z-index: 2;
-  }
+        .card-title {
+            color: white;
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
 
-  .card-title i {
-    color: #ffcc33;
-    font-size: 2.5rem;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
-  }
+        .card-title i {
+            color: #fbbf24;
+            font-size: 2.5rem;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+            animation: pulse 2s infinite;
+        }
 
-  /* Body del formulario */
-  .card-body {
-    padding: 40px;
-    background: linear-gradient(145deg, #f8f9ff 0%, #ffffff 100%);
-  }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
 
-  /* Estilos para resultados */
-  .resultado {
-    margin-bottom: 20px;
-    padding: 15px;
-    border-radius: 10px;
-    background: #f8f9ff;
-    border: 2px solid #e1e8f0;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
+        .card-body {
+            padding: 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
 
-  .resultado i {
-    color: #4a7abc;
-    font-size: 1.5rem;
-  }
+        @media (max-width: 768px) {
+            .card-body {
+                grid-template-columns: 1fr;
+                padding: 25px;
+            }
+        }
 
-  .resultado p {
-    margin: 0;
-    font-size: 1.1rem;
-    color: #333;
-  }
+        .results-section {
+            grid-column: span 2;
+            margin-bottom: 25px;
+        }
 
-  .resultado strong {
-    color: #1a3b68;
-    font-weight: 600;
-  }
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #4f46e5;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 10px;
+        }
 
-  /* Botón de volver */
-  .back-btn {
-    display: inline-block;
-    background: linear-gradient(135deg, #4a7abc 0%, #1a3b68 100%);
-    color: white;
-    padding: 12px 30px;
-    border-radius: 50px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    box-shadow: 0 10px 20px rgba(74, 122, 188, 0.3);
-    margin-top: 20px;
-  }
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
 
-  .back-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 30px rgba(74, 122, 188, 0.4);
-  }
+        @media (max-width: 480px) {
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+        }
 
-  .back-btn i {
-    margin-right: 8px;
-    color: #ffcc33;
-  }
+        .result-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border-left: 4px solid;
+            animation: slideIn 0.5s ease-out forwards;
+            opacity: 0;
+        }
 
-  /* Mensajes de error */
-  .alert {
-    background: linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%);
-    color: white;
-    padding: 20px;
-    border-radius: 15px;
-    margin-bottom: 25px;
-    border: none;
-    box-shadow: 0 10px 20px rgba(255, 107, 107, 0.2);
-    animation: shake 0.5s ease-in-out;
-  }
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
 
-  @keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    75% { transform: translateX(5px); }
-  }
+        .visual { border-left-color: #3b82f6; }
+        .auditivo { border-left-color: #10b981; }
+        .lectura { border-left-color: #f59e0b; }
+        .kinestesico { border-left-color: #ef4444; }
 
-  .alert ul {
-    margin: 0;
-    padding-left: 20px;
-  }
+        .result-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
 
-  .alert li {
-    margin-bottom: 5px;
-  }
+        .result-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
 
-  /* Responsive */
-  @media (max-width: 768px) {
-    .card-body {
-      padding: 25px;
-    }
-    
-    .card-title {
-      font-size: 1.8rem;
-      flex-direction: column;
-      gap: 10px;
-    }
-    
-    .back-btn {
-      padding: 10px 20px;
-      font-size: 1rem;
-    }
-  }
+        .result-title i {
+            font-size: 1.8rem;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-  /* Animaciones adicionales */
-  .resultado {
-    animation: fadeInUp 0.6s ease forwards;
-    opacity: 0;
-    transform: translateY(20px);
-  }
+        .visual i { background: rgba(59, 130, 246, 0.15); color: #3b82f6; }
+        .auditivo i { background: rgba(16, 185, 129, 0.15); color: #10b981; }
+        .lectura i { background: rgba(245, 158, 11, 0.15); color: #f59e0b; }
+        .kinestesico i { background: rgba(239, 68, 68, 0.15); color: #ef4444; }
 
-  .resultado:nth-child(1) { animation-delay: 0.1s; }
-  .resultado:nth-child(2) { animation-delay: 0.2s; }
-  .resultado:nth-child(3) { animation-delay: 0.3s; }
-  .resultado:nth-child(4) { animation-delay: 0.4s; }
-  .resultado:nth-child(5) { animation-delay: 0.5s; }
+        .result-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
 
-  @keyframes fadeInUp {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-</style>
+        .result-score {
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            margin: 10px 0;
+        }
 
-<section class="custom-container">
-  <div class="tutor-card animate__animated animate__fadeIn">
-    <div class="card-header">
-      <h2 class="card-title">
-        <i class="bi bi-graph-up animate__animated animate__pulse animate__infinite animate__slower"></i>
-        <span>RESULTADOS TEST VARK</span>
-      </h2>
+        .recommendation-section {
+            background: rgba(249, 250, 251, 0.7);
+            border-radius: 12px;
+            padding: 25px;
+            grid-column: span 2;
+            animation: fadeInUp 0.8s ease-out 0.4s forwards;
+            opacity: 0;
+        }
+
+        @media (max-width: 768px) {
+            .recommendation-section {
+                grid-column: span 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .resource-card {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            color: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3);
+        }
+
+        .resource-card::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .resource-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .resource-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: rgba(255, 255, 255, 0.15);
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 30px;
+            margin-top: 10px;
+            backdrop-filter: blur(5px);
+        }
+
+        .recommendations-list {
+            padding-left: 25px;
+        }
+
+        .recommendations-list li {
+            margin-bottom: 12px;
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .recommendations-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 18px;
+            height: 18px;
+            background: #4f46e5;
+            border-radius: 50%;
+        }
+
+        .recommendations-list li::after {
+            content: '✓';
+            position: absolute;
+            left: 4px;
+            top: 5px;
+            color: white;
+            font-size: 0.8rem;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            color: white;
+            padding: 14px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(79, 70, 229, 0.3);
+            font-size: 1.1rem;
+            border: none;
+            cursor: pointer;
+            gap: 10px;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(79, 70, 229, 0.4);
+        }
+
+        .back-btn i {
+            transition: transform 0.3s ease;
+        }
+
+        .back-btn:hover i {
+            transform: translateX(-5px);
+        }
+
+        .alert {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            border: none;
+            box-shadow: 0 10px 20px rgba(220, 38, 38, 0.2);
+            animation: shake 0.5s ease-in-out;
+            grid-column: span 2;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .alert ul {
+            margin: 10px 0 0 20px;
+        }
+
+        .alert li {
+            margin-bottom: 5px;
+        }
+
+        /* Animation delays for result cards */
+        .result-card:nth-child(1) { animation-delay: 0.1s; }
+        .result-card:nth-child(2) { animation-delay: 0.2s; }
+        .result-card:nth-child(3) { animation-delay: 0.3s; }
+        .result-card:nth-child(4) { animation-delay: 0.4s; }
+    </style>
+<div class="div-body">
+    <div class="container">
+        <div class="results-card">
+            <div class="card-header">
+                <h2 class="card-title">
+                    <i class="bi bi-bar-chart-line"></i>
+                    <span>RESULTADOS TEST VARK</span>
+                </h2>
+            </div>
+            <div class="card-body">
+                <!-- Sección de puntajes -->
+                <div class="results-section">
+                    <h3 class="section-title"><i class="bi bi-clipboard-data"></i> Tus Puntajes</h3>
+                    <div class="results-grid">
+                        <div class="result-card visual animate__animated animate__fadeInUp">
+                            <div class="result-title">
+                                <i class="bi bi-eye"></i>
+                                <div class="result-name">Visual</div>
+                            </div>
+                            <div class="result-score">{{ visual }}</div>
+                        </div>
+
+                        <div class="result-card auditivo animate__animated animate__fadeInUp">
+                            <div class="result-title">
+                                <i class="bi bi-ear"></i>
+                                <div class="result-name">Auditivo</div>
+                            </div>
+                            <div class="result-score">{{ auditivo }}</div>
+                        </div>
+
+                        <div class="result-card lectura animate__animated animate__fadeInUp">
+                            <div class="result-title">
+                                <i class="bi bi-journal-text"></i>
+                                <div class="result-name">Lectura/Escritura</div>
+                            </div>
+                            <div class="result-score">{{ lectura }}</div>
+                        </div>
+
+                        <div class="result-card kinestesico animate__animated animate__fadeInUp">
+                            <div class="result-title">
+                                <i class="bi bi-hand-index-thumb"></i>
+                                <div class="result-name">Kinestésico</div>
+                            </div>
+                            <div class="result-score">{{ kinestesico }}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección de recomendaciones -->
+                <div class="recommendation-section">
+                    <div class="resource-card">
+                        <h3><i class="bi bi-lightbulb"></i> Recurso Recomendado</h3>
+                        <div class="resource-value">{{ recurso|title }}</div>
+                    </div>
+
+                    <h3 class="section-title"><i class="bi bi-stars"></i> Recomendaciones Personalizadas</h3>
+                    <ul class="recommendations-list">
+                        {% for item in recomendaciones %}
+                          <li>{{ item }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="btn-container">
+                    <a href="{% url 'evaluaciones:realizar_test_vark' %}" class="back-btn">
+                        <i class="bi bi-arrow-repeat"></i>
+                        Volver a realizar el test
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="card-body">
-      {% if messages %}
-        {% for message in messages %}
-          <div class="alert animate__animated animate__shakeX">
-            {{ message }}
-          </div>
-        {% endfor %}
-      {% endif %}
-      <div class="resultado">
-        <i class="bi bi-eye"></i>
-        <p><strong>Puntaje Visual:</strong> {{ visual }}</p>
-      </div>
-      <div class="resultado">
-        <i class="bi bi-ear"></i>
-        <p><strong>Puntaje Auditivo:</strong> {{ auditivo }}</p>
-      </div>
-      <div class="resultado">
-        <i class="bi bi-book"></i>
-        <p><strong>Puntaje Lectura/Escritura:</strong> {{ lectura }}</p>
-      </div>
-      <div class="resultado">
-        <i class="bi bi-hand-index"></i>
-        <p><strong>Puntaje Kinestésico:</strong> {{ kinestesico }}</p>
-      </div>
-      <div class="resultado">
-        <i class="bi bi-star"></i>
-        <p><strong>Estilo Predominante:</strong> {{ estilo_predominante }}</p>
-      </div>
-      <a href="{% url 'evaluaciones:realizar_test_vark' %}" class="back-btn">
-        <i class="bi bi-arrow-left"></i>
-        Volver a realizar el test
-      </a>
-    </div>
-  </div>
-</section>
+
+    <script>
+        // Animación adicional para los elementos
+        document.addEventListener('DOMContentLoaded', function() {
+            const resultCards = document.querySelectorAll('.result-card');
+            resultCards.forEach((card, index) => {
+                card.style.animationDelay = `${0.1 + (index * 0.1)}s`;
+            });
+        });
+    </script>
+</div>
+
 {% endblock %}
