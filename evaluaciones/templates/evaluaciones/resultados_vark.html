@@ -1,0 +1,261 @@
+{% extends 'base.html' %}
+{% block title %}Resultados Test VARK{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+<style>
+  /* Reset y estilos base */
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px 0;
+  }
+
+  /* Container personalizado */
+  .custom-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  /* Card principal */
+  .tutor-card {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    position: relative;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .tutor-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #4a7abc, #f18f01, #ffcc33);
+  }
+
+  /* Header */
+  .card-header {
+    background: linear-gradient(135deg, #1a3b68 0%, #4a7abc 100%);
+    padding: 30px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card-header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 204, 51, 0.1) 0%, transparent 70%);
+    animation: rotate 20s linear infinite;
+  }
+
+  @keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  .card-title {
+    color: white;
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .card-title i {
+    color: #ffcc33;
+    font-size: 2.5rem;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+  }
+
+  /* Body del formulario */
+  .card-body {
+    padding: 40px;
+    background: linear-gradient(145deg, #f8f9ff 0%, #ffffff 100%);
+  }
+
+  /* Estilos para resultados */
+  .resultado {
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 10px;
+    background: #f8f9ff;
+    border: 2px solid #e1e8f0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .resultado i {
+    color: #4a7abc;
+    font-size: 1.5rem;
+  }
+
+  .resultado p {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #333;
+  }
+
+  .resultado strong {
+    color: #1a3b68;
+    font-weight: 600;
+  }
+
+  /* Botón de volver */
+  .back-btn {
+    display: inline-block;
+    background: linear-gradient(135deg, #4a7abc 0%, #1a3b68 100%);
+    color: white;
+    padding: 12px 30px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 20px rgba(74, 122, 188, 0.3);
+    margin-top: 20px;
+  }
+
+  .back-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(74, 122, 188, 0.4);
+  }
+
+  .back-btn i {
+    margin-right: 8px;
+    color: #ffcc33;
+  }
+
+  /* Mensajes de error */
+  .alert {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%);
+    color: white;
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 25px;
+    border: none;
+    box-shadow: 0 10px 20px rgba(255, 107, 107, 0.2);
+    animation: shake 0.5s ease-in-out;
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+  }
+
+  .alert ul {
+    margin: 0;
+    padding-left: 20px;
+  }
+
+  .alert li {
+    margin-bottom: 5px;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .card-body {
+      padding: 25px;
+    }
+    
+    .card-title {
+      font-size: 1.8rem;
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+    .back-btn {
+      padding: 10px 20px;
+      font-size: 1rem;
+    }
+  }
+
+  /* Animaciones adicionales */
+  .resultado {
+    animation: fadeInUp 0.6s ease forwards;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .resultado:nth-child(1) { animation-delay: 0.1s; }
+  .resultado:nth-child(2) { animation-delay: 0.2s; }
+  .resultado:nth-child(3) { animation-delay: 0.3s; }
+  .resultado:nth-child(4) { animation-delay: 0.4s; }
+  .resultado:nth-child(5) { animation-delay: 0.5s; }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+<section class="custom-container">
+  <div class="tutor-card animate__animated animate__fadeIn">
+    <div class="card-header">
+      <h2 class="card-title">
+        <i class="bi bi-graph-up animate__animated animate__pulse animate__infinite animate__slower"></i>
+        <span>RESULTADOS TEST VARK</span>
+      </h2>
+    </div>
+    <div class="card-body">
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert animate__animated animate__shakeX">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+      <div class="resultado">
+        <i class="bi bi-eye"></i>
+        <p><strong>Puntaje Visual:</strong> {{ visual }}</p>
+      </div>
+      <div class="resultado">
+        <i class="bi bi-ear"></i>
+        <p><strong>Puntaje Auditivo:</strong> {{ auditivo }}</p>
+      </div>
+      <div class="resultado">
+        <i class="bi bi-book"></i>
+        <p><strong>Puntaje Lectura/Escritura:</strong> {{ lectura }}</p>
+      </div>
+      <div class="resultado">
+        <i class="bi bi-hand-index"></i>
+        <p><strong>Puntaje Kinestésico:</strong> {{ kinestesico }}</p>
+      </div>
+      <div class="resultado">
+        <i class="bi bi-star"></i>
+        <p><strong>Estilo Predominante:</strong> {{ estilo_predominante }}</p>
+      </div>
+      <a href="{% url 'evaluaciones:realizar_test_vark' %}" class="back-btn">
+        <i class="bi bi-arrow-left"></i>
+        Volver a realizar el test
+      </a>
+    </div>
+  </div>
+</section>
+{% endblock %}
