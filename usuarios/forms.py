@@ -1,18 +1,6 @@
 from django import forms
 from .models import Usuario
 
-class EstudianteTecnicoForm(forms.ModelForm):
-    username = forms.CharField(label="Usuario")
-    password = forms.CharField(label="Contraseña", widget=forms.PasswordInput)
-    direccion = forms.EmailField(label="Correo electrónico")
-
-    class Meta:
-        model = Usuario
-        exclude = ['hijo', 'parentesco', 'is_staff', 'is_active', 'fecha_registro','rol']
-        widgets = {
-            'fecha_nacimiento': forms.DateInput(attrs={'type': 'date'}),
-        }
-
 class EstudianteRegularForm(forms.ModelForm):
     username = forms.CharField(label="Usuario")
     password = forms.CharField(label="Contraseña", widget=forms.PasswordInput)
@@ -20,7 +8,19 @@ class EstudianteRegularForm(forms.ModelForm):
 
     class Meta:
         model = Usuario
-        exclude = ['hijo', 'parentesco', 'ocupacion', 'is_staff', 'is_active', 'fecha_registro','rol']
+        exclude = ['hijo', 'parentesco', 'ocupacion', 'is_staff', 'is_active', 'fecha_registro', 'rol']
+        widgets = {
+            'fecha_nacimiento': forms.DateInput(attrs={'type': 'date'}),
+        }
+
+class EstudianteTecnicoForm(forms.ModelForm):
+    username = forms.CharField(label="Usuario")
+    password = forms.CharField(label="Contraseña", widget=forms.PasswordInput)
+    direccion = forms.EmailField(label="Correo electrónico")
+
+    class Meta:
+        model = Usuario
+        exclude = ['tutor', 'parentesco', 'is_staff', 'is_active', 'fecha_registro', 'rol']
         widgets = {
             'fecha_nacimiento': forms.DateInput(attrs={'type': 'date'}),
         }
@@ -52,7 +52,7 @@ class AdministrativoForm(forms.ModelForm):
 
     class Meta:
         model = Usuario
-        exclude = ['hijo', 'parentesco', 'is_staff', 'is_active', 'fecha_registro']
+        exclude = ['tutor', 'parentesco', 'is_staff', 'is_active', 'fecha_registro']
         widgets = {
             'fecha_nacimiento': forms.DateInput(attrs={'type': 'date'}),
         }
