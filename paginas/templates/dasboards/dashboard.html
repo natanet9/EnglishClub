@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}Dashboard {{ user.rol|capfirst }}{% endblock %}
-{% block title %}Dashboard {{ user.rol|capfirst }}{% endblock %}
+
 
 {% block content %}
 
@@ -10,7 +10,7 @@
     <h2 class="text-2xl font-bold text-blue-800 mb-2">👋 Bienvenido/a, {{ user.nombre }} {{ user.apellidos}}</h2>
     <p class="mb-6 text-gray-600">
       Este es tu panel de control como {{ user.rol|capfirst }} del <span class="font-semibold">Instituto English Club</span>.
-      Este es tu panel de control como {{ user.rol|capfirst }} del <span class="font-semibold">Instituto English Club</span>.
+     
     </p>
  
  
@@ -18,7 +18,7 @@
    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
   <!-- Estudiantes -->
    {% if user.rol == 'directivo' %}
-   {% if user.rol == 'directivo' %}
+ 
   <div class="bg-white p-4 rounded-2xl shadow text-center">
     <canvas id="chartEstudiantes" width="100" height="100"></canvas>
     <h3 class="mt-2 text-sm font-semibold text-gray-500">Calificaciones Diarias </h3>
@@ -91,14 +91,7 @@
 {% endif %}
 
 
-{% endif %}
 
-
-{% if user.rol == 'estudiante' %}
-
-<!-- Aquí le pones diseño Lino pa estudiantes dentro de ese if-->
-
-{% endif %}
 
 <script>
   const crearGraficaCircular = (idCanvas, porcentaje, color) => {
