@@ -11,38 +11,40 @@
       Este es tu panel de control como {{ user.rol|capfirst }} del <span class="font-semibold">Instituto English Club</span>.
     </p>
  
+    {% if user.rol == 'directivo' %}
+    
     <!-- Métricas principales -->
-   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-  <!-- Estudiantes -->
-   {% if user.rol == 'directivo' %}
-  <div class="bg-white p-4 rounded-2xl shadow text-center">
-    <canvas id="chartEstudiantes" width="100" height="100"></canvas>
-    <h3 class="mt-2 text-sm font-semibold text-gray-500">Calificaciones Diarias </h3>
-    <p class="text-lg font-bold text-blue-600">25</p>
-  </div>
-  
-  <!-- Asistencia promedio -->
-  <div class="bg-white p-4 rounded-2xl shadow text-center">
-    <canvas id="chartAsistencia" width="100" height="100"></canvas>
-    <h3 class="mt-2 text-sm font-semibold text-gray-500">Asistencia promedio</h3>
-    <p class="text-lg font-bold text-green-600">89%</p>
-  </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      
+      <!-- Calificaciones Diarias -->
+      <div class="bg-white p-4 rounded-2xl shadow text-center">
+        <canvas id="chartEstudiantes" width="100" height="100"></canvas>
+        <h3 class="mt-2 text-sm font-semibold text-gray-500">Calificaciones Diarias</h3>
+        <p class="text-lg font-bold text-blue-600">25</p>
+      </div>
+      
+      <!-- Asistencia promedio -->
+      <div class="bg-white p-4 rounded-2xl shadow text-center">
+        <canvas id="chartAsistencia" width="100" height="100"></canvas>
+        <h3 class="mt-2 text-sm font-semibold text-gray-500">Asistencia promedio</h3>
+        <p class="text-lg font-bold text-green-600">89%</p>
+      </div>
 
-  <!-- Tasa de aprobación -->
-  <div class="bg-white p-4 rounded-2xl shadow text-center">
-    <canvas id="chartAprobacion" width="100" height="100"></canvas>
-    <h3 class="mt-2 text-sm font-semibold text-gray-500">Tasa de aprobación</h3>
-    <p class="text-lg font-bold text-purple-600">76%</p>
-  </div>
-   <!-- Índice de deserción -->
-  <div class="bg-white p-4 rounded-2xl shadow text-center">
-    <canvas id="chartDesercion" width="100" height="100"></canvas>
-    <h3 class="mt-2 text-sm font-semibold text-gray-500">Índice de deserción</h3>
-    <p class="text-lg font-bold text-red-600">5.2%</p>
-  </div>
-
-
-
+      <!-- Tasa de aprobación -->
+      <div class="bg-white p-4 rounded-2xl shadow text-center">
+        <canvas id="chartAprobacion" width="100" height="100"></canvas>
+        <h3 class="mt-2 text-sm font-semibold text-gray-500">Tasa de aprobación</h3>
+        <p class="text-lg font-bold text-purple-600">76%</p>
+      </div>
+      
+      <!-- Índice de deserción -->
+      <div class="bg-white p-4 rounded-2xl shadow text-center">
+        <canvas id="chartDesercion" width="100" height="100"></canvas>
+        <h3 class="mt-2 text-sm font-semibold text-gray-500">Índice de deserción</h3>
+        <p class="text-lg font-bold text-red-600">5.2%</p>
+      </div>
+      
+    </div>
 
     <!-- Filtros -->
     <div class="flex flex-wrap gap-4 mb-10">
@@ -73,17 +75,337 @@
     <div class="bg-white p-6 rounded-xl shadow text-gray-600">
       <p>Selecciona una opción del panel lateral para ver más detalles o gestionar el sistema.</p>
     </div>
+    
   </main>
-</div>
 
-{% endif %}
+  {% endif %}
 
 
 {% if user.rol == 'estudiante' %}
 
-<!-- Aquí le pones diseño Lino pa estudiantes dentro de ese if-->
+
+    <!-- Opciones principales para estudiantes - ocupando todo el espacio horizontal -->
+    <div class="grid grid-cols-3 gap-4">
+      
+      <!-- Ver Notas -->
+      <div class="bg-white p-12 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer group h-96">
+        <div class="text-center h-full flex flex-col justify-center">
+          <div class="bg-blue-100 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-8 group-hover:bg-blue-200 transition-colors">
+            <svg class="w-12 h-12 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-800 mb-4">Ver Mis Notas</h3>
+          <p class="text-gray-600 mb-8">Consulta tus calificaciones, promedio actual y progreso académico en tiempo real.</p>
+          <button class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-semibold transition-colors duration-300 text-lg">
+            Acceder a Notas
+          </button>
+        </div>
+      </div>
+
+      <!-- Test VARK -->
+      <div class="bg-white p-12 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer group h-96">
+        <div class="text-center h-full flex flex-col justify-center">
+          <div class="bg-green-100 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-8 group-hover:bg-green-200 transition-colors">
+            <svg class="w-12 h-12 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-800 mb-4">Test VARK</h3>
+          <p class="text-gray-600 mb-8">Descubre tu estilo de aprendizaje preferido y mejora tu rendimiento académico.</p>
+          <button class="bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-xl font-semibold transition-colors duration-300 text-lg">
+            Realizar Test
+          </button>
+        </div>
+      </div>
+
+      <!-- Pedir Permiso -->
+      <div class="bg-white p-12 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer group h-96">
+        <div class="text-center h-full flex flex-col justify-center">
+          <div class="bg-purple-100 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-8 group-hover:bg-purple-200 transition-colors">
+            <svg class="w-12 h-12 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-800 mb-4">Solicitar Permiso</h3>
+          <p class="text-gray-600 mb-8">Envía solicitudes de permisos por ausencias, justificaciones o situaciones especiales.</p>
+          <button class="bg-purple-600 hover:bg-purple-700 text-white px-8 py-4 rounded-xl font-semibold transition-colors duration-300 text-lg">
+            Crear Solicitud
+          </button>
+        </div>
+      </div>
+
+    </div>
 
 {% endif %}
+
+
+{% if user.rol == 'docente' %}
+  
+  <!-- Contenido principal para docentes -->
+  <main class="flex-1 p-8 bg-gray-50">
+
+    <!-- Estadísticas del docente -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      
+      <!-- Total de estudiantes -->
+      <div class="bg-white p-4 rounded-2xl shadow text-center">
+        <canvas id="chartEstudiantesDocente" width="100" height="100"></canvas>
+        <h3 class="mt-2 text-sm font-semibold text-gray-500">Estudiantes Asignados</h3>
+        <p class="text-lg font-bold text-blue-600">32</p>
+      </div>
+      
+      <!-- Promedio de notas -->
+      <div class="bg-white p-4 rounded-2xl shadow text-center">
+        <canvas id="chartPromedioNotas" width="100" height="100"></canvas>
+        <h3 class="mt-2 text-sm font-semibold text-gray-500">Promedio General</h3>
+        <p class="text-lg font-bold text-green-600">8.5</p>
+      </div>
+
+      <!-- Asistencia de mis clases -->
+      <div class="bg-white p-4 rounded-2xl shadow text-center">
+        <canvas id="chartAsistenciaClases" width="100" height="100"></canvas>
+        <h3 class="mt-2 text-sm font-semibold text-gray-500">Asistencia a Clases</h3>
+        <p class="text-lg font-bold text-purple-600">92%</p>
+      </div>
+      
+      <!-- Tareas pendientes de calificar -->
+      <div class="bg-white p-4 rounded-2xl shadow text-center">
+        <canvas id="chartTareasPendientes" width="100" height="100"></canvas>
+        <h3 class="mt-2 text-sm font-semibold text-gray-500">Tareas Pendientes</h3>
+        <p class="text-lg font-bold text-orange-600">7</p>
+      </div>
+      
+    </div>
+
+    <!-- Mis cursos asignados -->
+    <div class="bg-white p-6 rounded-xl shadow mb-8">
+      <h3 class="text-xl font-bold text-gray-800 mb-4">📚 Mis Cursos Asignados</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        
+        <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+          <h4 class="font-semibold text-blue-600 mb-2">English Básico A1</h4>
+          <p class="text-sm text-gray-600 mb-2">Horario: Lun-Mié-Vie 8:00-10:00</p>
+          <p class="text-sm text-gray-600 mb-2">Estudiantes: 12</p>
+          <p class="text-sm text-gray-600">Aula: 101</p>
+        </div>
+
+        <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+          <h4 class="font-semibold text-blue-600 mb-2">English Intermedio B1</h4>
+          <p class="text-sm text-gray-600 mb-2">Horario: Mar-Jue 14:00-16:00</p>
+          <p class="text-sm text-gray-600 mb-2">Estudiantes: 10</p>
+          <p class="text-sm text-gray-600">Aula: 203</p>
+        </div>
+
+        <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+          <h4 class="font-semibold text-blue-600 mb-2">English Avanzado B2</h4>
+          <p class="text-sm text-gray-600 mb-2">Horario: Sáb 9:00-12:00</p>
+          <p class="text-sm text-gray-600 mb-2">Estudiantes: 10</p>
+          <p class="text-sm text-gray-600">Aula: 305</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Acciones rápidas para docentes -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      
+      <!-- Gestionar Calificaciones -->
+      <div class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer group">
+        <div class="text-center">
+          <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-200 transition-colors">
+            <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold text-gray-800 mb-2">Gestionar Calificaciones</h3>
+          <p class="text-gray-600 mb-4">Registra y actualiza las notas de tus estudiantes</p>
+          <button class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors">
+            Ir a Calificaciones
+          </button>
+        </div>
+      </div>
+
+      <!-- Control de Asistencia -->
+      <div class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer group">
+        <div class="text-center">
+          <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-green-200 transition-colors">
+            <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold text-gray-800 mb-2">Control de Asistencia</h3>
+          <p class="text-gray-600 mb-4">Registra la asistencia de tus clases</p>
+          <button class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors">
+            Tomar Asistencia
+          </button>
+        </div>
+      </div>
+
+      <!-- Horario de Clases -->
+      <div class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer group">
+        <div class="text-center">
+          <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-purple-200 transition-colors">
+            <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold text-gray-800 mb-2">Mi Horario</h3>
+          <p class="text-gray-600 mb-4">Consulta tu horario semanal de clases</p>
+          <button class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors">
+            Ver Horario
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  {% endif %}
+
+
+  {% if user.rol == 'secretaria' %}
+  
+  <!-- Contenido principal para secretaria -->
+  <main class="flex-1 p-8 bg-gray-50">
+
+    <!-- Estadísticas generales para secretaria -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      
+      <!-- Total estudiantes matriculados -->
+      <div class="bg-white p-4 rounded-2xl shadow text-center">
+        <canvas id="chartEstudiantesMatriculados" width="100" height="100"></canvas>
+        <h3 class="mt-2 text-sm font-semibold text-gray-500">Estudiantes Matriculados</h3>
+        <p class="text-lg font-bold text-blue-600">147</p>
+      </div>
+      
+      <!-- Pagos pendientes -->
+      <div class="bg-white p-4 rounded-2xl shadow text-center">
+        <canvas id="chartPagosPendientes" width="100" height="100"></canvas>
+        <h3 class="mt-2 text-sm font-semibold text-gray-500">Pagos Pendientes</h3>
+        <p class="text-lg font-bold text-red-600">23</p>
+      </div>
+
+      <!-- Solicitudes pendientes -->
+      <div class="bg-white p-4 rounded-2xl shadow text-center">
+        <canvas id="chartSolicitudesPendientes" width="100" height="100"></canvas>
+        <h3 class="mt-2 text-sm font-semibold text-gray-500">Solicitudes Pendientes</h3>
+        <p class="text-lg font-bold text-orange-600">8</p>
+      </div>
+      
+      <!-- Docentes activos -->
+      <div class="bg-white p-4 rounded-2xl shadow text-center">
+        <canvas id="chartDocentesActivos" width="100" height="100"></canvas>
+        <h3 class="mt-2 text-sm font-semibold text-gray-500">Docentes Activos</h3>
+        <p class="text-lg font-bold text-green-600">12</p>
+      </div>
+      
+    </div>
+
+    <!-- Resumen de cursos y niveles -->
+    <div class="bg-white p-6 rounded-xl shadow mb-8">
+      <h3 class="text-xl font-bold text-gray-800 mb-4">📊 Resumen por Niveles</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        
+        <div class="border border-gray-200 rounded-lg p-4 text-center">
+          <h4 class="font-semibold text-blue-600 mb-2">Nivel Básico</h4>
+          <p class="text-2xl font-bold text-gray-800">64</p>
+          <p class="text-sm text-gray-600">estudiantes</p>
+          <p class="text-sm text-green-600 mt-1">4 grupos activos</p>
+        </div>
+
+        <div class="border border-gray-200 rounded-lg p-4 text-center">
+          <h4 class="font-semibold text-blue-600 mb-2">Nivel Intermedio</h4>
+          <p class="text-2xl font-bold text-gray-800">52</p>
+          <p class="text-sm text-gray-600">estudiantes</p>
+          <p class="text-sm text-green-600 mt-1">3 grupos activos</p>
+        </div>
+
+        <div class="border border-gray-200 rounded-lg p-4 text-center">
+          <h4 class="font-semibold text-blue-600 mb-2">Nivel Avanzado</h4>
+          <p class="text-2xl font-bold text-gray-800">31</p>
+          <p class="text-sm text-gray-600">estudiantes</p>
+          <p class="text-sm text-green-600 mt-1">2 grupos activos</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Acciones principales para secretaria -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      
+      <!-- Gestión de Matrículas -->
+      <div class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer group">
+        <div class="text-center">
+          <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-200 transition-colors">
+            <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold text-gray-800 mb-2">Matrículas</h3>
+          <p class="text-gray-600 mb-4 text-sm">Gestionar inscripciones</p>
+          <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors text-sm">
+            Gestionar
+          </button>
+        </div>
+      </div>
+
+      <!-- Control de Pagos -->
+      <div class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer group">
+        <div class="text-center">
+          <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-green-200 transition-colors">
+            <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold text-gray-800 mb-2">Pagos</h3>
+          <p class="text-gray-600 mb-4 text-sm">Control de pagos</p>
+          <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors text-sm">
+            Ver Pagos
+          </button>
+        </div>
+      </div>
+
+      <!-- Solicitudes -->
+      <div class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer group">
+        <div class="text-center">
+          <div class="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-orange-200 transition-colors">
+            <svg class="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold text-gray-800 mb-2">Solicitudes</h3>
+          <p class="text-gray-600 mb-4 text-sm">Revisar solicitudes</p>
+          <button class="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors text-sm">
+            Revisar
+          </button>
+        </div>
+      </div>
+
+      <!-- Reportes -->
+      <div class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer group">
+        <div class="text-center">
+          <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-purple-200 transition-colors">
+            <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold text-gray-800 mb-2">Reportes</h3>
+          <p class="text-gray-600 mb-4 text-sm">Generar reportes</p>
+          <button class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors text-sm">
+            Generar
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  {% endif %}
+
+
 
 <script>
   const crearGraficaCircular = (idCanvas, porcentaje, color) => {
@@ -111,6 +433,8 @@
   crearGraficaCircular("chartAsistencia", 89, "#22c55e");
   crearGraficaCircular("chartAprobacion", 76, "#a855f7");
   crearGraficaCircular("chartDesercion", 5.2, "#ef4444");
+
+  
 </script>
 
 {% endblock %}
