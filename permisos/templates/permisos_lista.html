@@ -2,44 +2,169 @@
 
 {% block content %}
 <div class="max-w-5xl mx-auto py-10 px-6">
-    <div class="flex justify-between items-center mb-4">
-        <h2 class="text-2xl font-semibold">Permisos de Ausencia</h2>
-        <a href="{% url 'permisos:crear_permiso' %}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-            + Nuevo Permiso
-        </a>
-    </div>
-
-    <div class="bg-white shadow rounded-lg overflow-x-auto">
-        <table class="min-w-full text-sm border border-gray-200">
-            <thead class="bg-gray-100">
-                <tr>
-                    <th class="px-6 py-3 border-b">Estudiante</th>
-                    <th class="px-6 py-3 border-b">Curso</th>
-                    <th class="px-6 py-3 border-b">Asignatura</th>
-                    <th class="px-6 py-3 border-b">Fecha</th>
-                    <th class="px-6 py-3 border-b">Estado</th>
-                </tr>
-            </thead>
-            <tbody class="text-gray-700 divide-y divide-gray-200">
-                {% for permiso in permisos %}
-                <tr class="hover:bg-gray-50">
-                    <td class="px-6 py-4">{{ permiso.estudiante }}</td>
-                    <td class="px-6 py-4">{{ permiso.curso }}</td>
-                    <td class="px-6 py-4">{{ permiso.asignatura }}</td>
-                    <td class="px-6 py-4">{{ permiso.fecha }}</td>
-                    <td class="px-6 py-4">
-                        {% if permiso.aprobado %}
-                            <span class="text-green-600 font-semibold">Aprobado</span>
-                        {% else %}
-                            <span class="text-yellow-600 font-semibold">Pendiente</span>
-                        {% endif %}
-                    </td>
-                </tr>
-                {% empty %}
-                <tr><td colspan="5" class="px-6 py-4 text-center text-gray-500">No hay permisos registrados.</td></tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+  <h2 class="text-2xl font-semibold">Permisos de Ausencia</h2>
+<form method="get" class="mb-4 flex flex-wrap gap-4 items-end">
+  <div>
+    <label for="fecha" class="block text-sm font-medium text-gray-700">Fecha</label>
+    <input type="date" id="fecha" name="fecha" value="{{ request.GET.fecha }}" class="border rounded px-2 py-1">
+  </div>
+  <div>
+    <label for="estudiante" class="block text-sm font-medium text-gray-700">Estudiante</label>
+    <input type="text" id="estudiante" name="estudiante" value="{{ request.GET.estudiante }}" placeholder="Nombre estudiante" class="border rounded px-2 py-1">
+  </div>
+  <div>
+    <label for="asignatura" class="block text-sm font-medium text-gray-700">Asignatura</label>
+    <input type="text" id="asignatura" name="asignatura" value="{{ request.GET.asignatura }}" placeholder="Asignatura" class="border rounded px-2 py-1">
+  </div>
+  <div>
+    <label for="curso" class="block text-sm font-medium text-gray-700">Curso</label>
+    <input type="text" id="curso" name="curso" value="{{ request.GET.curso }}" placeholder="Curso" class="border rounded px-2 py-1">
+  </div>
+  <div>
+    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Filtrar</button>
+  </div>
+</form>
+<!-- Botones de filtro -->
+<div class="flex justify-end gap-4 p-4">
+  <a href="?estado=aprobado" class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 text-sm">
+    Ver Aprobados
+  </a>
+  <a href="?estado=pendiente" class="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 text-sm">
+    Ver Pendientes
+  </a>
+  <a href="{% url 'permisos:lista_permisos' %}" class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 text-sm">
+    Ver Todos
+  </a>
 </div>
+  <div class="bg-white shadow rounded-lg overflow-x-auto">
+    <table class="min-w-full text-sm border border-gray-200">
+      <thead class="bg-gray-100">
+        <tr>
+          <th class="px-6 py-3 border-b">Estudiante</th>
+          <th class="px-6 py-3 border-b">Curso</th>
+          <th class="px-6 py-3 border-b">Asignatura</th>
+          <th class="px-6 py-3 border-b">Fecha</th>
+          <th class="px-6 py-3 border-b">Estado</th>
+          <th class="px-6 py-3 border-b text-center">Acciones</th>
+        </tr>
+      </thead>
+      <tbody class="text-gray-700 divide-y divide-gray-200">
+        {% for permiso in permisos %}
+        <tr class="hover:bg-gray-50">
+          <td class="px-6 py-4">{{ permiso.estudiante }}</td>
+          <td class="px-6 py-4">{{ permiso.curso }}</td>
+          <td class="px-6 py-4">{{ permiso.asignatura }}</td>
+          <td class="px-6 py-4">{{ permiso.fecha|date:"d/m/Y" }}</td>
+          <td class="px-6 py-4">
+            {% if permiso.aprobado %}
+              <span class="text-green-600 font-semibold">Aprobado</span>
+            {% else %}
+              <span class="text-yellow-600 font-semibold">Pendiente</span>
+            {% endif %}
+          </td>
+          <td class="px-6 py-4 text-center space-x-2">
+            {% if not permiso.aprobado %}
+            <form action="{% url 'permisos:aprobar_permiso' permiso.id %}" method="post" class="inline">
+              {% csrf_token %}
+              <button type="submit" class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 text-xs">Aprobar</button>
+            </form>
+            {% endif %}
+            <button onclick="mostrarModal({{ permiso.id }})" class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 text-xs">
+              Ver detalles
+            </button>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="6" class="px-6 py-4 text-center text-gray-500">No hay permisos registrados.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Modal -->
+  <div id="modal-permiso" class="fixed inset-0 bg-black bg-opacity-40 hidden z-50 flex items-center justify-center">
+    <div id="modal-content" class="bg-white w-full max-w-md mx-auto p-6 rounded shadow-lg relative animate-scaleIn">
+      <h3 class="text-xl font-semibold mb-4">Detalles del Permiso</h3>
+      <p><strong>Estudiante:</strong> <span id="modal-estudiante"></span></p>
+      <p><strong>Curso:</strong> <span id="modal-curso"></span></p>
+      <p><strong>Asignatura:</strong> <span id="modal-asignatura"></span></p>
+      <p><strong>Fecha:</strong> <span id="modal-fecha"></span></p>
+      <p><strong>Motivo:</strong> <span id="modal-motivo"></span></p>
+      <button onclick="cerrarModal()" class="mt-6 px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Datos para el modal, generados dinámicamente
+  const permisosData = {
+    {% for permiso in permisos %}
+      {{ permiso.id }}: {
+        estudiante: "{{ permiso.estudiante|escapejs }}",
+        curso: "{{ permiso.curso|escapejs }}",
+        asignatura: "{{ permiso.asignatura|escapejs }}",
+        fecha: "{{ permiso.fecha|date:'d/m/Y' }}",
+        motivo: "{{ permiso.motivo|escapejs }}"
+      },
+    {% endfor %}
+  };
+
+  function mostrarModal(id) {
+    const data = permisosData[id];
+    document.getElementById('modal-estudiante').textContent = data.estudiante;
+    document.getElementById('modal-curso').textContent = data.curso;
+    document.getElementById('modal-asignatura').textContent = data.asignatura;
+    document.getElementById('modal-fecha').textContent = data.fecha;
+    document.getElementById('modal-motivo').textContent = data.motivo;
+
+    const modal = document.getElementById('modal-permiso');
+    modal.classList.remove('hidden');
+    modal.classList.add('fade-bg');
+
+    // Reinicia animación si abres varias veces
+    const content = document.getElementById('modal-content');
+    content.classList.remove('animate-scaleIn');
+    void content.offsetWidth; // fuerza reflow
+    content.classList.add('animate-scaleIn');
+  }
+
+  function cerrarModal() {
+    const modal = document.getElementById('modal-permiso');
+    modal.classList.add('hidden');
+    modal.classList.remove('fade-bg');
+  }
+</script>
+
+<style>
+  @keyframes scaleIn {
+    0% {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .animate-scaleIn {
+    animation: scaleIn 0.3s ease-out;
+  }
+
+  .fade-bg {
+    animation: fadeInBg 0.2s ease forwards;
+  }
+
+  @keyframes fadeInBg {
+    from { background-color: rgba(0, 0, 0, 0); }
+    to   { background-color: rgba(0, 0, 0, 0.4); }
+  }
+  #modal-content {
+  border-radius: 1rem; /* 16px, para bordes redondeados */
+}
+
+</style>
+
 {% endblock %}

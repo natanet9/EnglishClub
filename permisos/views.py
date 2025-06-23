@@ -9,37 +9,59 @@ from datetime import date
 
 def lista_permisos(request):
     permisos = PermisoAusencia.objects.all()
-    return render(request, 'permisos_lista.html', {'permisos': permisos})
-    
+
+    fecha = request.GET.get('fecha')
+    estudiante = request.GET.get('estudiante')
+    asignatura = request.GET.get('asignatura')
+    curso = request.GET.get('curso')
+    estado = request.GET.get('estado')
+
+    if fecha:
+        permisos = permisos.filter(fecha=fecha)
+    if estudiante:
+        permisos = permisos.filter(estudiante__nombre__icontains=estudiante)
+    if asignatura:
+        permisos = permisos.filter(asignatura__icontains=asignatura)
+    if curso:
+        permisos = permisos.filter(curso__icontains=curso)
+
+    if estado == "aprobado":
+        permisos = permisos.filter(aprobado=True)
+    elif estado == "pendiente":
+        permisos = permisos.filter(aprobado=False)
+
+    return render(request, 'permisos_lista.html', {
+        'permisos': permisos
+    })
+
+@login_required
+def mis_permisos(request):
+    permisos = PermisoAusencia.objects.filter(estudiante=request.user).order_by('-fecha')
+    return render(request, 'mis_permisos.html', {'permisos': permisos})   
+from django.contrib import messages
+
 @login_required
 def crear_permiso(request):
-    try:
-        inscripcion = request.user.inscripciones_como_estudiante.latest('fecha_inscripcion')
-        curso_estudiante = inscripcion.curso
-    except Inscripcion.DoesNotExist:
-        curso_estudiante = None
-
     if request.method == 'POST':
-        form = PermisoAusenciaForm(request.POST)
+        form = PermisoAusenciaForm(request.POST, user=request.user)
         if form.is_valid():
             permiso = form.save(commit=False)
             permiso.estudiante = request.user
-            if curso_estudiante:
-                permiso.curso = curso_estudiante
             permiso.save()
+            messages.success(request, "✅ Tu solicitud de permiso fue enviada exitosamente.")
             return redirect('permisos:lista_permisos')
     else:
-        form = PermisoAusenciaForm()
-        form.fields['estudiante'].widget = forms.HiddenInput()
-        form.fields['curso'].widget = forms.HiddenInput()
-        form.initial['estudiante'] = request.user.pk
-        if curso_estudiante:
-            form.initial['curso'] = curso_estudiante.pk
-        form.initial['fecha'] = date.today()  # Aquí pones la fecha por defecto
+        form = PermisoAusenciaForm(user=request.user)
+    return render(request, 'permiso_form.html', {'form': form})
 
-    return render(request, 'permiso_form.html', {
-        'form': form,
-        'estudiante_nombre': request.user or request.user.username,
-        'curso_nombre': curso_estudiante if curso_estudiante else 'Sin curso asignado'
-    })
+@login_required
+def aprobar_permiso(request, pk):
+    if request.method == 'POST':
+        permiso = get_object_or_404(PermisoAusencia, pk=pk)
+        permiso.aprobado = True
+        permiso.save()
+        messages.success(request, '✅ Permiso aprobado correctamente.')
+    return redirect('permisos:lista_permisos')
+
+
 
