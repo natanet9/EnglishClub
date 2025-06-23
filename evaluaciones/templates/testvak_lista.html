@@ -115,6 +115,100 @@
         color: var(--primary-blue);
     }
 
+    /* === FILTRO FORM === */
+    .filter-section {
+        background: var(--pure-white);
+        border-radius: var(--radius-lg);
+        padding: 1.5rem 2rem;
+        margin-bottom: 2rem;
+        box-shadow: var(--shadow-sm);
+        border: 1px solid var(--border-gray);
+    }
+
+    .filter-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+    }
+
+    .filter-field {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .filter-label {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--text-gray);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    .filter-input,
+    .filter-select {
+        padding: 0.75rem;
+        border: 2px solid var(--border-gray);
+        border-radius: var(--radius-md);
+        font-size: 0.9rem;
+        transition: var(--transition);
+        background: var(--pure-white);
+        width: 100%;
+    }
+
+    .filter-input:focus,
+    .filter-select:focus {
+        outline: none;
+        border-color: var(--light-blue);
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+
+    .filter-buttons {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+
+    .btn-filter {
+        background: linear-gradient(135deg, var(--primary-blue) 0%, var(--light-blue) 100%);
+        color: var(--pure-white);
+        padding: 0.75rem 1.5rem;
+        border-radius: var(--radius-md);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.9rem;
+        transition: var(--transition);
+        box-shadow: var(--shadow-sm);
+        border: none;
+        cursor: pointer;
+    }
+
+    .btn-filter:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+        color: var(--pure-white);
+    }
+
+    .btn-clear {
+        background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+        color: var(--pure-white);
+        padding: 0.75rem 1.5rem;
+        border-radius: var(--radius-md);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.9rem;
+        transition: var(--transition);
+        box-shadow: var(--shadow-sm);
+        border: none;
+        cursor: pointer;
+    }
+
+    .btn-clear:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(107, 114, 128, 0.4);
+        color: var(--pure-white);
+    }
+
     /* === ESTADÍSTICAS === */
     .stats-grid {
         display: grid;
@@ -464,6 +558,10 @@
             gap: 0.25rem;
             text-align: center;
         }
+        
+        .filter-grid {
+            grid-template-columns: 1fr;
+        }
     }
 
     /* === ANIMACIONES === */
@@ -515,11 +613,93 @@
                     Análisis de Estilos de Aprendizaje - Visual, Auditivo, Lectura/Escritura, Kinestésico
                 </p>
             </div>
-            <a href="{% url 'evaluaciones:crear_testvak' %}" class="btn-primary">
+            <a href="{% url 'evaluaciones:realizar_test_vark' %}" class="btn-primary">
                 ✨ Nuevo Test
             </a>
         </div>
     </header>
+
+    <!-- Filter Section -->
+    <section class="filter-section fade-in">
+        <form method="get" id="filterForm">
+            <div class="filter-grid">
+                <div class="filter-field">
+                    <label class="filter-label" for="{{ filtro_form.estudiante.id_for_label }}">Estudiante</label>
+                    {{ filtro_form.estudiante }}
+                    {% if filtro_form.estudiante.errors %}
+                        <p class="text-red-500 text-sm">{{ filtro_form.estudiante.errors }}</p>
+                    {% endif %}
+                </div>
+                <div class="filter-field">
+                    <label class="filter-label" for="{{ filtro_form.estilo_predominante.id_for_label }}">Estilo Predominante</label>
+                    {{ filtro_form.estilo_predominante }}
+                    {% if filtro_form.estilo_predominante.errors %}
+                        <p class="text-red-500 text-sm">{{ filtro_form.estilo_predominante.errors }}</p>
+                    {% endif %}
+                </div>
+                <div class="filter-field">
+                    <label class="filter-label" for="{{ filtro_form.visual_min.id_for_label }}">Visual Mínimo</label>
+                    {{ filtro_form.visual_min }}
+                    {% if filtro_form.visual_min.errors %}
+                        <p class="text-red-500 text-sm">{{ filtro_form.visual_min.errors }}</p>
+                    {% endif %}
+                </div>
+                <div class="filter-field">
+                    <label class="filter-label" for="{{ filtro_form.visual_max.id_for_label }}">Visual Máximo</label>
+                    {{ filtro_form.visual_max }}
+                    {% if filtro_form.visual_max.errors %}
+                        <p class="text-red-500 text-sm">{{ filtro_form.visual_max.errors }}</p>
+                    {% endif %}
+                </div>
+                <div class="filter-field">
+                    <label class="filter-label" for="{{ filtro_form.auditorio_min.id_for_label }}">Auditivo Mínimo</label>
+                    {{ filtro_form.auditorio_min }}
+                    {% if filtro_form.auditorio_min.errors %}
+                        <p class="text-red-500 text-sm">{{ filtro_form.auditorio_min.errors }}</p>
+                    {% endif %}
+                </div>
+                <div class="filter-field">
+                    <label class="filter-label" for="{{ filtro_form.auditorio_max.id_for_label }}">Auditivo Máximo</label>
+                    {{ filtro_form.auditorio_max }}
+                    {% if filtro_form.auditorio_max.errors %}
+                        <p class="text-red-500 text-sm">{{ filtro_form.auditorio_max.errors }}</p>
+                    {% endif %}
+                </div>
+                <div class="filter-field">
+                    <label class="filter-label" for="{{ filtro_form.lectutura_min.id_for_label }}">Lectura Mínimo</label>
+                    {{ filtro_form.lectutura_min }}
+                    {% if filtro_form.lectutura_min.errors %}
+                        <p class="text-red-500 text-sm">{{ filtro_form.lectutura_min.errors }}</p>
+                    {% endif %}
+                </div>
+                <div class="filter-field">
+                    <label class="filter-label" for="{{ filtro_form.lectutura_max.id_for_label }}">Lectura Máximo</label>
+                    {{ filtro_form.lectutura_max }}
+                    {% if filtro_form.lectutura_max.errors %}
+                        <p class="text-red-500 text-sm">{{ filtro_form.lectutura_max.errors }}</p>
+                    {% endif %}
+                </div>
+                <div class="filter-field">
+                    <label class="filter-label" for="{{ filtro_form.kinestesico_min.id_for_label }}">Kinestésico Mínimo</label>
+                    {{ filtro_form.kinestesico_min }}
+                    {% if filtro_form.kinestesico_min.errors %}
+                        <p class="text-red-500 text-sm">{{ filtro_form.kinestesico_min.errors }}</p>
+                    {% endif %}
+                </div>
+                <div class="filter-field">
+                    <label class="filter-label" for="{{ filtro_form.kinestesico_max.id_for_label }}">Kinestésico Máximo</label>
+                    {{ filtro_form.kinestesico_max }}
+                    {% if filtro_form.kinestesico_max.errors %}
+                        <p class="text-red-500 text-sm">{{ filtro_form.kinestesico_max.errors }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="filter-buttons">
+                <button type="submit" class="btn-filter">🔍 Filtrar</button>
+                <a href="{% url 'evaluaciones:lista_testvak' %}" class="btn-clear">🧹 Limpiar Filtros</a>
+            </div>
+        </form>
+    </section>
 
     <!-- Statistics Section -->
     <section class="stats-grid fade-in">
@@ -659,6 +839,7 @@ class VARKInterface {
         this.auditivoCountElement = document.getElementById('auditivo-count');
         this.readingCountElement = document.getElementById('reading-count');
         this.kinestheticCountElement = document.getElementById('kinesthetic-count');
+        this.filterForm = document.getElementById('filterForm');
     }
 
     bindEvents() {
@@ -679,13 +860,18 @@ class VARKInterface {
         });
 
         // Efectos en botones
-        document.querySelectorAll('.btn-primary, .btn-edit').forEach(button => {
+        document.querySelectorAll('.btn-primary, .btn-edit, .btn-filter, .btn-clear').forEach(button => {
             button.addEventListener('click', (e) => {
                 button.style.transform = 'scale(0.95)';
                 setTimeout(() => {
                     button.style.transform = '';
                 }, 150);
             });
+        });
+
+        // Actualizar estadísticas al enviar el formulario
+        this.filterForm?.addEventListener('submit', () => {
+            setTimeout(() => this.calculateStatistics(), 100);
         });
     }
 
