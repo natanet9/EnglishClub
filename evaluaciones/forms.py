@@ -1,7 +1,9 @@
 from django import forms
 import random
 from .models import EvaluacionDiaria, Nota, TestVak
-
+from usuarios.models import Usuario
+from asignaturas.models import Asignatura
+from cursos.models import Curso
 class EvaluacionDiariaForm(forms.ModelForm):
     class Meta:
         model = EvaluacionDiaria
@@ -13,6 +15,14 @@ class EvaluacionDiariaForm(forms.ModelForm):
             'is_participate': 'Participación',
             'is_tarea': 'Entrega de Tarea',
             'is_present': '¿Asistió?',
+        }
+        widgets = {
+            'curso': forms.Select(attrs={'class': 'w-full border rounded px-2 py-1'}),
+            'asignatura': forms.Select(attrs={'class': 'w-full border rounded px-2 py-1'}),
+            'estudiante': forms.Select(attrs={'class': 'w-full border rounded px-2 py-1'}),
+            'is_participate': forms.NumberInput(attrs={'class': 'w-full border rounded px-2 py-1', 'min': 0, 'max': 10}),
+            'is_tarea': forms.NumberInput(attrs={'class': 'w-full border rounded px-2 py-1', 'min': 0, 'max': 10}),
+            'is_present': forms.CheckboxInput(attrs={'class': 'w-5 h-5'}),
         }
 
 class NotaForm(forms.ModelForm):
@@ -27,6 +37,14 @@ class NotaForm(forms.ModelForm):
             'segundo_examen': 'Segundo Examen',
             'examen_final': 'Examen Final',
         }
+        widgets = {
+            'estudiante': forms.Select(attrs={'class': 'w-full border rounded px-2 py-1'}),
+            'asignatura': forms.Select(attrs={'class': 'w-full border rounded px-2 py-1'}),
+            'nota_acumulada': forms.NumberInput(attrs={'class': 'w-full border rounded px-2 py-1'}),
+            'primer_examen': forms.NumberInput(attrs={'class': 'w-full border rounded px-2 py-1'}),
+            'segundo_examen': forms.NumberInput(attrs={'class': 'w-full border rounded px-2 py-1'}),
+            'examen_final': forms.NumberInput(attrs={'class': 'w-full border rounded px-2 py-1'}),
+        }
 
 class TestVakForm(forms.ModelForm):
     class Meta:
@@ -39,6 +57,14 @@ class TestVakForm(forms.ModelForm):
             'kinestesico': 'Porcentaje Kinestésico',
             'estilo_predominante': 'Estilo Predominante',
             'estudiante': 'Nombre del Estudiante',
+        }
+        widgets = {
+            'visual': forms.NumberInput(attrs={'class': 'w-full border rounded px-2 py-1'}),
+            'auditorio': forms.NumberInput(attrs={'class': 'w-full border rounded px-2 py-1'}),
+            'lectutura': forms.NumberInput(attrs={'class': 'w-full border rounded px-2 py-1'}),
+            'kinestesico': forms.NumberInput(attrs={'class': 'w-full border rounded px-2 py-1'}),
+            'estilo_predominante': forms.TextInput(attrs={'class': 'w-full border rounded px-2 py-1'}),
+            'estudiante': forms.Select(attrs={'class': 'w-full border rounded px-2 py-1'}),
         }
 
 class TestVarkFormE(forms.Form):
@@ -508,3 +534,202 @@ class TestVarkFormE(forms.Form):
                 widget=forms.RadioSelect,
                 required=True
             )
+class FiltroEvaluacionDiariaForm(forms.Form):
+    estudiante = forms.ModelChoiceField(
+        queryset=Usuario.objects.filter(rol='estudiante'),
+        required=False,
+        label='Estudiante',
+        empty_label='Seleccionar estudiante',
+        widget=forms.Select(attrs={'class': 'w-full border rounded px-2 py-1'})
+    )
+    curso = forms.ModelChoiceField(
+        queryset=Curso.objects.all(),
+        required=False,
+        label='Curso',
+        empty_label='Seleccionar curso',
+        widget=forms.Select(attrs={'class': 'w-full border rounded px-2 py-1'})
+    )
+    asignatura = forms.ModelChoiceField(
+        queryset=Asignatura.objects.all(),
+        required=False,
+        label='Asignatura',
+        empty_label='Seleccionar asignatura',
+        widget=forms.Select(attrs={'class': 'w-full border rounded px-2 py-1'})
+    )
+    fecha_inicio = forms.DateField(
+        required=False,
+        label='Fecha de inicio',
+        widget=forms.DateInput(attrs={'type': 'date', 'class': 'w-full border rounded px-2 py-1'})
+    )
+    fecha_fin = forms.DateField(
+        required=False,
+        label='Fecha de fin',
+        widget=forms.DateInput(attrs={'type': 'date', 'class': 'w-full border rounded px-2 py-1'})
+    )
+    presente = forms.ChoiceField(
+        choices=[('', 'Todos'), ('1', 'Presente'), ('0', 'No presente')],
+        required=False,
+        label='Asistencia',
+        widget=forms.Select(attrs={'class': 'w-full border rounded px-2 py-1'})
+    )
+    participacion_min = forms.IntegerField(
+        required=False,
+        min_value=0,
+        max_value=10,
+        label='Participación mínima',
+        widget=forms.NumberInput(attrs={'class': 'w-full border rounded px-2 py-1', 'min': 0, 'max': 10})
+    )
+    tarea_min = forms.IntegerField(
+        required=False,
+        min_value=0,
+        max_value=10,
+        label='Tarea mínima',
+        widget=forms.NumberInput(attrs={'class': 'w-full border rounded px-2 py-1', 'min': 0, 'max': 10})
+    )
+class FiltroNotaForm(forms.Form):
+    estudiante = forms.ModelChoiceField(
+        queryset=Usuario.objects.filter(rol='estudiante'),
+        required=False,
+        label='Estudiante',
+        empty_label='Seleccionar estudiante',
+        widget=forms.Select(attrs={'class': 'w-full border rounded px-2 py-1'})
+    )
+    asignatura = forms.ModelChoiceField(
+        queryset=Asignatura.objects.all(),
+        required=False,
+        label='Asignatura',
+        empty_label='Seleccionar asignatura',
+        widget=forms.Select(attrs={'class': 'w-full border rounded px-2 py-1'})
+    )
+    nota_acumulada_min = forms.FloatField(
+        required=False,
+        min_value=0,
+        max_value=100,
+        label='Nota Acumulada Mínima',
+        widget=forms.NumberInput(attrs={'class': 'w-full border rounded px-2 py-1', 'min': 0, 'max': 100, 'step': 0.1})
+    )
+    nota_acumulada_max = forms.FloatField(
+        required=False,
+        min_value=0,
+        max_value=100,
+        label='Nota Acumulada Máxima',
+        widget=forms.NumberInput(attrs={'class': 'w-full border rounded px-2 py-1', 'min': 0, 'max': 100, 'step': 0.1})
+    )
+    primer_examen_min = forms.FloatField(
+        required=False,
+        min_value=0,
+        max_value=100,
+        label='1er Examen Mínimo',
+        widget=forms.NumberInput(attrs={'class': 'w-full border rounded px-2 py-1', 'min': 0, 'max': 100, 'step': 0.1})
+    )
+    primer_examen_max = forms.FloatField(
+        required=False,
+        min_value=0,
+        max_value=100,
+        label='1er Examen Máximo',
+        widget=forms.NumberInput(attrs={'class': 'w-full border rounded px-2 py-1', 'min': 0, 'max': 100, 'step': 0.1})
+    )
+    segundo_examen_min = forms.FloatField(
+        required=False,
+        min_value=0,
+        max_value=100,
+        label='2do Examen Mínimo',
+        widget=forms.NumberInput(attrs={'class': 'w-full border rounded px-2 py-1', 'min': 0, 'max': 100, 'step': 0.1})
+    )
+    segundo_examen_max = forms.FloatField(
+        required=False,
+        min_value=0,
+        max_value=100,
+        label='2do Examen Máximo',
+        widget=forms.NumberInput(attrs={'class': 'w-full border rounded px-2 py-1', 'min': 0, 'max': 100, 'step': 0.1})
+    )
+    examen_final_min = forms.FloatField(
+        required=False,
+        min_value=0,
+        max_value=100,
+        label='Examen Final Mínimo',
+        widget=forms.NumberInput(attrs={'class': 'w-full border rounded px-2 py-1', 'min': 0, 'max': 100, 'step': 0.1})
+    )
+    examen_final_max = forms.FloatField(
+        required=False,
+        min_value=0,
+        max_value=100,
+        label='Examen Final Máximo',
+        widget=forms.NumberInput(attrs={'class': 'w-full border rounded px-2 py-1', 'min': 0, 'max': 100, 'step': 0.1})
+    )
+class FiltroTestVakForm(forms.Form):
+    estudiante = forms.ModelChoiceField(
+        queryset=Usuario.objects.filter(rol='estudiante'),
+        required=False,
+        label='Estudiante',
+        empty_label='Seleccionar estudiante',
+        widget=forms.Select(attrs={'class': 'w-full border rounded px-2 py-1 filter-select'})
+    )
+    estilo_predominante = forms.ChoiceField(
+        choices=[
+            ('', 'Seleccionar estilo'),
+            ('Visual', 'Visual'),
+            ('Auditivo', 'Auditivo'),
+            ('Lectura', 'Lectura/Escritura'),
+            ('Kinestésico', 'Kinestésico'),
+        ],
+        required=False,
+        label='Estilo Predominante',
+        widget=forms.Select(attrs={'class': 'w-full border rounded px-2 py-1 filter-select'})
+    )
+    visual_min = forms.IntegerField(
+        required=False,
+        min_value=0,
+        max_value=16,
+        label='Visual Mínimo',
+        widget=forms.NumberInput(attrs={'class': 'w-full border rounded px-2 py-1 filter-input', 'min': 0, 'max': 16})
+    )
+    visual_max = forms.IntegerField(
+        required=False,
+        min_value=0,
+        max_value=16,
+        label='Visual Máximo',
+        widget=forms.NumberInput(attrs={'class': 'w-full border rounded px-2 py-1 filter-input', 'min': 0, 'max': 16})
+    )
+    auditorio_min = forms.IntegerField(
+        required=False,
+        min_value=0,
+        max_value=16,
+        label='Auditivo Mínimo',
+        widget=forms.NumberInput(attrs={'class': 'w-full border rounded px-2 py-1 filter-input', 'min': 0, 'max': 16})
+    )
+    auditorio_max = forms.IntegerField(
+        required=False,
+        min_value=0,
+        max_value=16,
+        label='Auditivo Máximo',
+        widget=forms.NumberInput(attrs={'class': 'w-full border rounded px-2 py-1 filter-input', 'min': 0, 'max': 16})
+    )
+    lectutura_min = forms.IntegerField(
+        required=False,
+        min_value=0,
+        max_value=16,
+        label='Lectura Mínimo',
+        widget=forms.NumberInput(attrs={'class': 'w-full border rounded px-2 py-1 filter-input', 'min': 0, 'max': 16})
+    )
+    lectutura_max = forms.IntegerField(
+        required=False,
+        min_value=0,
+        max_value=16,
+        label='Lectura Máximo',
+        widget=forms.NumberInput(attrs={'class': 'w-full border rounded px-2 py-1 filter-input', 'min': 0, 'max': 16})
+    )
+    kinestesico_min = forms.IntegerField(
+        required=False,
+        min_value=0,
+        max_value=16,
+        label='Kinestésico Mínimo',
+        widget=forms.NumberInput(attrs={'class': 'w-full border rounded px-2 py-1 filter-input', 'min': 0, 'max': 16})
+    )
+    kinestesico_max = forms.IntegerField(
+        required=False,
+        min_value=0,
+        max_value=16,
+        label='Kinestésico Máximo',
+        widget=forms.NumberInput(attrs={'class': 'w-full border rounded px-2 py-1 filter-input', 'min': 0, 'max': 16})
+    )

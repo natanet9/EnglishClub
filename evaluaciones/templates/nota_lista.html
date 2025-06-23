@@ -2,6 +2,91 @@
 
 {% block content %}
 <div class="max-w-5xl mx-auto py-10 px-6">
+    <!-- Formulario de filtros -->
+    <form method="get" class="mb-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+                <label class="block text-sm font-medium text-gray-700" for="{{ filtro_form.estudiante.id_for_label }}">Estudiante</label>
+                {{ filtro_form.estudiante }}
+                {% if filtro_form.estudiante.errors %}
+                    <p class="text-red-500 text-sm">{{ filtro_form.estudiante.errors }}</p>
+                {% endif %}
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700" for="{{ filtro_form.asignatura.id_for_label }}">Asignatura</label>
+                {{ filtro_form.asignatura }}
+                {% if filtro_form.asignatura.errors %}
+                    <p class="text-red-500 text-sm">{{ filtro_form.asignatura.errors }}</p>
+                {% endif %}
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700" for="{{ filtro_form.nota_acumulada_min.id_for_label }}">Nota Acumulada Mínima</label>
+                {{ filtro_form.nota_acumulada_min }}
+                {% if filtro_form.nota_acumulada_min.errors %}
+                    <p class="text-red-500 text-sm">{{ filtro_form.nota_acumulada_min.errors }}</p>
+                {% endif %}
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700" for="{{ filtro_form.nota_acumulada_max.id_for_label }}">Nota Acumulada Máxima</label>
+                {{ filtro_form.nota_acumulada_max }}
+                {% if filtro_form.nota_acumulada_max.errors %}
+                    <p class="text-red-500 text-sm">{{ filtro_form.nota_acumulada_max.errors }}</p>
+                {% endif %}
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700" for="{{ filtro_form.primer_examen_min.id_for_label }}">1er Examen Mínimo</label>
+                {{ filtro_form.primer_examen_min }}
+                {% if filtro_form.primer_examen_min.errors %}
+                    <p class="text-red-500 text-sm">{{ filtro_form.primer_examen_min.errors }}</p>
+                {% endif %}
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700" for="{{ filtro_form.primer_examen_max.id_for_label }}">1er Examen Máximo</label>
+                {{ filtro_form.primer_examen_max }}
+                {% if filtro_form.primer_examen_max.errors %}
+                    <p class="text-red-500 text-sm">{{ filtro_form.primer_examen_max.errors }}</p>
+                {% endif %}
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700" for="{{ filtro_form.segundo_examen_min.id_for_label }}">2do Examen Mínimo</label>
+                {{ filtro_form.segundo_examen_min }}
+                {% if filtro_form.segundo_examen_min.errors %}
+                    <p class="text-red-500 text-sm">{{ filtro_form.segundo_examen_min.errors }}</p>
+                {% endif %}
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700" for="{{ filtro_form.segundo_examen_max.id_for_label }}">2do Examen Máximo</label>
+                {{ filtro_form.segundo_examen_max }}
+                {% if filtro_form.segundo_examen_max.errors %}
+                    <p class="text-red-500 text-sm">{{ filtro_form.segundo_examen_max.errors }}</p>
+                {% endif %}
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700" for="{{ filtro_form.examen_final_min.id_for_label }}">Examen Final Mínimo</label>
+                {{ filtro_form.examen_final_min }}
+                {% if filtro_form.examen_final_min.errors %}
+                    <p class="text-red-500 text-sm">{{ filtro_form.examen_final_min.errors }}</p>
+                {% endif %}
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700" for="{{ filtro_form.examen_final_max.id_for_label }}">Examen Final Máximo</label>
+                {{ filtro_form.examen_final_max }}
+                {% if filtro_form.examen_final_max.errors %}
+                    <p class="text-red-500 text-sm">{{ filtro_form.examen_final_max.errors }}</p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="mt-4">
+            <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+                Filtrar
+            </button>
+            <a href="{% url 'evaluaciones:lista_nota' %}" class="ml-2 px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700">
+                Limpiar filtros
+            </a>
+        </div>
+    </form>
+
+    <!-- Título y botón para nueva nota -->
     <div class="flex items-center justify-between mb-6">
         <h2 class="text-2xl font-semibold text-gray-800">Notas Académicas</h2>
         <a href="{% url 'evaluaciones:crear_nota' %}" class="px-4 py-2 bg-blue-600 text-white text-sm rounded hover:bg-blue-700">
@@ -9,6 +94,7 @@
         </a>
     </div>
 
+    <!-- Tabla de notas -->
     <div class="overflow-x-auto bg-white shadow rounded-lg">
         <table class="min-w-full text-sm text-left border border-gray-200">
             <thead class="bg-gray-100 text-gray-700">

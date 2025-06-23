@@ -34,7 +34,7 @@ def inscripcion_create(request):
                 inscripcion.fecha_inscripcion = timezone.now()
             inscripcion.save()
             messages.success(request, 'Inscripción creada con éxito.')
-            return redirect('inscripcion_list')
+            return redirect('cursos:inscripcion_list')
         else:
             messages.error(request, 'Por favor, corrige los errores en el formulario.')
     else:
