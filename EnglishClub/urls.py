@@ -11,4 +11,8 @@ urlpatterns = [
     path('asignaturas/', include('asignaturas.urls')),
     path('permisos/', include('permisos.urls')),
 
+    # EnglishClub/urls.py
+    path('reportes/', include('reporteria.urls')),
+
+
 ]
