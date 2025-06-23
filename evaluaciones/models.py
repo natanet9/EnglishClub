@@ -2,6 +2,7 @@ from django.db import models
 from usuarios.models import Usuario
 from asignaturas.models import Asignatura
 from cursos.models import Curso
+from django.utils import timezone
 
 class EvaluacionDiaria(models.Model):
     curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
@@ -10,7 +11,7 @@ class EvaluacionDiaria(models.Model):
     is_participate = models.SmallIntegerField()
     is_tarea = models.SmallIntegerField()
     is_present = models.BooleanField()
-
+    fecha = models.DateField(default=timezone.now)
     def __str__(self):
         return f"Evaluación de {self.estudiante} en {self.asignatura}"
 
